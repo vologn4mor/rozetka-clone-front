@@ -1,0 +1,14 @@
+[
+  {
+    "name": "index___ru",
+    "path": "/ru",
+    "component": "C:\\\\Users\\\\volognamor\\\\WebstormProjects\\\\rozetka-clone-front\\\\pages\\\\index.vue",
+    "chunkName": "pages/index"
+  },
+  {
+    "name": "index___ua",
+    "path": "/",
+    "component": "C:\\\\Users\\\\volognamor\\\\WebstormProjects\\\\rozetka-clone-front\\\\pages\\\\index.vue",
+    "chunkName": "pages/index"
+  }
+]
