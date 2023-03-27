@@ -1,3 +1,6 @@
+import ua from './locales/ua.json';
+import ru from './locales/ru.json';
+
 export default {
 
   target: 'static',
@@ -26,7 +29,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['~assets/scss/colors.scss', '~assets/css/normalize.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -46,12 +49,27 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/i18n',
+    '@nuxtjs/style-resources',
   ],
+
+  styleResources: {
+    scss: ['./assets/scss/*.scss'],
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: 'http://localhost:3000',
+  },
+
+  i18n: {
+    locales: ['ua', 'ru'],
+    defaultLocale: 'ua',
+    vueI18n: {
+      fallbackLocale: 'ua',
+      messages: { ru, ua },
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
