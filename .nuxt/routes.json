@@ -3,12 +3,14 @@
     "name": "index___ru",
     "path": "/ru",
     "component": "C:\\\\Users\\\\volognamor\\\\WebstormProjects\\\\rozetka-clone-front\\\\pages\\\\index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_1408c038"
   },
   {
     "name": "index___ua",
     "path": "/",
     "component": "C:\\\\Users\\\\volognamor\\\\WebstormProjects\\\\rozetka-clone-front\\\\pages\\\\index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_1408c038"
   }
 ]

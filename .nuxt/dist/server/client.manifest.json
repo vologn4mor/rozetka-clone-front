@@ -3,7 +3,7 @@
   "all": [
     "../server/index.spa.html",
     "../server/index.ssr.html",
-    "2bdb7f7.js",
+    "3c54742.js",
     "7ebbb90.js",
     "928a59c.js",
     "99bd3db.js",
@@ -14,14 +14,14 @@
     "fonts/Mariupol-Bold.522dd3e.ttf",
     "fonts/Mariupol-Medium.5a8760b.ttf",
     "fonts/Mariupol-Regular.1b8a8b1.ttf",
-    "img/categories.73a471b.svg",
-    "img/favorite.6842f37.svg"
+    "img/categories.85dc26b.svg",
+    "img/favorite.6fc47cd.svg"
   ],
   "initial": [
     "a306004.js",
     "7ebbb90.js",
     "928a59c.js",
-    "2bdb7f7.js"
+    "3c54742.js"
   ],
   "async": [
     "99bd3db.js",
@@ -1693,7 +1693,7 @@
   },
   "assetsMapping": {
     "1a3ae26b": [
-      "2bdb7f7.js"
+      "3c54742.js"
     ],
     "085a35c4": [
       "7ebbb90.js"
