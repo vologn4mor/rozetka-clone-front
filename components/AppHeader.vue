@@ -20,9 +20,9 @@
           <button>{{ $t('found') }}</button>
         </div>
         <div class='lang-selector-container'>
-          <span @click='onLanguageChange("ru")' :class='$i18n.locale === "ru" ? "selected" : null'>RU</span>
+          <span :class='$i18n.locale === "ru" ? "selected" : null' @click='onLanguageChange("ru")'>RU</span>
           <div class='line'></div>
-          <span @click='onLanguageChange("ua")' :class='$i18n.locale === "ua" ? "selected" : null'>UA</span>
+          <span :class='$i18n.locale === "ua" ? "selected" : null' @click='onLanguageChange("ua")'>UA</span>
         </div>
       </div>
       <div class='header-menu'>
@@ -50,6 +50,9 @@ export default {
   background-color: $main-dark-gray;
   height: 68px;
   width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
 .header-container, .left-side {
@@ -171,6 +174,16 @@ export default {
   }
 
   img:nth-child(2) {
+    margin: 0 20px;
+  }
+}
+</style>
+
+<style lang='scss' scoped>
+@media (max-width: 1445px) {
+  .header-container {
+    max-width: none;
+    width: auto;
     margin: 0 20px;
   }
 }
