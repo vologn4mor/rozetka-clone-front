@@ -108,32 +108,32 @@ export default {
 }
 
 .slick-dots {
-  bottom: 10px;
+  bottom: 10px !important;
 }
 
 .slick-prev {
-  left: 15px;
+  left: 15px !important;
   z-index: 1;
 }
 
 .slick-next {
-  right: 15px;
+  right: 15px !important;;
   z-index: 1;
 }
 
 .slick-dots li {
-  width: 12px;
-  margin: 0;
+  width: 12px !important;;
+  margin: 0 !important;;
 }
 
 .slick-dots li button:before {
-  font-size: 8px
+  font-size: 8px !important;
 }
 
 .slick-dots li.slick-active button:before {
-  opacity: 0.75;
-  color: $main-dark-gray;
-  font-size: 10px;
+  opacity: 0.75 !important;;
+  color: $main-dark-gray !important;;
+  font-size: 10px !important;;
 }
 
 .under-header {
