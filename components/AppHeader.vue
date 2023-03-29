@@ -3,7 +3,7 @@
     <div class='header-container'>
       <div class='left-side'>
         <div class='categories-container'>
-          <img src='~assets/icons/header/categories.svg' alt='categories'>
+          <img src='~assets/images/icons/header/categories.svg' alt='categories'>
           <span>{{ $t('categories') }}</span>
         </div>
         <div class='header-logo'>
@@ -12,10 +12,10 @@
         <div class='search-container'>
           <div class='search-input-container'>
             <div>
-              <img src='~assets/icons/header/search.svg' alt='search' class='search'>
+              <img src='~assets/images/icons/header/search.svg' alt='search' class='search'>
               <input type='text' :placeholder='$t("iAmLooking")'>
             </div>
-            <img src='~assets/icons/header/microphone.svg' alt='microphone' class='microphone'>
+            <img src='~assets/images/icons/header/microphone.svg' alt='microphone' class='microphone'>
           </div>
           <button>{{ $t('found') }}</button>
         </div>
@@ -26,9 +26,9 @@
         </div>
       </div>
       <div class='header-menu'>
-        <img src='~assets/icons/header/favorite.svg' alt='favorite'>
-        <img src='~assets/icons/header/cart.svg' alt='cart'>
-        <img src='~assets/icons/header/user.svg' alt='user'>
+        <img src='~assets/images/icons/header/favorite.svg' alt='favorite'>
+        <img src='~assets/images/icons/header/cart.svg' alt='cart'>
+        <img src='~assets/images/icons/header/user.svg' alt='user'>
       </div>
     </div>
   </div>
@@ -104,7 +104,7 @@ export default {
 
   .search-input-container {
     background-color: $main-light-gray;
-    padding: 11px;
+    padding: 11.5px;
     border-radius: 151px 0px 0px 151px;
     justify-content: space-between;
     display: flex;

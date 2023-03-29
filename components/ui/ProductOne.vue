@@ -5,7 +5,7 @@
         class='product-image'
         src='https://www.vodafone.com.au/images/devices/samsung/samsung-s23-plus/samsung-galaxy-s23-plus-lavender-front-m.jpg'
         alt='ads'>
-      <img src='~assets/icons/product-favorite.svg' alt='favorite' class='favorite'>
+      <img src='~assets/images/icons/product-favorite.svg' alt='favorite' class='favorite'>
     </div>
     <div class='product-info'>
       <p class='name'>{{ name }}</p>
