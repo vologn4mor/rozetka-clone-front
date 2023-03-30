@@ -34,7 +34,7 @@
         <img src='~assets/images/icons/left-arrow.svg' alt='arrow' style='transform: rotate(180deg);'>
       </template>
     </VueSlickCarousel>
-    <ProductsBlock title='Акционные товары' link='/akzii'>
+    <ProductsBlock title='Акционные товары' link='/'>
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
@@ -42,7 +42,7 @@
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
     </ProductsBlock>
-    <ProductsBlock title='Новинки' link='/novinki'>
+    <ProductsBlock title='Новинки' link='/'>
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
@@ -50,7 +50,7 @@
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
     </ProductsBlock>
-    <ProductsBlock title='Ожидаемые' link='/ozhidaemie'>
+    <ProductsBlock title='Ожидаемые' link='/'>
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
@@ -92,7 +92,7 @@
         </app-card>
       </div>
       <div class='ub_container__right'>
-        <ProductsBlock title='Ожидаемые' link='/ozhidaemie'>
+        <ProductsBlock title='Ожидаемые' link='/'>
           <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
           <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
           <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
@@ -106,7 +106,7 @@
         </ProductsBlock>
       </div>
     </div>
-    <ProductsBlock title='Ожидаемые' link='/ozhidaemie'>
+    <ProductsBlock title='Ожидаемые' link='/'>
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
@@ -114,7 +114,7 @@
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
     </ProductsBlock>
-    <ProductsBlock title='Ожидаемые' link='/ozhidaemie'>
+    <ProductsBlock title='Ожидаемые' link='/'>
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
@@ -122,6 +122,7 @@
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
       <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
     </ProductsBlock>
+    <AppFooter />
   </div>
 </template>
 

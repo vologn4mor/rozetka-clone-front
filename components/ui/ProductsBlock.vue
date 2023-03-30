@@ -38,6 +38,7 @@ a {
 
 .products-block {
   margin-top: 50px;
+  width: 100%;
 }
 
 .menu {
