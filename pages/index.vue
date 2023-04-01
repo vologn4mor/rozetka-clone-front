@@ -4,19 +4,19 @@
       <div class='under-header__left'>
         <div>
           <img src='~assets/images/icons/HomePage/city-location.svg' alt='city-location'>
-          <span>г. Киев</span>
+          <span>{{ $t('cityDot') }} Київ</span>
           <span>&nbsp;·&nbsp;</span>
-          <span class='button'>Указать адресс доставки</span>
+          <span class='button'>{{ $t('setDeliveryAddress') }}</span>
         </div>
       </div>
       <div class='under-header__right'>
         <div>
           <img src='~assets/images/icons/HomePage/help.svg' alt='help'>
-          <span>Довидковий центр</span>
+          <span>{{ $t('referenceCenter') }}</span>
         </div>
         <div>
           <img src='~assets/images/icons/HomePage/point-location.svg' alt='point-location'>
-          <span>Точки видачи Logo</span>
+          <span>{{ $t('deliveryPoints') }}</span>
         </div>
       </div>
     </div>
@@ -34,31 +34,23 @@
         <img src='~assets/images/icons/left-arrow.svg' alt='arrow' style='transform: rotate(180deg);'>
       </template>
     </VueSlickCarousel>
-    <ProductsBlock title='Акционные товары' link='/'>
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
+    <ProductsBlock :title='$t("specialOffers")' link='/'>
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
     </ProductsBlock>
-    <ProductsBlock title='Новинки' link='/'>
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
+    <ProductsBlock :title='$t("hotNewProducts")' link='/'>
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
     </ProductsBlock>
-    <ProductsBlock title='Ожидаемые' link='/'>
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-    </ProductsBlock>
-    <ProductsBlock title='Популярные бренды'>
+    <ProductsBlock :title='$t("popularBrands")'>
       <div class='brands-container'>
         <img src='~assets/images/HomePage/pepsi.png' alt='pepsi'>
         <img src='~assets/images/HomePage/puma.png' alt='puma'>
@@ -72,55 +64,55 @@
     <div class='ub-container'>
       <div class='ub_container__left'>
         <app-card>
-          <p>Про нашу компанию</p>
-          <nuxt-link to='/'>Про нас</nuxt-link>
-          <nuxt-link to='/'>Умови використання</nuxt-link>
-          <nuxt-link to='/'>Вакансии</nuxt-link>
-          <nuxt-link to='/'>Контакты</nuxt-link>
+          <p>{{ $t('aboutOurCompany') }}</p>
+          <nuxt-link to='/'>{{ $t('aboutUs') }}</nuxt-link>
+          <nuxt-link to='/'>{{ $t('termsOfUseTheSite') }}</nuxt-link>
+          <nuxt-link to='/'>{{ $t('vacancies') }}</nuxt-link>
+          <nuxt-link to='/'>{{ $t('contacts') }}</nuxt-link>
         </app-card>
         <app-card>
-          <p>Допомога</p>
-          <nuxt-link to='/'>Доставка та оплата</nuxt-link>
-          <nuxt-link to='/'>Кредит</nuxt-link>
-          <nuxt-link to='/'>Гарантия</nuxt-link>
-          <nuxt-link to='/'>Повернення товару</nuxt-link>
-          <nuxt-link to='/'>Сервисни центри</nuxt-link>
+          <p>{{ $t('help') }}</p>
+          <nuxt-link to='/'>{{ $t('deliveryAndPayment') }}</nuxt-link>
+          <nuxt-link to='/'>{{ $t('credit') }}</nuxt-link>
+          <nuxt-link to='/'>{{ $t('guarantee') }}</nuxt-link>
+          <nuxt-link to='/'>{{ $t('productReturn') }}</nuxt-link>
+          <nuxt-link to='/'>{{ $t('serviceCenters') }}</nuxt-link>
         </app-card>
         <app-card>
           <img src='~assets/images/HomePage/qr_code.png' alt='qr_code'>
-          <p>Встановлюйте наш додаток</p>
+          <p :style='$i18n.locale === "ru" ? "font-size: 13px;" : null '>{{ $t('installOurApp') }}</p>
         </app-card>
       </div>
       <div class='ub_container__right'>
-        <ProductsBlock title='Ожидаемые' link='/'>
-          <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
+        <ProductsBlock :title='$t("specialOffers")' link='/'>
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
         </ProductsBlock>
       </div>
     </div>
-    <ProductsBlock title='Ожидаемые' link='/'>
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
+    <ProductsBlock :title='$t("mostAddedToTheList")' link='/'>
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
     </ProductsBlock>
-    <ProductsBlock title='Ожидаемые' link='/'>
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
+    <ProductsBlock :title='$t("mostExcepted")' link='/'>
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
     </ProductsBlock>
     <AppFooter />
   </div>
@@ -306,6 +298,7 @@ export default {
         }
 
         p {
+          text-align: center;
           white-space: nowrap;
         }
       }

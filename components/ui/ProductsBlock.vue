@@ -3,7 +3,7 @@
     <div class='menu'>
       <span class='text'>{{ title }}</span>
       <div v-if='link' class='menu__link'>
-        <nuxt-link :to='localePath(link)'>Показати ще</nuxt-link>
+        <nuxt-link :to='localePath(link)'>{{ $t('showMore') }}</nuxt-link>
         <img src='~/assets/images/icons/show-more-arrow.svg' alt='arrow'>
       </div>
     </div>

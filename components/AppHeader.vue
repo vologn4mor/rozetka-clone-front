@@ -13,9 +13,16 @@
           <div class='search-input-container'>
             <div>
               <img src='~assets/images/icons/header/search.svg' alt='search' class='search'>
-              <input type='text' :placeholder='$t("iAmLooking")'>
+              <input v-model='search' type='text' :placeholder='$t("iAmLooking")'>
             </div>
-            <img src='~assets/images/icons/header/microphone.svg' alt='microphone' class='microphone'>
+            <client-only>
+              <img
+                v-if='!isMozilla'
+                alt='microphone'
+                class='microphone'
+                src='~assets/images/icons/header/microphone.svg'
+                @click='showMicModal = true'>
+            </client-only>
           </div>
           <button>{{ $t('found') }}</button>
         </div>
@@ -31,12 +38,41 @@
         <img src='~assets/images/icons/header/user.svg' alt='user'>
       </div>
     </div>
+    <AppModalCard v-show='showMicModal' @close='showMicModal = false'>
+      <img src='~assets/images/icons/footer/mic.gif' alt='mic' style='max-width: 300px'>
+      <h2 style='text-align: center'>Говорите...</h2>
+      <client-only v-if='showMicModal'>
+        <AppMic
+          :lang='$i18n.locale === "ru" ? "ru-RU" : "uk-UA"'
+          @onEnd='(e) => {search = e.res; showMicModal = false}'
+        />
+      </client-only>
+    </AppModalCard>
   </div>
 </template>
 
 <script>
 export default {
   name: 'AppHeader',
+  data() {
+    return {
+      showMicModal: false,
+      search: '',
+    };
+  },
+  computed: {
+    isMozilla: () => {
+      if (!process.client) return;
+      let sr = null;
+      try {
+        const Recognition = window.speechRecognition || window.webkitSpeechRecognition;
+        sr = new Recognition();
+        if (sr) return false;
+      } catch (e) {
+        return true;
+      }
+    },
+  },
   methods: {
     onLanguageChange(event) {
       this.$router.replace(this.switchLocalePath(event));
@@ -105,7 +141,7 @@ export default {
   .search-input-container {
     background-color: $main-light-gray;
     padding: 11.5px;
-    border-radius: 151px 0px 0px 151px;
+    border-radius: 151px 0 0 151px;
     justify-content: space-between;
     display: flex;
     width: 100%;
@@ -133,7 +169,7 @@ export default {
     color: $main-light-gray;
     background-color: $main-gray;
     padding: 12.4px 20px;
-    border-radius: 0px 151px 151px 0px;
+    border-radius: 0 151px 151px 0;
   }
 
   button:hover {
@@ -176,6 +212,10 @@ export default {
   img:nth-child(2) {
     margin: 0 20px;
   }
+}
+
+.microphone:hover {
+  cursor: pointer;
 }
 </style>
 

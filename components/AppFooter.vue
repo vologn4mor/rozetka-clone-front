@@ -3,14 +3,14 @@
     <div class='footer-container__left'>
       <div>
         <AppCard>
-          <p>Сервисы</p>
-          <nuxt-link to='/'>Бонусный рахунок</nuxt-link>
-          <nuxt-link to='/'>Logo Premium</nuxt-link>
-          <nuxt-link to='/'>Подарункові сертифікати</nuxt-link>
-          <nuxt-link to='/'>Logo Обмін</nuxt-link>
+          <p>{{ $t('services') }}</p>
+          <nuxt-link to='/'>{{ $t('bonusAccount') }}</nuxt-link>
+          <nuxt-link to='/'>{{ $t('logoPremium') }}</nuxt-link>
+          <nuxt-link to='/'>{{ $t('giftCertificates') }}</nuxt-link>
+          <nuxt-link to='/'>{{ $t('logoExchange') }}</nuxt-link>
         </AppCard>
         <AppCard>
-          <p>Ми в соц.мережах</p>
+          <p>{{ $t('weAreInSocialNetworks') }}</p>
           <div>
             <img src='~assets/images/icons/footer/facebook.svg' alt='telegram'>
             <img src='~assets/images/icons/footer/twitter.svg' alt='twitter'>
@@ -20,32 +20,32 @@
           </div>
         </AppCard>
         <div class='text_first_block'>
-          <span>ТМ використовується на підставі ліцензії правовласника RozetkaLTD</span>
+          <span>{{ $t('tmUsage') }}</span>
         </div>
       </div>
       <div>
         <AppCard>
-          <p>Партнерам</p>
-          <nuxt-link to='/'>Продавати на Розетці</nuxt-link>
-          <nuxt-link to='/'>Співпраця з нами</nuxt-link>
-          <nuxt-link to='/'>Франчайзинг</nuxt-link>
-          <nuxt-link to='/'>Оренда приміщень</nuxt-link>
+          <p>{{ $t('toPartners') }}</p>
+          <nuxt-link to='/'>{{ $t('sellOnLogo') }}</nuxt-link>
+          <nuxt-link to='/'>{{ $t('cooperationWithUs') }}</nuxt-link>
+          <nuxt-link to='/'>{{ $t('franchising') }}</nuxt-link>
+          <nuxt-link to='/'>{{ $t('rentOfPremises') }}</nuxt-link>
         </AppCard>
         <AppCard>
-          <p>Наші додатки</p>
+          <p>{{ $t('ourApplications') }}</p>
           <div>
             <img src='~assets/images/icons/footer/google-play.svg' alt='google'>
             <img src='~assets/images/icons/footer/appstore.svg' alt='appstore'>
           </div>
         </AppCard>
-        <div class='text_second_block'><span>© 2001–2023 Інтернет-магазин «Розетка™» — Щоразу що треба</span></div>
+        <div class='text_second_block'><span>{{ $t('copyright') }}</span></div>
       </div>
     </div>
-    <ProductsBlock title='Ожидаемые' link='/'>
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne item-state='В наличии' :cost='2500' name='GNUSMAS' image='' />
+    <ProductsBlock :title='$t("lastReviewedProducts")' link='/'>
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
     </ProductsBlock>
   </div>
 </template>
