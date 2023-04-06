@@ -10,7 +10,7 @@ export default {
   },
 
   env: {
-    apiBaseUrl: process.env.API_BASE_URL || 'http://localhost:3001/app/v1/',
+    apiBaseUrl: process.env.API_BASE_URL || 'https://nasoloda.pp.ua/api/',
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -34,6 +34,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/axios',
+    '~/plugins/nuxt-client-init',
+    '~/plugins/directive',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

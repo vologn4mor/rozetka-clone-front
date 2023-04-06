@@ -2,7 +2,7 @@
   <div class='header'>
     <div class='header-container'>
       <div class='left-side'>
-        <div class='categories-container'>
+        <div class='categories-container' @click='!isCatOpened ? isCatOpened = true : null'>
           <img src='~assets/images/icons/header/categories.svg' alt='categories'>
           <span>{{ $t('categories') }}</span>
         </div>
@@ -13,7 +13,11 @@
           <div class='search-input-container'>
             <div>
               <img src='~assets/images/icons/header/search.svg' alt='search' class='search'>
-              <input v-model='search' type='text' :placeholder='$t("iAmLooking")'>
+              <input
+                v-model='search'
+                type='text'
+                :placeholder='$t("iAmLooking")'
+              >
             </div>
             <client-only>
               <img
@@ -38,6 +42,39 @@
         <img src='~assets/images/icons/header/user.svg' alt='user'>
       </div>
     </div>
+    <div
+      v-if='isCatOpened'
+      v-custom-click-outside='closeCategories'
+      class='categories-list-container'
+    >
+      <div class='categories-list-container-left' :style='"height:" + 49 * categories.length + "px"'>
+        <div
+          v-for='item in categories'
+          :key='item.id'
+          @mouseenter='podCatWatchId = item.id'
+        >
+          <div class='item-name' :class='item.id === podCatWatchId ? "active" : null'>
+            <span>
+            {{ item.name }}
+          </span>
+            <img v-if='item.children.length' src='~/assets/images/icons/show-more-arrow.svg' alt='arrow'>
+          </div>
+        </div>
+      </div>
+      <div class='categories-list-container-right' :style='"height:" + 49 * categories.length + "px"'>
+        <span v-if='podCatWatch.children.length' class='podCat-main-name'>{{ podCatWatch.name }}</span>
+        <div
+          v-for='children in podCatWatch.children'
+          :key='children.id'
+        >
+          <span class='podCat-name'>{{ children.name }}</span>
+          <span v-for='podChildren in children.children' :key='podChildren.id' class='podCat-text'>
+            {{ podChildren.name }}
+          </span>
+        </div>
+      </div>
+    </div>
+
     <AppModalCard v-show='showMicModal' @close='showMicModal = false'>
       <img src='~assets/images/icons/footer/mic.gif' alt='mic' style='max-width: 300px'>
       <h2 style='text-align: center'>Говорите...</h2>
@@ -52,15 +89,24 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'AppHeader',
   data() {
     return {
       showMicModal: false,
       search: '',
+      isCatOpened: false,
+      podCatWatchId: null,
+      podCatWatch: [],
+      isCatCounter: 0,
     };
   },
   computed: {
+    ...mapGetters({
+      categories: 'categories',
+    }),
     isMozilla: () => {
       if (!process.client) return;
       let sr = null;
@@ -73,11 +119,27 @@ export default {
       }
     },
   },
+  watch: {
+    podCatWatchId() {
+      this.podCatWatch = this.categories.find(item => item.id === this.podCatWatchId);
+    },
+  },
+  mounted() {
+    this.podCatWatchId = this.categories[0].id;
+  },
   methods: {
     onLanguageChange(event) {
       this.$router.replace(this.switchLocalePath(event));
     },
+    closeCategories() {
+      // console.log(this.isCatOpened);
+      this.isCatCounter++;
+      if (this.isCatCounter % 2 === 0) {
+        this.isCatOpened = false;
+      }
+    },
   },
+
 };
 </script>
 
@@ -118,6 +180,76 @@ export default {
     font-size: 20px;
   }
 
+}
+
+.categories-container:hover {
+  cursor: pointer;
+}
+
+.categories-list-container {
+  max-width: 1435px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  background-color: white;
+  color: black;
+  padding: 10px 0;
+
+
+  .categories-list-container-left {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    width: 100%;
+    margin-right: 20px;
+
+    .item-name {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border-radius: 67px;
+    }
+
+    .active {
+      background-color: $main-light-gray;
+    }
+
+    .item-name:hover {
+      cursor: pointer;
+    }
+  }
+
+  .categories-list-container-right {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .podCat-main-name, .podCat-name {
+      margin-bottom: 10px;
+    }
+
+    .podCat-main-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .podCat-name {
+    }
+
+    .podCat-text {
+      margin-bottom: 5px;
+      font-size: 12px;
+      color: gray;
+    }
+  }
 }
 
 .header-logo {

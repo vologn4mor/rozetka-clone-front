@@ -1,7 +1,8 @@
 import Debug from '~/helpers/Debug';
 
 let refreshPromise = null;
-export default function({ $axios, redirect, store }) {
+export default function({ $axios, redirect, store, app }) {
+
 
   $axios.defaults.baseURL = process.env.apiBaseUrl;
 
@@ -10,6 +11,12 @@ export default function({ $axios, redirect, store }) {
     config.headers = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+    };
+
+    const lang = app.i18n.getLocaleCookie();
+
+    config.params = {
+      lang,
     };
 
     if (process.server) return;
