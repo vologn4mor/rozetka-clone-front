@@ -43,7 +43,7 @@
       </div>
     </div>
     <div
-      v-if='isCatOpened'
+      v-if='isCatOpened && categories'
       v-custom-click-outside='closeCategories'
       class='categories-list-container'
     >
@@ -54,9 +54,16 @@
           @mouseenter='podCatWatchId = item.id'
         >
           <div class='item-name' :class='item.id === podCatWatchId ? "active" : null'>
-            <span>
-            {{ item.name }}
-          </span>
+            <div>
+              <div
+                v-if='item.smallIcon'>
+                <img
+                  :src='"data:image/png;base64, " + item.smallIcon'
+                  alt='icon'
+                >
+              </div>
+              <span>{{ item.name }}</span>
+            </div>
             <img v-if='item.children.length' src='~/assets/images/icons/show-more-arrow.svg' alt='arrow'>
           </div>
         </div>
@@ -125,14 +132,14 @@ export default {
     },
   },
   mounted() {
-    this.podCatWatchId = this.categories[0].id;
+    if (this.categories)
+      this.podCatWatchId = this.categories[0].id;
   },
   methods: {
     onLanguageChange(event) {
       this.$router.replace(this.switchLocalePath(event));
     },
     closeCategories() {
-      // console.log(this.isCatOpened);
       this.isCatCounter++;
       if (this.isCatCounter % 2 === 0) {
         this.isCatOpened = false;
@@ -209,6 +216,22 @@ export default {
       justify-content: space-between;
       padding: 10px;
       border-radius: 67px;
+
+      div {
+        display: flex;
+        align-items: center;
+
+        div {
+          display: flex;
+          width: 16px;
+          justify-content: center;
+          margin-right: 5px;
+
+          img {
+            height: 16px;
+          }
+        }
+      }
     }
 
     .active {

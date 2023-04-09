@@ -1,3 +1,5 @@
+import Debug from '@/helpers/Debug';
+
 export const state = () => ({
   categories: null,
 });
@@ -14,9 +16,13 @@ export const getters = {
 
 export const actions = {
   async initCategories({ commit }) {
-    const res = await this.$axios.$get('Categories/full');
-    if (res.data) {
-      commit('setCategories', res.data);
+    try {
+      const res = await this.$axios.$get('Categories/full');
+      if (res.data) {
+        commit('setCategories', res.data);
+      }
+    } catch (e) {
+      Debug.log(e);
     }
   },
 };
