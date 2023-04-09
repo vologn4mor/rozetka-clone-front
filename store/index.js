@@ -16,6 +16,7 @@ export const getters = {
 
 export const actions = {
   async initCategories({ commit }) {
+    // commit('setCategories', null);
     try {
       const res = await this.$axios.$get('Categories/full');
       if (res.data) {

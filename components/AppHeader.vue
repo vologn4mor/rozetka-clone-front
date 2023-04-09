@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'AppHeader',
@@ -136,8 +136,15 @@ export default {
       this.podCatWatchId = this.categories[0].id;
   },
   methods: {
-    onLanguageChange(event) {
-      this.$router.replace(this.switchLocalePath(event));
+    ...mapActions({
+      initCategories: 'initCategories',
+    }),
+    async onLanguageChange(event) {
+      this.podCatWatchId = this.categories[0].id;
+      await this.$router.replace(this.switchLocalePath(event));
+      await this.initCategories();
+      this.podCatWatch = this.categories.find(item => item.id === this.podCatWatchId);
+      await this.$nuxt.refresh();
     },
     closeCategories() {
       this.isCatCounter++;

@@ -63,14 +63,14 @@
     </ProductsBlock>
     <div class='ub-container'>
       <div class='ub_container__left'>
-        <app-card>
+        <app-card :style='$i18n.locale === "ru" ? "margin-top: 12px;" : "margin-top: 16px;" '>
           <p>{{ $t('aboutOurCompany') }}</p>
           <nuxt-link to='/'>{{ $t('aboutUs') }}</nuxt-link>
           <nuxt-link to='/'>{{ $t('termsOfUseTheSite') }}</nuxt-link>
           <nuxt-link to='/'>{{ $t('vacancies') }}</nuxt-link>
           <nuxt-link to='/'>{{ $t('contacts') }}</nuxt-link>
         </app-card>
-        <app-card>
+        <app-card :style='$i18n.locale === "ru" ? "margin-top: 12px;" : "margin-top: 16px;" '>
           <p>{{ $t('help') }}</p>
           <nuxt-link to='/'>{{ $t('deliveryAndPayment') }}</nuxt-link>
           <nuxt-link to='/'>{{ $t('credit') }}</nuxt-link>
@@ -78,7 +78,7 @@
           <nuxt-link to='/'>{{ $t('productReturn') }}</nuxt-link>
           <nuxt-link to='/'>{{ $t('serviceCenters') }}</nuxt-link>
         </app-card>
-        <app-card>
+        <app-card :style='$i18n.locale === "ru" ? "margin-top: 12px;" : "margin-top: 16px;" '>
           <img src='~assets/images/HomePage/qr_code.png' alt='qr_code'>
           <p :style='$i18n.locale === "ru" ? "font-size: 13px;" : null '>{{ $t('installOurApp') }}</p>
         </app-card>
@@ -264,9 +264,12 @@ export default {
   .ub_container__left {
     margin-top: 20px;
 
+    a {
+      max-width: 200px;
+    }
+
     div {
       div {
-        margin-top: 16px;
         display: flex;
         flex-direction: column;
 
