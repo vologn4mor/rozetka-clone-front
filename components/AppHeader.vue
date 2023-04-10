@@ -2,7 +2,7 @@
   <div class='header'>
     <div class='header-container'>
       <div class='left-side'>
-        <div class='categories-container' @click='!isCatOpened ? isCatOpened = true : null'>
+        <div class='categories-container' @click='isCatOpened = !isCatOpened'>
           <img src='~assets/images/icons/header/categories.svg' alt='categories'>
           <span>{{ $t('categories') }}</span>
         </div>
@@ -44,10 +44,13 @@
     </div>
     <div
       v-if='isCatOpened && categories'
-      v-custom-click-outside='closeCategories'
+      v-click-outside='closeCategories'
       class='categories-list-container'
     >
-      <div class='categories-list-container-left' :style='"height:" + 49 * categories.length + "px"'>
+      <div
+        class='categories-list-container-left'
+        :style='"height:" + 49 * categories.length + "px"'
+      >
         <div
           v-for='item in categories'
           :key='item.id'
@@ -107,7 +110,6 @@ export default {
       isCatOpened: false,
       podCatWatchId: null,
       podCatWatch: [],
-      isCatCounter: 0,
     };
   },
   computed: {
@@ -144,13 +146,10 @@ export default {
       await this.$router.replace(this.switchLocalePath(event));
       await this.initCategories();
       this.podCatWatch = this.categories.find(item => item.id === this.podCatWatchId);
-      await this.$nuxt.refresh();
     },
-    closeCategories() {
-      this.isCatCounter++;
-      if (this.isCatCounter % 2 === 0) {
-        this.isCatOpened = false;
-      }
+    closeCategories(e) {
+      if (e.target.className === 'categories-container' || e.target.parentNode.className === 'categories-container') return null;
+      this.isCatOpened = false;
     },
   },
 
