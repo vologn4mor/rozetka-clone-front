@@ -13,7 +13,7 @@ export default function({ $axios, redirect, store, app }) {
       'Content-Type': 'application/json',
     };
 
-    const lang = app.i18n.getLocaleCookie();
+    const lang = app.i18n.getLocaleCookie() ? app.i18n.getLocaleCookie() : 'ua';
 
     config.params = {
       ...config.params,
