@@ -16,6 +16,7 @@ export default function({ $axios, redirect, store, app }) {
     const lang = app.i18n.getLocaleCookie();
 
     config.params = {
+      ...config.params,
       lang,
     };
 

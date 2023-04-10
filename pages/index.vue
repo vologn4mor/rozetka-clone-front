@@ -52,13 +52,9 @@
     </ProductsBlock>
     <ProductsBlock :title='$t("popularBrands")'>
       <div class='brands-container'>
-        <img src='~assets/images/HomePage/pepsi.png' alt='pepsi'>
-        <img src='~assets/images/HomePage/puma.png' alt='puma'>
-        <img src='~assets/images/HomePage/avene.png' alt='avene'>
-        <img src='~assets/images/HomePage/laroche.png' alt='laroche'>
-        <img src='~assets/images/HomePage/adidas.png' alt='adidas'>
-        <img src='~assets/images/HomePage/dyson.png' alt='dyson'>
-        <img src='~assets/images/HomePage/levis.png' alt='levis'>
+        <div v-for='item in brands' :key='item.id'>
+          <img :src='item.logo' :alt='item.name' />
+        </div>
       </div>
     </ProductsBlock>
     <div class='ub-container'>
@@ -129,6 +125,15 @@ import AppCard from '@/components/ui/AppCard.vue';
 export default {
   name: 'IndexPage',
   components: { AppCard, ProductOne, ProductsBlock, VueSlickCarousel },
+  async asyncData(ctx) {
+    const res = await ctx.$axios.$get('Brands/popular', {
+      params: {
+        number_to_show: 7,
+      },
+    });
+
+    return { brands: res.data };
+  },
   data() {
     return {
       settings: {
@@ -240,6 +245,7 @@ export default {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
 
   img {
