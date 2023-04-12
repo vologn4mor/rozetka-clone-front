@@ -6,6 +6,7 @@
         src='https://www.vodafone.com.au/images/devices/samsung/samsung-s23-plus/samsung-galaxy-s23-plus-lavender-front-m.jpg'
         alt='ads'>
       <img src='~assets/images/icons/product-favorite.svg' alt='favorite' class='favorite'>
+      <img src='~assets/images/icons/item-cart.svg' alt='cart' class='cart'>
     </div>
     <div class='product-info'>
       <p class='name'>{{ name }}</p>
@@ -74,6 +75,12 @@ p {
   position: relative;
   top: -182px;
   left: 186px;
+}
+
+.cart {
+  position: relative;
+  top: -35px;
+  left: 160px;
 }
 
 .product-info {

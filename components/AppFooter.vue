@@ -149,7 +149,7 @@ export default {
     color: $main-dark-gray;
 
     div {
-      margin-top: 10px;
+      margin-bottom: 10px;
 
       div {
 
