@@ -32,6 +32,11 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['~assets/scss/colors.scss', '~assets/css/normalize.css'],
 
+  loading: {
+    color: '#D2D4E9',
+    height: '2px',
+  },
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/axios',

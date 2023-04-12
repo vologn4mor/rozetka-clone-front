@@ -6,7 +6,7 @@
           <img src='~assets/images/icons/header/categories.svg' alt='categories'>
           <span>{{ $t('categories') }}</span>
         </div>
-        <div class='header-logo'>
+        <div class='header-logo' @click='routeTo("/")'>
           <span>LOGO</span>
         </div>
         <div class='search-container'>
@@ -54,6 +54,7 @@
         <div
           v-for='item in categories'
           :key='item.id'
+          @click='routeTo(`/category/${item.id}`)'
           @mouseenter='podCatWatchId = item.id'
         >
           <div class='item-name' :class='item.id === podCatWatchId ? "active" : null'>
@@ -150,6 +151,10 @@ export default {
     closeCategories(e) {
       if (e.target.className === 'categories-container' || e.target.parentNode.className === 'categories-container') return null;
       this.isCatOpened = false;
+    },
+    routeTo(link) {
+      this.isCatOpened = false;
+      this.$router.push(this.localePath(link));
     },
   },
 
@@ -290,6 +295,10 @@ export default {
     font-size: 32px;
     color: $main-light-gray;
   }
+}
+
+.header-logo:hover {
+  cursor: pointer;
 }
 
 .search-container {

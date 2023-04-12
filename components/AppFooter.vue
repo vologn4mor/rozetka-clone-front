@@ -1,16 +1,50 @@
 <template>
-  <div class='footer-container'>
-    <div class='footer-container__left'>
-      <div>
+  <div class='footer'>
+    <div class='footer-container'>
+      <div class='footer-container-left'>
+        <span>LOGO</span>
+        <img src='~/assets/images/HomePage/qr_code.png' alt='qrCode'>
+      </div>
+      <div class='footer-container-main'>
+        <div class='footer-container-main-up'>
+          <div>
+            <span>{{ $t('aboutOurCompany') }}</span>
+            <span>{{ $t('aboutUs') }}</span>
+            <span>{{ $t('termsOfUseTheSite') }}</span>
+            <span>{{ $t('vacancies') }}</span>
+            <span>{{ $t('contacts') }}</span>
+          </div>
+          <div>
+            <span>{{ $t('services') }}</span>
+            <span>{{ $t('bonusAccount') }}</span>
+            <span>{{ $t('logoPremium') }}</span>
+            <span>{{ $t('giftCertificates') }}</span>
+            <span>{{ $t('logoExchange') }}</span>
+          </div>
+          <div>
+            <span>{{ $t('help') }}</span>
+            <span>{{ $t('deliveryAndPayment') }}</span>
+            <span>{{ $t('credit') }}</span>
+            <span>{{ $t('guarantee') }}</span>
+            <span>{{ $t('productReturn') }}</span>
+            <span>{{ $t('serviceCenters') }}</span>
+          </div>
+          <div>
+            <span>{{ $t('toPartners') }}</span>
+            <span>{{ $t('sellOnLogo') }}</span>
+            <span>{{ $t('cooperationWithUs') }}</span>
+            <span>{{ $t('rentOfPremises') }}</span>
+            <span>{{ $t('franchising') }}</span>
+          </div>
+        </div>
+        <div class='footer-container-main-down'>
+          <span>{{ $t('tmUsage') }}</span>
+          <span>{{ $t('copyright') }}</span>
+        </div>
+      </div>
+      <div class='footer-container-right'>
         <AppCard>
-          <p>{{ $t('services') }}</p>
-          <nuxt-link to='/'>{{ $t('bonusAccount') }}</nuxt-link>
-          <nuxt-link to='/'>{{ $t('logoPremium') }}</nuxt-link>
-          <nuxt-link to='/'>{{ $t('giftCertificates') }}</nuxt-link>
-          <nuxt-link to='/'>{{ $t('logoExchange') }}</nuxt-link>
-        </AppCard>
-        <AppCard>
-          <p>{{ $t('weAreInSocialNetworks') }}</p>
+          <span>{{ $t('weAreInSocialNetworks') }}</span>
           <div>
             <img src='~assets/images/icons/footer/facebook.svg' alt='telegram'>
             <img src='~assets/images/icons/footer/twitter.svg' alt='twitter'>
@@ -19,108 +53,116 @@
             <img src='~assets/images/icons/footer/telegram.svg' alt='telegram'>
           </div>
         </AppCard>
-        <div class='text_first_block'>
-          <span>{{ $t('tmUsage') }}</span>
-        </div>
-      </div>
-      <div>
         <AppCard>
-          <p>{{ $t('toPartners') }}</p>
-          <nuxt-link to='/'>{{ $t('sellOnLogo') }}</nuxt-link>
-          <nuxt-link to='/'>{{ $t('cooperationWithUs') }}</nuxt-link>
-          <nuxt-link to='/'>{{ $t('franchising') }}</nuxt-link>
-          <nuxt-link to='/'>{{ $t('rentOfPremises') }}</nuxt-link>
-        </AppCard>
-        <AppCard>
-          <p>{{ $t('ourApplications') }}</p>
+          <span>{{ $t('ourApplications') }}</span>
           <div>
             <img src='~assets/images/icons/footer/google-play.svg' alt='google'>
             <img src='~assets/images/icons/footer/appstore.svg' alt='appstore'>
           </div>
         </AppCard>
-        <div class='text_second_block'><span>{{ $t('copyright') }}</span></div>
+        <AppCard>
+          <div>
+            <img src='~assets/images/icons/footer/mastercard-logo.png' alt='google'>
+            <img src='~assets/images/icons/footer/visa-logo.png' alt='appstore'>
+          </div>
+        </AppCard>
       </div>
     </div>
-    <ProductsBlock :title='$t("lastReviewedProducts")' link='/'>
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-    </ProductsBlock>
   </div>
 </template>
 
 <script>
 import AppCard from '@/components/ui/AppCard.vue';
-import ProductsBlock from '@/components/ui/ProductsBlock.vue';
-import ProductOne from '@/components/ui/ProductOne.vue';
 
 export default {
   name: 'AppFooter',
-  components: { ProductOne, ProductsBlock, AppCard },
+  components: { AppCard },
 };
 </script>
 
-<style lang='scss'>
-.footer-container {
-  display: flex;
+<style scoped lang='scss'>
+.footer {
+  background-color: $main-dark-gray;
+  width: 100%;
+  color: $main-light-gray;
+  padding: 38px 0;
 }
 
-.footer-container__left {
-  margin-top: 20px;
+.footer-container {
+  max-width: 1435px;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
+  justify-content: space-between;
 
-  .text_first_block, .text_second_block {
-    font-size: 12px;
-    margin-top: 18px;
-    max-width: 190px;
+  .footer-container-left {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      font-family: KyivTypeSans;
+      font-weight: 700;
+      font-size: 32px;
+      margin: 14px 0 28px 0;
+    }
+
+    img {
+      border-radius: 12px;
+    }
   }
 
-  .text_first_block {
-    color: #797878;
-  }
+  .footer-container-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 900px;
+    width: 100%;
 
-  .text_second_block {
-    color: #221F1F;
-  }
-
-  div {
-
-    div:first-child {
-      margin: 16px 16px 0 0;
+    .footer-container-main-up {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
 
       div {
-        margin: 0;
-      }
-
-      p {
-        margin: 0 0 14px 0;
-        color: $main-gray;
-      }
-
-      a {
-        text-decoration: none;
-        color: $main-dark-gray;
-        margin-bottom: 16px;
-      }
-
-      a:last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    div:nth-child(2) {
-      margin-top: 16px;
-
-      div {
-        margin: 0;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-      }
 
+        span:first-child {
+          font-weight: bold;
+        }
+
+        span {
+          margin-bottom: 10px;
+        }
+      }
     }
+
+    .footer-container-main-down {
+      font-size: 12px;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  .footer-container-right {
+    color: $main-dark-gray;
+
+    div {
+      margin-top: 10px;
+
+      div {
+
+
+        div {
+          margin-top: 10px;
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+
+
   }
 }
 </style>
