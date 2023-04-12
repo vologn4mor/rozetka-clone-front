@@ -12,7 +12,12 @@
       </div>
     </div>
     <div class='podcats-block'>
-      <div class='podcat-item' v-for='item in podCats' :key='item.id'>
+      <div
+        v-for='item in podCats.data'
+        :key='item.id'
+        class='podcat-item'
+        @click='$router.push(localePath(`/category/${id}/podcategory/${item.id}`))'
+      >
         <AppCard>
           <img :src='item.big_picture' alt='item'>
         </AppCard>
@@ -50,7 +55,8 @@ export default {
   async asyncData(ctx) {
     let brands = await ctx.$axios.$get('/Brands/category-brands', {
       params: {
-        category_id: ctx.route.params.id,
+        category_id: ctx.route.params.cat_id,
+        count: 20,
       },
     });
 
@@ -64,15 +70,21 @@ export default {
 
     const podCats = await ctx.$axios.$get('/Categories/get-sub', {
       params: {
-        category_id: ctx.route.params.id,
+        category_id: ctx.route.params.cat_id,
       },
     });
-    return { brands, podCats: podCats.data };
+
+    // commit('setHeaderLocate', podCats.data.breadcrumbs);
+
+    return { brands, podCats };
   },
   data() {
     return {
-      id: this.$route.params.id,
+      id: this.$route.params.cat_id,
     };
+  },
+  beforeMount() {
+    this.$store.commit('setHeaderLocate', this.podCats.breadcrumbs);
   },
 };
 </script>
@@ -97,10 +109,9 @@ export default {
   font-weight: bold;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
 
   .podcat-item {
-    margin-right: 10px;
     width: 230px;
 
     div {
