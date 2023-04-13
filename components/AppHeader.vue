@@ -78,8 +78,18 @@
           v-for='children in podCatWatch.children'
           :key='children.id'
         >
-          <span class='podCat-name'>{{ children.name }}</span>
-          <span v-for='podChildren in children.children' :key='podChildren.id' class='podCat-text'>
+          <span
+            class='podCat-name'
+            @click='routeTo(`/category/${podCatWatchId}/podcategory/${children.id}`)'
+          >
+            {{ children.name }}
+          </span>
+          <span
+            v-for='podChildren in children.children'
+            :key='podChildren.id'
+            class='podCat-text'
+            @click='routeTo(`/category/${podCatWatchId}/podcategory/${podChildren.id}`)'
+          >
             {{ podChildren.name }}
           </span>
         </div>
@@ -283,6 +293,11 @@ export default {
       font-size: 12px;
       color: gray;
     }
+
+    .podCat-name:hover, .podCat-text:hover {
+      cursor: pointer;
+    }
+    
   }
 }
 

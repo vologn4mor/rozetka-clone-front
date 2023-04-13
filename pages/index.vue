@@ -7,20 +7,22 @@
       <div class='slide'><h1>4</h1></div>
     </AppSlider>
     <ProductsBlock :title='$t("specialOffers")' link='/'>
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
     </ProductsBlock>
     <ProductsBlock :title='$t("hotNewProducts")' link='/'>
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne
+        v-for='item in hotNews'
+        :key='item.id'
+        :item-state='item.sell_status'
+        :cost='item.price'
+        :name='item.title'
+        :image='item.preview_img.url'
+      />
     </ProductsBlock>
     <ProductsBlock :title='$t("popularBrands")'>
       <div class='brands-container'>
@@ -53,34 +55,38 @@
       </div>
       <div class='ub_container__right'>
         <ProductsBlock :title='$t("specialOffers")' link='/'>
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
         </ProductsBlock>
       </div>
     </div>
     <ProductsBlock :title='$t("mostAddedToTheList")' link='/'>
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne
+        v-for='item in mostFavorites'
+        :key='item.id'
+        :item-state='item.sell_status'
+        :cost='item.price'
+        :name='item.title'
+        :image='item.preview_img.url'
+      />
     </ProductsBlock>
     <ProductsBlock :title='$t("mostExcepted")' link='/'>
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne
+        v-for='item in mostAwaitable'
+        :key='item.id'
+        :item-state='item.sell_status'
+        :cost='item.price'
+        :name='item.title'
+        :image='item.preview_img.url'
+      />
     </ProductsBlock>
     <AppFooterMain />
   </div>
@@ -103,7 +109,33 @@ export default {
       },
     });
 
-    return { brands: res.data };
+    const hotNews = await ctx.$axios.$get('Goods/hot-news', {
+      params: {
+        goods_on_page: 6,
+        page: 1,
+      },
+    });
+
+    const mostAwaitable = await ctx.$axios.$get('Goods/most-awaitable', {
+      params: {
+        goods_on_page: 6,
+        page: 1,
+      },
+    });
+
+    const mostFavorites = await ctx.$axios.$get('Goods/most-favorites', {
+      params: {
+        goods_on_page: 6,
+        page: 1,
+      },
+    });
+
+    return {
+      brands: res.data,
+      hotNews: hotNews.data.articles,
+      mostAwaitable: mostAwaitable.data.articles,
+      mostFavorites: mostFavorites.data.articles,
+    };
   },
   data() {
     return {};

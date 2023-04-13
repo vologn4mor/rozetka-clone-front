@@ -12,46 +12,43 @@
       </div>
     </div>
     <div class='podcats-block'>
-      <div
+      <AppCatCard
         v-for='item in podCats.data'
         :key='item.id'
-        class='podcat-item'
+        :image='item.big_picture'
+        :name='item.name'
         @click='$router.push(localePath(`/category/${id}/podcategory/${item.id}`))'
       >
-        <AppCard>
-          <img :src='item.big_picture' alt='item'>
-        </AppCard>
-        <p>{{ item.name }}</p>
-      </div>
+      </AppCatCard>
     </div>
     <ProductsBlock :title='$t("specialOffers")' link='/'>
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
     </ProductsBlock>
     <ProductsBlock :title='$t("hotNewProducts")' link='/'>
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
     </ProductsBlock>
   </div>
 </template>
 
 <script>
 import AppSlider from '@/components/ui/AppSlider.vue';
-import AppCard from '@/components/ui/AppCard.vue';
 import ProductsBlock from '@/components/ui/ProductsBlock.vue';
 import ProductOne from '@/components/ui/ProductOne.vue';
+import AppCatCard from '@/components/ui/AppCatCard.vue';
 
 export default {
   name: 'Category',
-  components: { ProductOne, ProductsBlock, AppCard, AppSlider },
+  components: { AppCatCard, ProductOne, ProductsBlock, AppSlider },
   async asyncData(ctx) {
     let brands = await ctx.$axios.$get('/Brands/category-brands', {
       params: {
@@ -74,8 +71,6 @@ export default {
       },
     });
 
-    // commit('setHeaderLocate', podCats.data.breadcrumbs);
-
     return { brands, podCats };
   },
   data() {
@@ -84,7 +79,7 @@ export default {
     };
   },
   beforeMount() {
-    this.$store.commit('setHeaderLocate', this.podCats.breadcrumbs);
+    this.$store.commit('setHeaderLocate', [this.podCats.breadcrumbs[0].name]);
   },
 };
 </script>
@@ -111,20 +106,6 @@ export default {
   flex-wrap: wrap;
   justify-content: space-evenly;
 
-  .podcat-item {
-    width: 230px;
 
-    div {
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-
-  img {
-    max-width: 170px;
-    max-height: 170px;
-  }
 }
 </style>

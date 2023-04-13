@@ -1,21 +1,27 @@
 <template>
   <div class='product'>
-    <div class='product-image-block'>
-      <img
-        class='product-image'
-        src='https://www.vodafone.com.au/images/devices/samsung/samsung-s23-plus/samsung-galaxy-s23-plus-lavender-front-m.jpg'
-        alt='ads'>
+    <div class='product-container'>
+      <div class='product-image-block'>
+        <img
+          class='product-image'
+          :src='image'
+          :title='name'
+          alt='ads'>
+      </div>
       <img src='~assets/images/icons/product-favorite.svg' alt='favorite' class='favorite'>
       <img src='~assets/images/icons/item-cart.svg' alt='cart' class='cart'>
     </div>
     <div class='product-info'>
-      <p class='name'>{{ name }}</p>
+      <p class='name'>{{ cuttedName(name) }}</p>
       <p class='cost'>{{ cost }}₴</p>
-      <p class='state'>{{ itemState }}</p>
+      <p class='state'>{{ $t(itemState) }}</p>
     </div>
   </div>
 </template>
 
+<!--
+src='https://www.vodafone.com.au/images/devices/samsung/samsung-s23-plus/samsung-galaxy-s23-plus-lavender-front-m.jpg'
+-->
 <script>
 export default {
   name: 'ProductOne',
@@ -23,6 +29,7 @@ export default {
     image: {
       type: String,
       required: true,
+      default: 'https://www.vodafone.com.au/images/devices/samsung/samsung-s23-plus/samsung-galaxy-s23-plus-lavender-front-m.jpg',
     },
     name: {
       type: String,
@@ -35,6 +42,12 @@ export default {
     itemState: {
       type: String,
       required: true,
+    },
+  },
+  methods: {
+    cuttedName(value) {
+      if (value.length < 22) return value;
+      return value.slice(0, 22) + '...';
     },
   },
 };
@@ -55,6 +68,14 @@ p {
   align-items: center;
   flex-direction: column;
   margin-top: 20px;
+
+  .product-container {
+    height: 200px;
+  }
+}
+
+.product:hover {
+  cursor: pointer;
 }
 
 .product-image-block {
@@ -63,12 +84,16 @@ p {
   margin-top: 5px;
   border-radius: 10px;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .product-image {
-  height: 185px;
+  max-height: 185px;
   border-radius: 10px;
-  width: 215px;
+  max-width: 215px;
 }
 
 .favorite {

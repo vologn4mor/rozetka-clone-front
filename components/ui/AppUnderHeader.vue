@@ -7,10 +7,12 @@
         <span>&nbsp;·&nbsp;</span>
         <span class='button'>{{ $t('setDeliveryAddress') }}</span>
       </div>
-      <div v-else class='header-home'>
+      <div v-if='headerLocate && $route.path !== localePath("/")' class='header-home'>
         <img src='~assets/images/icons/home.svg' alt='home'>
-        <img src='~assets/images/icons/home-arrow.svg' alt='home-arrow'>
-        <span v-if='headerLocate'>{{ headerLocate[0].name }}</span>
+        <div v-for='item in headerLocate' :key='item'>
+          <img src='~assets/images/icons/home-arrow.svg' alt='home-arrow'>
+          <span>{{ item }}</span>
+        </div>
       </div>
     </div>
     <div class='under-header__right'>
@@ -92,7 +94,7 @@ export default {
 
   span {
     color: $main-dark-gray;
-    margin-top: 3px;
+    margin: 3px 10px 0 0;
   }
 }
 </style>

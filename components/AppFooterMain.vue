@@ -42,10 +42,10 @@
       </div>
     </div>
     <ProductsBlock :title='$t("lastReviewedProducts")' link='/'>
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' image='' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
     </ProductsBlock>
   </div>
 </template>
