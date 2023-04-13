@@ -1,5 +1,5 @@
 <template>
-  <div class='product'>
+  <div class='product' @click='$router.push(localePath(`/article/${id}`))'>
     <div class='product-container'>
       <div class='product-image-block'>
         <img
@@ -42,6 +42,11 @@ export default {
     itemState: {
       type: String,
       required: true,
+    },
+    id: {
+      type: Number,
+      required: true,
+      default: 1,
     },
   },
   methods: {

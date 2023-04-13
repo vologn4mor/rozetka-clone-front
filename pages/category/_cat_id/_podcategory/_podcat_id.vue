@@ -13,6 +13,7 @@
     <div class='articles-container'>
       <ProductOne
         v-for='item in articles.data.articles'
+        :id='Number(item.id)'
         :key='item.id'
         :item-state='item.sell_status'
         :cost='Number(item.price)'

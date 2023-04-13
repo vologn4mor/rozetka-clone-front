@@ -17,6 +17,7 @@
     <ProductsBlock :title='$t("hotNewProducts")' link='/'>
       <ProductOne
         v-for='item in hotNews'
+        :id='Number(item.id)'
         :key='item.id'
         :item-state='item.sell_status'
         :cost='item.price'
@@ -71,6 +72,7 @@
     <ProductsBlock :title='$t("mostAddedToTheList")' link='/'>
       <ProductOne
         v-for='item in mostFavorites'
+        :id='Number(item.id)'
         :key='item.id'
         :item-state='item.sell_status'
         :cost='item.price'
@@ -81,6 +83,7 @@
     <ProductsBlock :title='$t("mostExcepted")' link='/'>
       <ProductOne
         v-for='item in mostAwaitable'
+        :id='Number(item.id)'
         :key='item.id'
         :item-state='item.sell_status'
         :cost='item.price'
