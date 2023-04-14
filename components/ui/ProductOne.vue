@@ -1,5 +1,5 @@
 <template>
-  <div class='product' @click='$router.push(localePath(`/article/${id}`))'>
+  <div class='product' @click='clickHandler'>
     <div class='product-container'>
       <div class='product-image-block'>
         <img
@@ -8,8 +8,8 @@
           :title='name'
           alt='ads'>
       </div>
-      <img src='~assets/images/icons/product-favorite.svg' alt='favorite' class='favorite'>
-      <img src='~assets/images/icons/item-cart.svg' alt='cart' class='cart'>
+      <img id='favorite' src='~assets/images/icons/product-favorite.svg' alt='favorite' class='favorite'>
+      <img id='cart' src='~assets/images/icons/item-cart.svg' alt='cart' class='cart'>
     </div>
     <div class='product-info'>
       <p class='name'>{{ cuttedName(name) }}</p>
@@ -53,6 +53,23 @@ export default {
     cuttedName(value) {
       if (value.length < 22) return value;
       return value.slice(0, 22) + '...';
+    },
+    clickHandler(event) {
+      // console.log(event.target.id);
+      switch (event.target.id) {
+        case 'favorite':
+          // TODO favorite
+          break;
+        case 'cart':
+          // TODO cart
+          break;
+        case '':
+          this.$router.push(this.localePath(`/article/${this.id}`))
+          break;
+        default:
+          break;
+      }
+      //
     },
   },
 };
