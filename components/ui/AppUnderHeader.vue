@@ -9,9 +9,12 @@
       </div>
       <div v-if='headerLocate && $route.path !== localePath("/")' class='header-home'>
         <img src='~assets/images/icons/home.svg' alt='home'>
-        <div v-for='item in headerLocate' :key='item'>
+        <div
+          v-for='(item, idx) in headerLocate' :key='item'
+          @click='routerTo(idx, item.id)'
+        >
           <img src='~assets/images/icons/home-arrow.svg' alt='home-arrow'>
-          <span>{{ item }}</span>
+          <span>{{ cuttedName(item.name) }}</span>
         </div>
       </div>
     </div>
@@ -35,6 +38,33 @@ export default {
   name: 'AppUnderHeader',
   computed: {
     ...mapGetters({ headerLocate: 'headerLocate' }),
+  },
+  methods: {
+    routerTo(lvl, id) {
+      switch (lvl) {
+        case 0: {
+          return this.$router.push(this.localePath(`/category/${id}`));
+        }
+        case 1: {
+          return this.$router.push(this.localePath(`/category/${this.headerLocate[0].id}/podcategory/${id}`));
+        }
+        case 2: {
+          if (this.headerLocate.length === 4)
+            return this.$router.push(this.localePath(`/category/${this.headerLocate[0].id}/podcategory/${id}`));
+          else return 0;
+        }
+        case 4: {
+          return 0;
+        }
+        default: {
+          return 0;
+        }
+      }
+    },
+    cuttedName(value) {
+      if (value.length < 40) return value;
+      return value.slice(0, 40) + '...';
+    },
   },
 };
 </script>
@@ -95,6 +125,18 @@ export default {
   span {
     color: $main-dark-gray;
     margin: 3px 10px 0 0;
+    white-space: nowrap;
+  }
+
+  //div:nth-child(5) {
+  //  max-width: 100px;
+  //  //font-size: 5px;
+  //
+  //}
+
+  span:hover {
+    cursor: pointer;
+
   }
 }
 </style>

@@ -22,20 +22,20 @@
       </AppCatCard>
     </div>
     <ProductsBlock :title='$t("specialOffers")' link='/'>
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
     </ProductsBlock>
     <ProductsBlock :title='$t("hotNewProducts")' link='/'>
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
     </ProductsBlock>
   </div>
 </template>
@@ -79,7 +79,7 @@ export default {
     };
   },
   beforeMount() {
-    this.$store.commit('setHeaderLocate', [this.podCats.breadcrumbs[0].name]);
+    this.$store.commit('setHeaderLocate', [this.podCats.breadcrumbs[0]]);
   },
 };
 </script>

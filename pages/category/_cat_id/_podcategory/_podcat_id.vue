@@ -48,7 +48,7 @@ export default {
     const podCatsItems = [];
 
     podCats.breadcrumbs.map(item => {
-      return podCatsItems.push(item.name);
+      return podCatsItems.push(item);
     });
 
     podCats = {

@@ -196,20 +196,20 @@
       </div>
     </div>
     <ProductsBlock :title='$t("specialOffers")' link='/'>
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
     </ProductsBlock>
     <ProductsBlock :title='$t("specialOffers")' link='/'>
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
     </ProductsBlock>
   </div>
 </template>
@@ -235,7 +235,7 @@ export default {
     const podCatsItems = [];
 
     article.data.breadcrumbs.map(item => {
-      return podCatsItems.push(item.name);
+      return podCatsItems.push(item);
     });
 
     article.data.images = article.data.images.slice(0, 6);

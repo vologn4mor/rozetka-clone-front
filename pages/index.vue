@@ -7,12 +7,12 @@
       <div class='slide'><h1>4</h1></div>
     </AppSlider>
     <ProductsBlock :title='$t("specialOffers")' link='/'>
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-      <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
     </ProductsBlock>
     <ProductsBlock :title='$t("hotNewProducts")' link='/'>
       <ProductOne
@@ -20,7 +20,7 @@
         :id='Number(item.id)'
         :key='item.id'
         :item-state='item.sell_status'
-        :cost='item.price'
+        :cost='Number(item.price)'
         :name='item.title'
         :image='item.preview_img.url'
       />
@@ -56,16 +56,16 @@
       </div>
       <div class='ub_container__right'>
         <ProductsBlock :title='$t("specialOffers")' link='/'>
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
-          <ProductOne :item-state='$t("inAvailable")' :cost='2500' name='GNUSMAS' />
+          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
         </ProductsBlock>
       </div>
     </div>
@@ -75,7 +75,7 @@
         :id='Number(item.id)'
         :key='item.id'
         :item-state='item.sell_status'
-        :cost='item.price'
+        :cost='Number(item.price)'
         :name='item.title'
         :image='item.preview_img.url'
       />
@@ -86,7 +86,7 @@
         :id='Number(item.id)'
         :key='item.id'
         :item-state='item.sell_status'
-        :cost='item.price'
+        :cost='Number(item.price)'
         :name='item.title'
         :image='item.preview_img.url'
       />

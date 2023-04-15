@@ -4,7 +4,7 @@
       <div class='product-image-block'>
         <img
           class='product-image'
-          :src='image'
+          :src='image ? image : "https://www.vodafone.com.au/images/devices/samsung/samsung-s23-plus/samsung-galaxy-s23-plus-lavender-front-m.jpg"'
           :title='name'
           alt='ads'>
       </div>
@@ -64,7 +64,7 @@ export default {
           // TODO cart
           break;
         case '':
-          this.$router.push(this.localePath(`/article/${this.id}`))
+          this.$router.push(this.localePath(`/article/${this.id}`));
           break;
         default:
           break;

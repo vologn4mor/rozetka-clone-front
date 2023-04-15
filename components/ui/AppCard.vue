@@ -1,5 +1,5 @@
 <template>
-  <div class='app-card' :style="'max-width: ' + width + 'px; width: 100%'">
+  <div class='app-card' :style="'width: ' + width + 'px;'">
     <div class='app-card-content'>
       <slot />
     </div>
