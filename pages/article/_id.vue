@@ -59,7 +59,7 @@
         </div>
       </div>
       <div class='article-right'>
-        <app-card width='710'>
+        <AppCard width='710'>
           <div class='right-first'>
             <div class='right-first-item'>
               <span>{{ article.price }}₴</span>
@@ -75,8 +75,8 @@
             <div class='hr'></div>
             <div class='right-first-item'>
               <span class='gray'>{{ $t('seller') }}</span>
-              <span>{{ $t('shopName') }}</span>
-              <span class='gray'>{{ $t('shopRating') }}4.0</span>
+              <span>{{ article.seller.seller_name }}</span>
+              <span class='gray'>{{ $t('shopRating') }} {{ article.seller.seller_rate }}</span>
               <div>
                 <img src='~assets/images/icons/ArticlePage/star-filled-black.svg' alt=''>
                 <img src='~assets/images/icons/ArticlePage/star-filled-black.svg' alt=''>
@@ -103,7 +103,7 @@
               </div>
             </div>
           </div>
-        </app-card>
+        </AppCard>
 
         <AppCard width='710'>
           <div class='right-second'>
@@ -188,11 +188,198 @@
           </div>
         </AppCard>
 
-        <!--        <AppCard width='710'>-->
-        <!--          <div class='right-fourth'>-->
+        <AppCard width='710'>
+          <div class='right-fourth'>
+            <div>
+              <div>
+                <img src='~/assets/images/icons/ArticlePage/wallet.svg' alt=''>
+                <span>13₴ нараховується до бонусного рахунку при купівлі товару</span>
+              </div>
+              <img src='~/assets/images/icons/ArticlePage/info-gray.svg' alt=''>
+            </div>
+            <hr>
+            <div>
+              <img src='~/assets/images/icons/ArticlePage/pay-online-card.svg' alt=''>
+              <span>Оплата на картку онлайн, оплата при отриманні товару</span>
+            </div>
+            <div>
+              <img src='~/assets/images/icons/ArticlePage/guarantee.svg' alt=''>
+              <span>Гарантія 12 місяців. Обмін/повернення товару впродовж 14 днів</span>
+            </div>
+          </div>
+        </AppCard>
 
-        <!--          </div>-->
-        <!--        </AppCard>-->
+        <div class='reviews-container'>
+          <div class='reviews-header'>
+            <div class='review-header-left'>
+              <span>
+              Видгуки покупцив
+            </span>
+              <span>8</span>
+            </div>
+            <div class='review-header-right'>
+              <div class='write-review-btn'>
+                <img src='~/assets/images/icons/ArticlePage/write-review.svg' alt=''>
+                <span>Написати видгук</span>
+              </div>
+            </div>
+          </div>
+          <div class='reviews-list'>
+            <div class='reviews-list-item'>
+              <div class='reviews-list-item-header'>
+                <div>
+                  <img src='~/assets/images/icons/ArticlePage/review-avatar.svg' alt=''>
+                  <span class='review-user-name'>Имя Фамилия</span>
+                </div>
+                <div>
+                  <span>01 квитня 2023</span>
+                </div>
+              </div>
+              <div class='review-list-item-main'>
+                <div class='review-list-item-main-container'>
+                  <div class='review-stars'>
+                    <span>Оцинка: </span>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                  </div>
+                  <div class='review-pos-and-neg'>
+                    <div class='review-pos'>
+                      <span>Переваги:</span>
+                      <span>Перша риса</span>
+                    </div>
+                    <div class='review-neg'>
+                      <span>Недолики:</span>
+                      <span>Перша риса</span>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class='review-list-item-main-container'>
+                  <div class='review-text'>
+                  <span>
+                    Цей телефон - просто чудовий! Він дуже потужний та функціональний, а також має дуже якісну камеру та довгий час автономної роботи. Рекомендую!
+                  </span>
+                  </div>
+                  <div class='review-bottom-menu'>
+                    <div class='review-bottom-menu-left'>
+                      <img src='~/assets/images/icons/ArticlePage/answer-comment.svg' alt=''>
+                      <span>Видповисти</span>
+                    </div>
+                    <div class='review-bottom-menu-right'>
+                      <img src='~/assets/images/icons/ArticlePage/like-comment.svg' alt=''>
+                      <img src='~/assets/images/icons/ArticlePage/unlike-comment.svg' alt=''>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='reviews-list-item'>
+              <div class='reviews-list-item-header'>
+                <div>
+                  <img src='~/assets/images/icons/ArticlePage/review-avatar.svg' alt=''>
+                  <span class='review-user-name'>Имя Фамилия</span>
+                </div>
+                <div>
+                  <span>01 квитня 2023</span>
+                </div>
+              </div>
+              <div class='review-list-item-main'>
+                <div class='review-list-item-main-container'>
+                  <div class='review-stars'>
+                    <span>Оцинка: </span>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                  </div>
+                  <div class='review-pos-and-neg'>
+                    <div class='review-pos'>
+                      <span>Переваги:</span>
+                      <span>Перша риса</span>
+                    </div>
+                    <div class='review-neg'>
+                      <span>Недолики:</span>
+                      <span>Перша риса</span>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class='review-list-item-main-container'>
+                  <div class='review-text'>
+                  <span>
+                    Цей телефон - просто чудовий! Він дуже потужний та функціональний, а також має дуже якісну камеру та довгий час автономної роботи. Рекомендую!
+                  </span>
+                  </div>
+                  <div class='review-bottom-menu'>
+                    <div class='review-bottom-menu-left'>
+                      <img src='~/assets/images/icons/ArticlePage/answer-comment.svg' alt=''>
+                      <span>Видповисти</span>
+                    </div>
+                    <div class='review-bottom-menu-right'>
+                      <img src='~/assets/images/icons/ArticlePage/like-comment.svg' alt=''>
+                      <img src='~/assets/images/icons/ArticlePage/unlike-comment.svg' alt=''>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='reviews-list-item'>
+              <div class='reviews-list-item-header'>
+                <div>
+                  <img src='~/assets/images/icons/ArticlePage/review-avatar.svg' alt=''>
+                  <span class='review-user-name'>Имя Фамилия</span>
+                </div>
+                <div>
+                  <span>01 квитня 2023</span>
+                </div>
+              </div>
+              <div class='review-list-item-main'>
+                <div class='review-list-item-main-container'>
+                  <div class='review-stars'>
+                    <span>Оцинка: </span>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                  </div>
+                  <div class='review-pos-and-neg'>
+                    <div class='review-pos'>
+                      <span>Переваги:</span>
+                      <span>Перша риса</span>
+                    </div>
+                    <div class='review-neg'>
+                      <span>Недолики:</span>
+                      <span>Перша риса</span>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class='review-list-item-main-container'>
+                  <div class='review-text'>
+                              <span>
+                                Цей телефон - просто чудовий! Він дуже потужний та функціональний, а також має дуже якісну камеру та довгий час автономної роботи. Рекомендую!
+                              </span>
+                  </div>
+                  <div class='review-bottom-menu'>
+                    <div class='review-bottom-menu-left'>
+                      <img src='~/assets/images/icons/ArticlePage/answer-comment.svg' alt=''>
+                      <span>Видповисти</span>
+                    </div>
+                    <div class='review-bottom-menu-right'>
+                      <img src='~/assets/images/icons/ArticlePage/like-comment.svg' alt=''>
+                      <img src='~/assets/images/icons/ArticlePage/unlike-comment.svg' alt=''>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <ProductsBlock :title='$t("specialOffers")' link='/'>
@@ -485,6 +672,180 @@ export default {
           display: flex;
         }
       }
+    }
+  }
+
+  .right-fourth {
+    margin: 10px 45px;
+
+    div {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    div:first-child {
+      margin: 0;
+      display: flex;
+      justify-content: space-between;
+
+      span {
+        white-space: nowrap;
+      }
+    }
+
+    span {
+      margin-left: 7px;
+    }
+
+    img {
+      width: 18px;
+    }
+  }
+
+  .reviews-container {
+    border: 3px solid $main-light-gray;
+    border-radius: 11px;
+
+    .reviews-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 45px 0 20px;
+
+      .review-header-left {
+        font-size: 31px;
+        font-weight: bold;
+
+        span:nth-child(2) {
+          color: $main-light-gray;
+        }
+      }
+
+      .write-review-btn {
+        display: flex;
+        align-items: center;
+        background-color: $main-dark-gray;
+        padding: 8px 12px;
+        border-radius: 11px;
+
+        img {
+          margin-right: 10px;
+        }
+
+        span {
+          color: $main-light-gray;
+          font-size: 18px;
+        }
+      }
+    }
+
+    .reviews-list {
+      max-height: 600px;
+      overflow-y: scroll;
+      padding: 0 16px 0 8px;
+      margin: 16px;
+
+      .reviews-list-item {
+        margin: 10px 0;
+        border: 3px solid $main-light-gray;
+        border-radius: 15px;
+
+        .reviews-list-item-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background-color: $main-light-gray;
+          padding: 10px;
+          border-radius: 11px 11px 0 0;
+
+          div:first-child {
+            display: flex;
+            align-items: center;
+
+            img {
+              margin-right: 5px;
+            }
+          }
+
+          div:last-child {
+            color: $main-gray;
+          }
+        }
+
+
+        .review-list-item-main-container {
+          padding: 10px;
+        }
+
+        .review-stars {
+          display: flex;
+          align-items: center;
+
+          img {
+            margin-right: 3px;
+          }
+
+          span {
+            margin-right: 5px;
+            color: $main-gray;
+          }
+        }
+
+        .review-pos-and-neg {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 10px;
+
+          div {
+            display: flex;
+            flex-direction: column;
+
+            span:first-child {
+              margin-bottom: 5px;
+              color: $main-gray
+            }
+          }
+        }
+
+        .review-bottom-menu {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 10px;
+
+          div {
+            display: flex;
+            align-items: center;
+
+            span {
+              color: $main-gray
+            }
+
+            img {
+              margin-right: 5px;
+            }
+          }
+        }
+
+      }
+    }
+
+    .reviews-list::-webkit-scrollbar {
+      width: 12px; /* ширина всей полосы прокрутки */
+      margin: 6px;
+    }
+
+    .reviews-list::-webkit-scrollbar-track {
+      background: $main-light-gray; /* цвет зоны отслеживания */
+      border-radius: 20px;
+    }
+
+    .reviews-list::-webkit-scrollbar-thumb {
+      background-color: $main-gray; /* цвет бегунка */
+      border-radius: 20px; /* округлось бегунка */
+      border: 3px solid $main-light-gray; /* отступ вокруг бегунка */
+      margin: 6px;
     }
   }
 }
