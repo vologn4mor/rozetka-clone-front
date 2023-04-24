@@ -35,40 +35,44 @@ export default {
   components: { ProductOne, AppCatCard },
   // components: { AppCatCard },
   async asyncData(ctx) {
-    let podCats = await ctx.$axios.$get('/Categories/get-sub', {
-      params: {
-        category_id: ctx.route.params.podcat_id,
-      },
-    });
+    try {
+      let podCats = await ctx.$axios.$get('/Categories/get-sub', {
+        params: {
+          category_id: ctx.route.params.podcat_id,
+        },
+      });
 
-    // const podCatItem = podCats.breadcrumbs.filter(item => {
-    //   return item.id === Number(ctx.route.params.podcat_id);
-    // });
+      // const podCatItem = podCats.breadcrumbs.filter(item => {
+      //   return item.id === Number(ctx.route.params.podcat_id);
+      // });
 
-    const podCatsItems = [];
+      const podCatsItems = [];
 
-    podCats.breadcrumbs.map(item => {
-      return podCatsItems.push(item);
-    });
+      podCats.breadcrumbs.map(item => {
+        return podCatsItems.push(item);
+      });
 
-    podCats = {
-      ...podCats,
-      data: podCats.data.slice(0, 6),
-    };
+      podCats = {
+        ...podCats,
+        data: podCats.data.slice(0, 6),
+      };
 
-    const articles = await ctx.$axios.$get('/Goods/category-articles', {
-      params: {
-        category_id: ctx.route.params.podcat_id,
-        goods_on_page: 20,
-        page: 1,
-      },
-    });
+      const articles = await ctx.$axios.$get('/Goods/category-articles', {
+        params: {
+          category_id: ctx.route.params.podcat_id,
+          goods_on_page: 20,
+          page: 1,
+        },
+      });
 
-    return {
-      podCats,
-      podCatsItems: podCatsItems.reverse(),
-      articles,
-    };
+      return {
+        podCats,
+        podCatsItems: podCatsItems.reverse(),
+        articles,
+      };
+    } catch (e) {
+      return ctx.error({ statusCode: 404, message: 'Podcategory not found' });
+    }
   },
   beforeMount() {
     this.$store.commit(

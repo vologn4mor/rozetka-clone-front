@@ -413,31 +413,35 @@ export default {
   name: 'ArticleID',
   components: { AppArticleButton, AppCard, ProductOne, ProductsBlock, AppArticleSlider },
   async asyncData(ctx) {
-    const article = await ctx.$axios.$get('/Goods/get-main', {
-      params: {
-        goodsid: ctx.route.params.id,
-      },
-    });
+    try {
+      const article = await ctx.$axios.$get('/Goods/get-main', {
+        params: {
+          goodsid: ctx.route.params.id,
+        },
+      });
 
-    const podCatsItems = [];
+      const podCatsItems = [];
 
-    article.data.breadcrumbs.map(item => {
-      return podCatsItems.push(item);
-    });
+      article.data.breadcrumbs.map(item => {
+        return podCatsItems.push(item);
+      });
 
-    article.data.images = article.data.images.slice(0, 6);
+      article.data.images = article.data.images.slice(0, 6);
 
-    const characteristic = await ctx.$axios.$get('/Goods/get-characteristic', {
-      params: {
-        goodsid: ctx.route.params.id,
-      },
-    });
+      const characteristic = await ctx.$axios.$get('/Goods/get-characteristic', {
+        params: {
+          goodsid: ctx.route.params.id,
+        },
+      });
 
-    return {
-      article: article.data,
-      characteristic,
-      podCatsItems: podCatsItems.reverse(),
-    };
+      return {
+        article: article.data,
+        characteristic,
+        podCatsItems: podCatsItems.reverse(),
+      };
+    } catch (e) {
+      return ctx.error({ statusCode: 404, message: 'Article not found' });
+    }
   },
   data() {
     return {

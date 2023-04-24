@@ -50,28 +50,35 @@ export default {
   name: 'Category',
   components: { AppCatCard, ProductOne, ProductsBlock, AppSlider },
   async asyncData(ctx) {
-    let brands = await ctx.$axios.$get('/Brands/category-brands', {
-      params: {
-        category_id: ctx.route.params.cat_id,
-        count: 20,
-      },
-    });
-
-    if (brands.data) {
-      brands = brands.data.filter(item => {
-        return item.url !== null;
+    try {
+      let brands = await ctx.$axios.$get('/Brands/category-brands', {
+        params: {
+          category_id: ctx.route.params.cat_id,
+          count: 20,
+        },
       });
 
-      brands = brands.slice(0, 9);
+      if (brands.data) {
+        brands = brands.data.filter(item => {
+          return item.url !== null;
+        });
+
+        brands = brands.slice(0, 9);
+      }
+
+      const podCats = await ctx.$axios.$get('/Categories/get-sub', {
+        params: {
+          category_id: ctx.route.params.cat_id,
+        },
+      });
+
+      if (!podCats) return ctx.error({ statusCode: 404, message: 'Category not found' });
+      // if (!podCats.data)
+      // console.log('EEEEEEEEEEEEEROR', brands, podCats);
+      return { brands, podCats };
+    } catch (e) {
+      return ctx.error({ statusCode: 404, message: 'Category not found' });
     }
-
-    const podCats = await ctx.$axios.$get('/Categories/get-sub', {
-      params: {
-        category_id: ctx.route.params.cat_id,
-      },
-    });
-
-    return { brands, podCats };
   },
   data() {
     return {
