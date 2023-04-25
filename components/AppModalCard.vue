@@ -2,8 +2,8 @@
   <transition name='modal'>
     <div class='modal-mask'>
       <div class='modal-wrapper'>
-        <div class='modal-container'>
-          <div class='header'>
+        <div class='modal-container' :style='`width: ${width};`'>
+          <div v-if='defaultHeader' class='header'>
             <div>
               <slot name='header'></slot>
             </div>
@@ -12,26 +12,6 @@
           <div class='main'>
             <slot />
           </div>
-          <!--          <div class='modal-header'>-->
-          <!--            <slot name='header'>-->
-          <!--              default header-->
-          <!--            </slot>-->
-          <!--          </div>-->
-
-          <!--          <div class='modal-body'>-->
-          <!--            <slot name='body'>-->
-          <!--              default body-->
-          <!--            </slot>-->
-          <!--          </div>-->
-
-          <!--          <div class='modal-footer'>-->
-          <!--            <slot name='footer'>-->
-          <!--              default footer-->
-          <!--              <button class='modal-default-button' @click="$emit('close')">-->
-          <!--                OK-->
-          <!--              </button>-->
-          <!--            </slot>-->
-          <!--          </div>-->
         </div>
       </div>
     </div>
@@ -41,6 +21,18 @@
 <script>
 export default {
   name: 'AppModalCard',
+  props: {
+    defaultHeader: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+    width: {
+      type: String,
+      required: false,
+      default: '300px',
+    },
+  },
 };
 </script>
 
@@ -63,8 +55,7 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
-  margin: 0px auto;
+  margin: 0 auto;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 5px;
@@ -88,7 +79,7 @@ export default {
 }
 
 .main {
-  max-width: 300px;
+  /*max-width: 300px;*/
 }
 
 .modal-body {

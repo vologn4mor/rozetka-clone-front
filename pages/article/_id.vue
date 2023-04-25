@@ -218,7 +218,10 @@
               <span>8</span>
             </div>
             <div class='review-header-right'>
-              <div class='write-review-btn'>
+              <div
+                class='write-review-btn'
+                @click='isWriteReviewOpened = true'
+              >
                 <img src='~/assets/images/icons/ArticlePage/write-review.svg' alt=''>
                 <span>Написати видгук</span>
               </div>
@@ -398,6 +401,77 @@
       <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
       <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
     </ProductsBlock>
+    <AppModalCard
+      v-show='isWriteReviewOpened'
+      class='write-review-modal-container'
+      :default-header='false'
+      width='732px'
+      @close='isWriteReviewOpened = false'
+    >
+      <div class='write-review-modal'>
+        <span class='title'>Написати видгук</span>
+        <hr>
+        <AppInput
+          :is-textarea='true'
+          :is-bold-label='true'
+          label='Коментар'
+        />
+        <div class='write-review-stars-block'>
+          <div>
+            <span>Оцинка:</span>
+            <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+            <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+            <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+            <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+            <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+          </div>
+          <div>
+            <div>
+              <img src='~/assets/images/icons/ArticlePage/write-review-photo.svg' alt=''>
+              <span>Додати свитлину</span>
+            </div>
+            <div>
+              <img src='~/assets/images/icons/ArticlePage/write-review-video.svg' alt=''>
+              <span>Додати видео</span>
+            </div>
+          </div>
+        </div>
+        <AppInput
+          :is-bold-label='true'
+          label='Переваги'
+          placeholder='Що вам сподобалось'
+        />
+        <AppInput
+          :is-bold-label='true'
+          label='Недолики'
+          placeholder='Що вам не сподобалось'
+        />
+        <AppInput
+          :is-bold-label='true'
+          label='Ваше имя та призвище'
+          placeholder='Петро Петренко'
+        />
+        <AppInput
+          :is-bold-label='true'
+          label='Електрона пошта'
+          placeholder='example@mail.com'
+        />
+        <div class='write-review-buttons' style='display: flex; justify-content: space-between; margin-top: 20px'>
+          <AppButton
+            text='Додати'
+            bg-color='#221F1F'
+            color='#D2D4E9'
+            @click='isWriteReviewOpened = false'>
+          </AppButton>
+          <AppButton
+            text='Скасувати'
+            bg-color='#6A6C7E'
+            color='#D2D4E9'
+            @click='isWriteReviewOpened = false'>
+          </AppButton>
+        </div>
+      </div>
+    </AppModalCard>
   </div>
 </template>
 
@@ -408,10 +482,12 @@ import ProductOne from '@/components/ui/ProductOne.vue';
 import AppCard from '@/components/ui/AppCard.vue';
 import AppArticleButton from '@/components/ui/AppArticleButton.vue';
 import buyIcon from '~/assets/images/icons/ArticlePage/buy-icon.svg';
+import AppInput from '@/components/ui/AppInput.vue';
+import AppButton from '@/components/ui/AppButton.vue';
 
 export default {
   name: 'ArticleID',
-  components: { AppArticleButton, AppCard, ProductOne, ProductsBlock, AppArticleSlider },
+  components: { AppButton, AppInput, AppArticleButton, AppCard, ProductOne, ProductsBlock, AppArticleSlider },
   async asyncData(ctx) {
     try {
       const article = await ctx.$axios.$get('/Goods/get-main', {
@@ -447,6 +523,7 @@ export default {
     return {
       isOpenedInfo: false,
       isAboutActive: true,
+      isWriteReviewOpened: false,
       buyIcon,
     };
   },
@@ -742,6 +819,11 @@ export default {
           font-size: 18px;
         }
       }
+
+      .write-review-btn:hover {
+        cursor: pointer;
+      }
+
     }
 
     .reviews-list {
@@ -850,6 +932,47 @@ export default {
       border-radius: 20px; /* округлось бегунка */
       border: 3px solid $main-light-gray; /* отступ вокруг бегунка */
       margin: 6px;
+    }
+  }
+}
+
+.write-review-modal-container {
+
+
+  .write-review-modal {
+
+    .title {
+      font-size: 31px;
+      font-weight: bold;
+    }
+
+    hr {
+      margin-bottom: 20px;
+    }
+
+    .write-review-stars-block {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+
+      div {
+        display: flex;
+        align-items: center;
+
+        div {
+          span {
+            margin-left: 10px
+          }
+        }
+
+        span {
+          margin-right: 5px
+        }
+
+        img {
+          margin-left: 5px;
+        }
+      }
     }
   }
 }
