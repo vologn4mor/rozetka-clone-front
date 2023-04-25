@@ -6,6 +6,8 @@
       type='text'
       class='input'
       :placeholder='placeholder'
+      :value='value'
+      @input="$emit('input', $event.target.value)"
     >
     <textarea
       v-else
@@ -13,6 +15,8 @@
       class='textarea'
       :style='`height: ${heightTextarea}`'
       :placeholder='placeholder'
+      :value='value'
+      @input="$emit('input', $event.target.value)"
     >
 
     </textarea>
@@ -46,6 +50,11 @@ export default {
     placeholder: {
       type: String,
       required: false,
+      default: '',
+    },
+    value: {
+      type: String,
+      required: true,
       default: '',
     },
   },

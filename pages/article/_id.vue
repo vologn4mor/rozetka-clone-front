@@ -215,7 +215,7 @@
               <span>
               Видгуки покупцив
             </span>
-              <span>8</span>
+              <span>{{ comments.items_total }}</span>
             </div>
             <div class='review-header-right'>
               <div
@@ -228,14 +228,18 @@
             </div>
           </div>
           <div class='reviews-list'>
-            <div class='reviews-list-item'>
+            <div
+              v-for='item in comments.reviews'
+              :key='item.id'
+              class='reviews-list-item'
+            >
               <div class='reviews-list-item-header'>
                 <div>
                   <img src='~/assets/images/icons/ArticlePage/review-avatar.svg' alt=''>
-                  <span class='review-user-name'>Имя Фамилия</span>
+                  <span class='review-user-name'>{{ item.user_name }}</span>
                 </div>
                 <div>
-                  <span>01 квитня 2023</span>
+                  <span>{{ item.post_date }}</span>
                 </div>
               </div>
               <div class='review-list-item-main'>
@@ -251,11 +255,11 @@
                   <div class='review-pos-and-neg'>
                     <div class='review-pos'>
                       <span>Переваги:</span>
-                      <span>Перша риса</span>
+                      <span>{{ item.pros }}</span>
                     </div>
                     <div class='review-neg'>
                       <span>Недолики:</span>
-                      <span>Перша риса</span>
+                      <span>{{ item.cons }}</span>
                     </div>
                   </div>
                 </div>
@@ -263,110 +267,8 @@
                 <div class='review-list-item-main-container'>
                   <div class='review-text'>
                   <span>
-                    Цей телефон - просто чудовий! Він дуже потужний та функціональний, а також має дуже якісну камеру та довгий час автономної роботи. Рекомендую!
+                    {{ item.comment }}
                   </span>
-                  </div>
-                  <div class='review-bottom-menu'>
-                    <div class='review-bottom-menu-left'>
-                      <img src='~/assets/images/icons/ArticlePage/answer-comment.svg' alt=''>
-                      <span>Видповисти</span>
-                    </div>
-                    <div class='review-bottom-menu-right'>
-                      <img src='~/assets/images/icons/ArticlePage/like-comment.svg' alt=''>
-                      <img src='~/assets/images/icons/ArticlePage/unlike-comment.svg' alt=''>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class='reviews-list-item'>
-              <div class='reviews-list-item-header'>
-                <div>
-                  <img src='~/assets/images/icons/ArticlePage/review-avatar.svg' alt=''>
-                  <span class='review-user-name'>Имя Фамилия</span>
-                </div>
-                <div>
-                  <span>01 квитня 2023</span>
-                </div>
-              </div>
-              <div class='review-list-item-main'>
-                <div class='review-list-item-main-container'>
-                  <div class='review-stars'>
-                    <span>Оцинка: </span>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-                  </div>
-                  <div class='review-pos-and-neg'>
-                    <div class='review-pos'>
-                      <span>Переваги:</span>
-                      <span>Перша риса</span>
-                    </div>
-                    <div class='review-neg'>
-                      <span>Недолики:</span>
-                      <span>Перша риса</span>
-                    </div>
-                  </div>
-                </div>
-                <hr>
-                <div class='review-list-item-main-container'>
-                  <div class='review-text'>
-                  <span>
-                    Цей телефон - просто чудовий! Він дуже потужний та функціональний, а також має дуже якісну камеру та довгий час автономної роботи. Рекомендую!
-                  </span>
-                  </div>
-                  <div class='review-bottom-menu'>
-                    <div class='review-bottom-menu-left'>
-                      <img src='~/assets/images/icons/ArticlePage/answer-comment.svg' alt=''>
-                      <span>Видповисти</span>
-                    </div>
-                    <div class='review-bottom-menu-right'>
-                      <img src='~/assets/images/icons/ArticlePage/like-comment.svg' alt=''>
-                      <img src='~/assets/images/icons/ArticlePage/unlike-comment.svg' alt=''>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class='reviews-list-item'>
-              <div class='reviews-list-item-header'>
-                <div>
-                  <img src='~/assets/images/icons/ArticlePage/review-avatar.svg' alt=''>
-                  <span class='review-user-name'>Имя Фамилия</span>
-                </div>
-                <div>
-                  <span>01 квитня 2023</span>
-                </div>
-              </div>
-              <div class='review-list-item-main'>
-                <div class='review-list-item-main-container'>
-                  <div class='review-stars'>
-                    <span>Оцинка: </span>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-                  </div>
-                  <div class='review-pos-and-neg'>
-                    <div class='review-pos'>
-                      <span>Переваги:</span>
-                      <span>Перша риса</span>
-                    </div>
-                    <div class='review-neg'>
-                      <span>Недолики:</span>
-                      <span>Перша риса</span>
-                    </div>
-                  </div>
-                </div>
-                <hr>
-                <div class='review-list-item-main-container'>
-                  <div class='review-text'>
-                              <span>
-                                Цей телефон - просто чудовий! Він дуже потужний та функціональний, а також має дуже якісну камеру та довгий час автономної роботи. Рекомендую!
-                              </span>
                   </div>
                   <div class='review-bottom-menu'>
                     <div class='review-bottom-menu-left'>
@@ -415,6 +317,8 @@
           :is-textarea='true'
           :is-bold-label='true'
           label='Коментар'
+          :value='writeReview.comment'
+          @input='(val) => writeReview.comment = val'
         />
         <div class='write-review-stars-block'>
           <div>
@@ -440,28 +344,36 @@
           :is-bold-label='true'
           label='Переваги'
           placeholder='Що вам сподобалось'
+          :value='writeReview.pros'
+          @input='(val) => writeReview.pros = val'
         />
         <AppInput
           :is-bold-label='true'
           label='Недолики'
           placeholder='Що вам не сподобалось'
+          :value='writeReview.cons'
+          @input='(val) => writeReview.cons = val'
         />
         <AppInput
           :is-bold-label='true'
           label='Ваше имя та призвище'
           placeholder='Петро Петренко'
+          :value='writeReview.name'
+          @input='(val) => writeReview.name = val'
         />
         <AppInput
           :is-bold-label='true'
           label='Електрона пошта'
           placeholder='example@mail.com'
+          :value='writeReview.email'
+          @input='(val) => writeReview.email = val'
         />
         <div class='write-review-buttons' style='display: flex; justify-content: space-between; margin-top: 20px'>
           <AppButton
             text='Додати'
             bg-color='#221F1F'
             color='#D2D4E9'
-            @click='isWriteReviewOpened = false'>
+            @click='sendReview'>
           </AppButton>
           <AppButton
             text='Скасувати'
@@ -484,6 +396,19 @@ import AppArticleButton from '@/components/ui/AppArticleButton.vue';
 import buyIcon from '~/assets/images/icons/ArticlePage/buy-icon.svg';
 import AppInput from '@/components/ui/AppInput.vue';
 import AppButton from '@/components/ui/AppButton.vue';
+import Debug from '@/helpers/Debug';
+
+export const writeReview = {
+  name: '',
+  comment: '',
+  rate: 5,
+  pros: '',
+  cons: '',
+  email: '',
+  video_url: null,
+  images: null,
+  get_email_on_answers: false,
+};
 
 export default {
   name: 'ArticleID',
@@ -510,21 +435,33 @@ export default {
         },
       });
 
+      const comments = await ctx.$axios.$get('/Reviews/get', {
+        params: {
+          article_id: ctx.route.params.id,
+          sort: 'by_date',
+          type: 'review',
+          limit: 100,
+          page: 1,
+        },
+      });
+
       return {
         article: article.data,
         characteristic,
         podCatsItems: podCatsItems.reverse(),
+        comments: comments.data,
       };
     } catch (e) {
       return ctx.error({ statusCode: 404, message: 'Article not found' });
     }
   },
-  data() {
+  data: function() {
     return {
       isOpenedInfo: false,
       isAboutActive: true,
       isWriteReviewOpened: false,
       buyIcon,
+      writeReview: { ...writeReview, article_id: this.$route.params.id },
     };
   },
   beforeMount() {
@@ -535,6 +472,23 @@ export default {
     xssClear(value) {
       const regex = /( |<([^>]+)>)/ig;
       return value.replace(regex, ' ');
+    },
+    async sendReview() {
+      const formData = new FormData();
+      Object.keys(this.writeReview).forEach(key => formData.append(key, this.writeReview[key]));
+      // console.log(formData.values());
+      for (const pair of formData.entries()) {
+        Debug.log(pair[0] + ', ' + pair[1]);
+      }
+      const res = await this.$axios.$post('/Reviews/post_review',
+        formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+      if (!res) return;
+      this.isWriteReviewOpened = false;
+      this.writeReview = { ...writeReview, article_id: this.$route.params.id };
     },
   },
 };
