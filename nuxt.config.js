@@ -1,12 +1,21 @@
 import ua from './locales/ua.json';
 import ru from './locales/ru.json';
+import path from 'path';
+import fs from 'fs';
 
 export default {
 
   target: 'static',
 
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve('certs', 'cert.key')),
+      cert: fs.readFileSync(path.resolve('certs', 'cert1.pem'))
+    }
+  },
+
   router: {
-    base: '/rozetka-clone-front/',
+    base: '/',
   },
 
   env: {
