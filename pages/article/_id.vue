@@ -246,11 +246,17 @@
                 <div class='review-list-item-main-container'>
                   <div class='review-stars'>
                     <span>Оцинка: </span>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+                    <AppStarRating
+                      :ico-star-out='icoStarOut'
+                      :ico-star='icoStar'
+                      :grade='item.rate'
+                      :is-changeble='false'
+                    />
+                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
+                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
+                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
+                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
+                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
                   </div>
                   <div class='review-pos-and-neg'>
                     <div class='review-pos'>
@@ -326,11 +332,12 @@
         <div class='write-review-stars-block'>
           <div>
             <span>Оцинка:</span>
-            <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-            <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-            <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-            <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
-            <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>
+            <AppStarRating
+              :ico-star-out='icoStarOut'
+              :ico-star='icoStar'
+              :grade='0'
+              @update='(val) => writeReview.rate = val'
+            />
           </div>
           <div>
             <div>
@@ -396,15 +403,18 @@ import ProductsBlock from '@/components/ui/ProductsBlock.vue';
 import ProductOne from '@/components/ui/ProductOne.vue';
 import AppCard from '@/components/ui/AppCard.vue';
 import AppArticleButton from '@/components/ui/AppArticleButton.vue';
-import buyIcon from '~/assets/images/icons/ArticlePage/buy-icon.svg';
 import AppInput from '@/components/ui/AppInput.vue';
 import AppButton from '@/components/ui/AppButton.vue';
+import AppStarRating from '@/components/ui/AppStarRating.vue';
+import buyIcon from '~/assets/images/icons/ArticlePage/buy-icon.svg';
+import icoStar from '~/assets/images/icons/ArticlePage/star-filled-gray.svg';
+import icoStarOut from '~/assets/images/icons/ArticlePage/star-gray.svg';
 import Debug from '@/helpers/Debug';
 
 export const writeReview = {
   name: '',
   comment: '',
-  rate: 5,
+  rate: 0,
   pros: '',
   cons: '',
   email: '',
@@ -415,7 +425,16 @@ export const writeReview = {
 
 export default {
   name: 'ArticleID',
-  components: { AppButton, AppInput, AppArticleButton, AppCard, ProductOne, ProductsBlock, AppArticleSlider },
+  components: {
+    AppStarRating,
+    AppButton,
+    AppInput,
+    AppArticleButton,
+    AppCard,
+    ProductOne,
+    ProductsBlock,
+    AppArticleSlider,
+  },
   async asyncData(ctx) {
     try {
       const article = await ctx.$axios.$get('/Goods/get-main', {
@@ -458,13 +477,16 @@ export default {
       return ctx.error({ statusCode: 404, message: 'Article not found' });
     }
   },
-  data: function() {
+  data() {
     return {
+      icoStarOut,
+      icoStar,
       isOpenedInfo: false,
       isAboutActive: true,
       isWriteReviewOpened: false,
       buyIcon,
       writeReview: { ...writeReview, article_id: this.$route.params.id },
+      writeReviewErrors: [],
     };
   },
   beforeMount() {
@@ -477,12 +499,70 @@ export default {
       return value.replace(regex, ' ');
     },
     async sendReview() {
+
+      const regEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      let error = false;
+
+      if (this.writeReview.comment.length < 5) {
+        this.$toast.error('Длина комментария меньше 5');
+        error = true;
+      }
+
+      if (this.writeReview.comment.length > 200) {
+        this.$toast.error('Длина комментария больше 200');
+        error = true;
+      }
+
+      if (this.writeReview.rate === 0) {
+        this.$toast.error('Оценка не указанна');
+        error = true;
+      }
+
+      if (this.writeReview.cons.length < 5) {
+        this.$toast.error('Длина недостатков меньше 5');
+        error = true;
+      }
+
+      if (this.writeReview.cons.length > 100) {
+        this.$toast.error('Длина недостатков больше 100');
+        error = true;
+      }
+
+      if (this.writeReview.pros.length < 5) {
+        this.$toast.error('Длина плюсов меньше 5');
+        error = true;
+      }
+
+      if (this.writeReview.pros.length > 100) {
+        this.$toast.error('Длина плюсов больше 100');
+        error = true;
+      }
+
+      if (this.writeReview.name.length < 3) {
+        this.$toast.error('Длина имени меньше 3');
+        error = true;
+      }
+
+      if (this.writeReview.name.length > 30) {
+        this.$toast.error('Длина имени больше 30');
+        error = true;
+      }
+
+      if (!regEmail.test(this.writeReview.email)) {
+        this.$toast.error('Email указан неккоректно');
+        error = true;
+      }
+
+      if (error) return;
+
       const formData = new FormData();
       Object.keys(this.writeReview).forEach(key => formData.append(key, this.writeReview[key]));
-      // console.log(formData.values());
+
       for (const pair of formData.entries()) {
         Debug.log(pair[0] + ', ' + pair[1]);
       }
+
       const res = await this.$axios.$post('/Reviews/post_review',
         formData, {
           headers: {
