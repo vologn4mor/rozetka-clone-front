@@ -227,7 +227,7 @@
               </div>
             </div>
           </div>
-          <div class='reviews-list'>
+          <div v-if='comments.items_total' class='reviews-list'>
             <div
               v-for='item in comments.reviews'
               :key='item.id'
@@ -283,6 +283,9 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div v-else style='text-align: center'>
+            <h2>Отзывы отсутствуют</h2>
           </div>
         </div>
       </div>
@@ -487,6 +490,19 @@ export default {
           },
         });
       if (!res) return;
+
+      const comments = await this.$axios.$get('/Reviews/get', {
+        params: {
+          article_id: this.$route.params.id,
+          sort: 'by_date',
+          type: 'review',
+          limit: 100,
+          page: 1,
+        },
+      });
+
+      this.comments = comments.data;
+
       this.isWriteReviewOpened = false;
       this.writeReview = { ...writeReview, article_id: this.$route.params.id };
     },
