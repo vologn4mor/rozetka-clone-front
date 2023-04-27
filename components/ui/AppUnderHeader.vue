@@ -1,21 +1,21 @@
 <template>
   <div class='under-header'>
     <div class='under-header__left'>
-      <div v-if='$route.path === localePath("/")'>
-        <img src='~assets/images/icons/HomePage/city-location.svg' alt='city-location'>
-        <span>{{ $t('cityDot') }} Київ</span>
-        <span>&nbsp;·&nbsp;</span>
-        <span class='button'>{{ $t('setDeliveryAddress') }}</span>
-      </div>
       <div v-if='headerLocate && $route.path !== localePath("/")' class='header-home'>
         <img src='~assets/images/icons/home.svg' alt='home'>
         <div
-          v-for='(item, idx) in headerLocate' :key='item'
+          v-for='(item, idx) in headerLocate' :key='item.id'
           @click='routerTo(idx, item.id)'
         >
           <img src='~assets/images/icons/home-arrow.svg' alt='home-arrow'>
           <span>{{ cuttedName(item.name) }}</span>
         </div>
+      </div>
+      <div v-else>
+        <img src='~assets/images/icons/HomePage/city-location.svg' alt='city-location'>
+        <span>{{ $t('cityDot') }} Київ</span>
+        <span>&nbsp;·&nbsp;</span>
+        <span class='button'>{{ $t('setDeliveryAddress') }}</span>
       </div>
     </div>
     <div class='under-header__right'>
