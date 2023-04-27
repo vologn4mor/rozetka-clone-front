@@ -341,8 +341,18 @@
           </div>
           <div>
             <div>
-              <img src='~/assets/images/icons/ArticlePage/write-review-photo.svg' alt=''>
-              <span>Додати свитлину</span>
+              <input
+                id='select_images'
+                type='file'
+                class='file_upload'
+                multiple
+                accept='image/*'
+                @change='reviewAddImages'
+              >
+              <label for='select_images'>
+                <img src='~/assets/images/icons/ArticlePage/write-review-photo.svg' alt=''>
+                <span>Додати свитлину</span>
+              </label>
             </div>
             <div>
               <img src='~/assets/images/icons/ArticlePage/write-review-video.svg' alt=''>
@@ -585,6 +595,13 @@ export default {
 
       this.isWriteReviewOpened = false;
       this.writeReview = { ...writeReview, article_id: this.$route.params.id };
+    },
+    reviewAddImages(e) {
+      const files = e.target.files;
+      if (!files.length)
+        return;
+      this.writeReview.images = files;
+      Debug.log(files);
     },
   },
 };
@@ -1010,6 +1027,11 @@ export default {
         align-items: center;
 
         div {
+          label {
+            display: flex;
+            align-items: center;
+          }
+
           span {
             margin-left: 10px
           }
@@ -1025,5 +1047,9 @@ export default {
       }
     }
   }
+}
+
+.file_upload {
+  display: none;
 }
 </style>
