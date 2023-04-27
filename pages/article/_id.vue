@@ -276,6 +276,14 @@
                     {{ item.comment }}
                   </span>
                   </div>
+                  <div v-if='item.user_images' class='review-images-container'>
+                    <img
+                      v-for='image in item.user_images'
+                      :key='image'
+                      :src='image'
+                      alt='image'
+                    >
+                  </div>
                   <div class='review-bottom-menu'>
                     <div class='review-bottom-menu-left'>
                       <img src='~/assets/images/icons/ArticlePage/answer-comment.svg' alt=''>
@@ -477,6 +485,8 @@ export default {
         },
       });
 
+      comments.data.reviews = comments.data.reviews.reverse();
+
       return {
         article: article.data,
         characteristic,
@@ -567,7 +577,18 @@ export default {
       if (error) return;
 
       const formData = new FormData();
-      Object.keys(this.writeReview).forEach(key => formData.append(key, this.writeReview[key]));
+      Object.keys(this.writeReview).forEach(key => {
+          if (key !== 'images') {
+            formData.append(key, this.writeReview[key]);
+          }
+        },
+      );
+
+      if (this.writeReview.images) {
+        this.writeReview.images.forEach(image => {
+          formData.append('images', image);
+        });
+      }
 
       for (const pair of formData.entries()) {
         Debug.log(pair[0] + ', ' + pair[1]);
@@ -978,6 +999,18 @@ export default {
             img {
               margin-right: 5px;
             }
+          }
+        }
+
+        .review-images-container {
+          display: flex;
+          align-items: center;
+          margin-top: 10px;
+          
+          img {
+            max-width: 105px;
+            max-height: 105px;
+            margin-left: 16px;
           }
         }
 
