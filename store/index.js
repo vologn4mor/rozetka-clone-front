@@ -2,7 +2,8 @@ import Debug from '@/helpers/Debug';
 
 export const state = () => ({
   categories: null,
-  headerLocate: null,
+  headerLocate: [{ name: null, id: null }],
+  cartItems: [],
 });
 
 export const mutations = {
@@ -12,11 +13,30 @@ export const mutations = {
   setHeaderLocate(state, payload) {
     state.headerLocate = payload;
   },
+  setCartItems(state, payload) {
+    state.cartItems = payload;
+    localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+  },
+  pushCartItem(state, payload) {
+    if (state.cartItems.includes(payload)) {
+      state.cartItems = state.cartItems.filter(item => item !== payload);
+    } else {
+      state.cartItems.push(payload);
+    }
+    localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+  },
+  removeCartItem(state, payload) {
+    if (state.cartItems.includes(payload)) {
+      state.cartItems = state.cartItems.filter(item => item !== payload);
+    }
+    localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+  },
 };
 
 export const getters = {
   categories: s => s.categories,
   headerLocate: s => s.headerLocate,
+  cartItems: s => s.cartItems,
 };
 
 export const actions = {
@@ -30,5 +50,10 @@ export const actions = {
     } catch (e) {
       Debug.log(e);
     }
+  },
+  initCartItems({ commit }) {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    if (!cartItems) return localStorage.setItem('cartItems', JSON.stringify([]));
+    commit('setCartItems', cartItems);
   },
 };

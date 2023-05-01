@@ -143,10 +143,6 @@ export default {
   data() {
     return {};
   },
-  mounted() {
-    this.$store.commit(
-      'setHeaderLocate', null);
-  },
 };
 </script>
 

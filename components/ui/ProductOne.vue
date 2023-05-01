@@ -9,7 +9,13 @@
           alt='ads'>
       </div>
       <img id='favorite' src='~assets/images/icons/product-favorite.svg' alt='favorite' class='favorite'>
-      <img id='cart' src='~assets/images/icons/item-cart.svg' alt='cart' class='cart'>
+      <client-only>
+        <img
+          id='cart'
+          :src='isInCartItems ? cartIconMinus : cartIconPlus'
+          alt='cart'
+          class='cart'>
+      </client-only>
     </div>
     <div class='product-info'>
       <p class='name'>{{ cuttedName(name) }}</p>
@@ -23,6 +29,11 @@
 src='https://www.vodafone.com.au/images/devices/samsung/samsung-s23-plus/samsung-galaxy-s23-plus-lavender-front-m.jpg'
 -->
 <script>
+import { mapGetters, mapMutations } from 'vuex';
+import cartIconMinus from '@/assets/images/icons/item-cart-minus.svg';
+import cartIconPlus from '@/assets/images/icons/item-cart-plus.svg';
+
+
 export default {
   name: 'ProductOne',
   props: {
@@ -49,7 +60,20 @@ export default {
       default: 1,
     },
   },
+  data() {
+    return {
+      cartIconMinus,
+      cartIconPlus,
+    };
+  },
+  computed: {
+    ...mapGetters({ cartItems: 'cartItems' }),
+    isInCartItems() {
+      return this.cartItems.includes(this.id);
+    },
+  },
   methods: {
+    ...mapMutations({ pushCartItem: 'pushCartItem' }),
     cuttedName(value) {
       if (value.length < 22) return value;
       return value.slice(0, 22) + '...';
@@ -62,6 +86,7 @@ export default {
           break;
         case 'cart':
           // TODO cart
+          this.pushCartItem(this.id);
           break;
         case '':
           this.$router.push(this.localePath(`/article/${this.id}`));
@@ -128,6 +153,8 @@ p {
   position: relative;
   top: -35px;
   left: 160px;
+  width: 22px;
+  height: 22px;
 }
 
 .product-info {

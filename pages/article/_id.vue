@@ -193,18 +193,18 @@
             <div>
               <div>
                 <img src='~/assets/images/icons/ArticlePage/wallet.svg' alt=''>
-                <span>13₴ нараховується до бонусного рахунку при купівлі товару</span>
+                <span>13₴ {{ $t('addingBonusWhenBuy') }}</span>
               </div>
               <img src='~/assets/images/icons/ArticlePage/info-gray.svg' alt=''>
             </div>
             <hr>
             <div>
               <img src='~/assets/images/icons/ArticlePage/pay-online-card.svg' alt=''>
-              <span>Оплата на картку онлайн, оплата при отриманні товару</span>
+              <span>{{ $t('buyingOnlineWithCard') }}</span>
             </div>
             <div>
               <img src='~/assets/images/icons/ArticlePage/guarantee.svg' alt=''>
-              <span>Гарантія 12 місяців. Обмін/повернення товару впродовж 14 днів</span>
+              <span>{{ $t('guarantee12Month') }}</span>
             </div>
           </div>
         </AppCard>
@@ -213,7 +213,7 @@
           <div class='reviews-header'>
             <div class='review-header-left'>
               <span>
-              Видгуки покупцив
+              {{ $t('buyersReviews') }}
             </span>
               <span>{{ comments.items_total }}</span>
             </div>
@@ -223,7 +223,7 @@
                 @click='isWriteReviewOpened = true'
               >
                 <img src='~/assets/images/icons/ArticlePage/write-review.svg' alt=''>
-                <span>Написати видгук</span>
+                <span>{{ $t('writeReview') }}</span>
               </div>
             </div>
           </div>
@@ -245,26 +245,21 @@
               <div class='review-list-item-main'>
                 <div class='review-list-item-main-container'>
                   <div class='review-stars'>
-                    <span>Оцинка: </span>
+                    <span>{{ $t('grade') }}:</span>
                     <AppStarRating
                       :ico-star-out='icoStarOut'
                       :ico-star='icoStar'
                       :grade='item.rate'
                       :is-changeble='false'
                     />
-                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
-                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
-                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
-                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
-                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
                   </div>
                   <div class='review-pos-and-neg'>
                     <div class='review-pos'>
-                      <span>Переваги:</span>
+                      <span>{{ $t('pluses') }}:</span>
                       <span>{{ item.pros }}</span>
                     </div>
                     <div class='review-neg'>
-                      <span>Недолики:</span>
+                      <span>{{ $t('minuses') }}:</span>
                       <span>{{ item.cons }}</span>
                     </div>
                   </div>
@@ -287,7 +282,7 @@
                   <div class='review-bottom-menu'>
                     <div class='review-bottom-menu-left'>
                       <img src='~/assets/images/icons/ArticlePage/answer-comment.svg' alt=''>
-                      <span>Видповисти</span>
+                      <span>{{ $t('writeAnswer') }}</span>
                     </div>
                     <div class='review-bottom-menu-right'>
                       <img src='~/assets/images/icons/ArticlePage/like-comment.svg' alt=''>
@@ -299,7 +294,7 @@
             </div>
           </div>
           <div v-else style='text-align: center'>
-            <h2>Отзывы отсутствуют</h2>
+            <h2>{{ $t('reviewsNotExist') }}</h2>
           </div>
         </div>
       </div>
@@ -328,18 +323,18 @@
       @close='isWriteReviewOpened = false'
     >
       <div class='write-review-modal'>
-        <span class='title'>Написати видгук</span>
+        <span class='title'>{{ $t('writeReview') }}</span>
         <hr>
         <AppInput
           :is-textarea='true'
           :is-bold-label='true'
-          label='Коментар'
+          :label='$t("comment")'
           :value='writeReview.comment'
           @input='(val) => writeReview.comment = val'
         />
         <div class='write-review-stars-block'>
           <div>
-            <span>Оцинка:</span>
+            <span>{{ $t('grade') }}</span>
             <AppStarRating
               :ico-star-out='icoStarOut'
               :ico-star='icoStar'
@@ -359,52 +354,52 @@
               >
               <label for='select_images'>
                 <img src='~/assets/images/icons/ArticlePage/write-review-photo.svg' alt=''>
-                <span>Додати свитлину</span>
+                <span>{{ $t('addPhoto') }}</span>
               </label>
             </div>
             <div>
               <img src='~/assets/images/icons/ArticlePage/write-review-video.svg' alt=''>
-              <span>Додати видео</span>
+              <span>{{ $t('addVideo') }}</span>
             </div>
           </div>
         </div>
         <AppInput
           :is-bold-label='true'
-          label='Переваги'
-          placeholder='Що вам сподобалось'
+          :label='$t("pluses")'
+          :placeholder='$t("whatYouLike")'
           :value='writeReview.pros'
           @input='(val) => writeReview.pros = val'
         />
         <AppInput
           :is-bold-label='true'
-          label='Недолики'
-          placeholder='Що вам не сподобалось'
+          :label='$t("minuses")'
+          :placeholder='$t("whatYouDidntLike")'
           :value='writeReview.cons'
           @input='(val) => writeReview.cons = val'
         />
         <AppInput
           :is-bold-label='true'
-          label='Ваше имя та призвище'
-          placeholder='Петро Петренко'
+          :label='$t("yourFIO")'
+          :placeholder='$t("placeholderName")'
           :value='writeReview.name'
           @input='(val) => writeReview.name = val'
         />
         <AppInput
           :is-bold-label='true'
-          label='Електрона пошта'
+          :label='$t("yourEmail")'
           placeholder='example@mail.com'
           :value='writeReview.email'
           @input='(val) => writeReview.email = val'
         />
         <div class='write-review-buttons' style='display: flex; justify-content: space-between; margin-top: 20px'>
           <AppButton
-            text='Додати'
+            :text='$t("add")'
             bg-color='#221F1F'
             color='#D2D4E9'
             @click='sendReview'>
           </AppButton>
           <AppButton
-            text='Скасувати'
+            :text='$t("cancel")'
             bg-color='#6A6C7E'
             color='#D2D4E9'
             @click='isWriteReviewOpened = false'>
@@ -1006,7 +1001,7 @@ export default {
           display: flex;
           align-items: center;
           margin-top: 10px;
-          
+
           img {
             max-width: 105px;
             max-height: 105px;
