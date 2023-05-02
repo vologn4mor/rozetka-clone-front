@@ -1,5 +1,10 @@
 <template>
-  <div class='button' :style='`padding: ${padding}; max-width: ${width - 71}px;`'>
+  <div
+    class='button'
+    :style='`padding: ${padding};
+    max-width: ${width - 71}px;`'
+    @click='$emit("click")'
+  >
     <img :src='icon' alt='icon'>
     <span>{{ text }}</span>
   </div>
@@ -44,5 +49,9 @@ export default {
   img {
     margin-right: 10px;
   }
+}
+
+.button:hover {
+  cursor: pointer;
 }
 </style>
