@@ -38,7 +38,11 @@
       </div>
       <div class='header-menu'>
         <img src='~assets/images/icons/header/favorite.svg' alt='favorite'>
-        <img src='~assets/images/icons/header/cart.svg' alt='cart'>
+        <img
+          src='~assets/images/icons/header/cart.svg'
+          alt='cart'
+          @click='$router.push(localePath("/cart"))'
+        >
         <img src='~assets/images/icons/header/user.svg' alt='user'>
       </div>
     </div>
@@ -297,7 +301,7 @@ export default {
     .podCat-name:hover, .podCat-text:hover {
       cursor: pointer;
     }
-    
+
   }
 }
 
@@ -396,6 +400,10 @@ export default {
 
   img:nth-child(2) {
     margin: 0 20px;
+  }
+
+  img:hover {
+    cursor: pointer;
   }
 }
 

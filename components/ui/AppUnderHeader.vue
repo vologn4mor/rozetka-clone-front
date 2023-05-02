@@ -1,7 +1,9 @@
 <template>
   <div class='under-header'>
     <div class='under-header__left'>
-      <div v-if='headerLocate && $route.path !== localePath("/")' class='header-home'>
+      <div
+        v-if='headerLocate && ($route.path.includes("/category") || $route.path.includes("/article"))'
+        class='header-home'>
         <img src='~assets/images/icons/home.svg' alt='home'>
         <div
           v-for='(item, idx) in headerLocate' :key='item.id'
@@ -11,11 +13,18 @@
           <span>{{ cuttedName(item.name) }}</span>
         </div>
       </div>
-      <div v-else>
+      <div v-else-if='$route.path === localePath("/")'>
         <img src='~assets/images/icons/HomePage/city-location.svg' alt='city-location'>
         <span>{{ $t('cityDot') }} Київ</span>
         <span>&nbsp;·&nbsp;</span>
         <span class='button'>{{ $t('setDeliveryAddress') }}</span>
+      </div>
+      <div v-else class='header-home'>
+        <img src='~assets/images/icons/home.svg' alt='home'>
+        <div>
+          <img src='~assets/images/icons/home-arrow.svg' alt='home-arrow'>
+          <span>{{ $t(headerLocate[0].name) }}</span>
+        </div>
       </div>
     </div>
     <div class='under-header__right'>
@@ -62,6 +71,7 @@ export default {
       }
     },
     cuttedName(value) {
+      if (!value) return;
       if (value.length < 40) return value;
       return value.slice(0, 40) + '...';
     },
@@ -122,7 +132,7 @@ export default {
   display: flex;
   text-align: center;
 
-  span {
+  span, div > span {
     color: $main-dark-gray;
     margin: 3px 10px 0 0;
     white-space: nowrap;

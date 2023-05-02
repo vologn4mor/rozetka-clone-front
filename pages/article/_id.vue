@@ -92,6 +92,7 @@
                 :text='$t("buy")'
                 width='165'
                 :icon='buyIcon'
+                @click='routeToCart'
               />
               <div>
                 <img src='~/assets/images/icons/ArticlePage/heart-black.svg' alt='heart'>
@@ -193,18 +194,18 @@
             <div>
               <div>
                 <img src='~/assets/images/icons/ArticlePage/wallet.svg' alt=''>
-                <span>13₴ нараховується до бонусного рахунку при купівлі товару</span>
+                <span>13₴ {{ $t('addingBonusWhenBuy') }}</span>
               </div>
               <img src='~/assets/images/icons/ArticlePage/info-gray.svg' alt=''>
             </div>
             <hr>
             <div>
               <img src='~/assets/images/icons/ArticlePage/pay-online-card.svg' alt=''>
-              <span>Оплата на картку онлайн, оплата при отриманні товару</span>
+              <span>{{ $t('buyingOnlineWithCard') }}</span>
             </div>
             <div>
               <img src='~/assets/images/icons/ArticlePage/guarantee.svg' alt=''>
-              <span>Гарантія 12 місяців. Обмін/повернення товару впродовж 14 днів</span>
+              <span>{{ $t('guarantee12Month') }}</span>
             </div>
           </div>
         </AppCard>
@@ -213,7 +214,7 @@
           <div class='reviews-header'>
             <div class='review-header-left'>
               <span>
-              Видгуки покупцив
+              {{ $t('buyersReviews') }}
             </span>
               <span>{{ comments.items_total }}</span>
             </div>
@@ -223,7 +224,7 @@
                 @click='isWriteReviewOpened = true'
               >
                 <img src='~/assets/images/icons/ArticlePage/write-review.svg' alt=''>
-                <span>Написати видгук</span>
+                <span>{{ $t('writeReview') }}</span>
               </div>
             </div>
           </div>
@@ -245,26 +246,21 @@
               <div class='review-list-item-main'>
                 <div class='review-list-item-main-container'>
                   <div class='review-stars'>
-                    <span>Оцинка: </span>
+                    <span>{{ $t('grade') }}:</span>
                     <AppStarRating
                       :ico-star-out='icoStarOut'
                       :ico-star='icoStar'
                       :grade='item.rate'
                       :is-changeble='false'
                     />
-                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
-                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
-                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
-                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
-                    <!--                    <img src='~/assets/images/icons/ArticlePage/star-filled-gray.svg' alt=''>-->
                   </div>
                   <div class='review-pos-and-neg'>
                     <div class='review-pos'>
-                      <span>Переваги:</span>
+                      <span>{{ $t('pluses') }}:</span>
                       <span>{{ item.pros }}</span>
                     </div>
                     <div class='review-neg'>
-                      <span>Недолики:</span>
+                      <span>{{ $t('minuses') }}:</span>
                       <span>{{ item.cons }}</span>
                     </div>
                   </div>
@@ -285,9 +281,12 @@
                     >
                   </div>
                   <div class='review-bottom-menu'>
-                    <div class='review-bottom-menu-left'>
+                    <div
+                      class='review-bottom-menu-left'
+                      @click='isWriteAnswerReviewOpened = true; writeAnswerReview = {...writeAnswerReview, review_id: item.id}'
+                    >
                       <img src='~/assets/images/icons/ArticlePage/answer-comment.svg' alt=''>
-                      <span>Видповисти</span>
+                      <span>{{ $t('writeAnswer') }}</span>
                     </div>
                     <div class='review-bottom-menu-right'>
                       <img src='~/assets/images/icons/ArticlePage/like-comment.svg' alt=''>
@@ -295,11 +294,25 @@
                     </div>
                   </div>
                 </div>
+                <div v-if='item.answers'>
+                  <hr>
+                  <div v-for='answer in item.answers' :key='answer.id'>
+                    <div class='answer-review-container'>
+                      <div class='img-and-name'>
+                        <img src='~/assets/images/icons/ArticlePage/review-avatar.svg' alt=''>
+                        <span>{{ answer.user_name }}</span>
+                      </div>
+                      <div class='comment'>
+                        <span>{{ answer.comment }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <div v-else style='text-align: center'>
-            <h2>Отзывы отсутствуют</h2>
+            <h2>{{ $t('reviewsNotExist') }}</h2>
           </div>
         </div>
       </div>
@@ -320,6 +333,7 @@
       <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
       <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
     </ProductsBlock>
+
     <AppModalCard
       v-show='isWriteReviewOpened'
       class='write-review-modal-container'
@@ -328,18 +342,18 @@
       @close='isWriteReviewOpened = false'
     >
       <div class='write-review-modal'>
-        <span class='title'>Написати видгук</span>
+        <span class='title'>{{ $t('writeReview') }}</span>
         <hr>
         <AppInput
           :is-textarea='true'
           :is-bold-label='true'
-          label='Коментар'
+          :label='$t("comment")'
           :value='writeReview.comment'
           @input='(val) => writeReview.comment = val'
         />
         <div class='write-review-stars-block'>
           <div>
-            <span>Оцинка:</span>
+            <span>{{ $t('grade') }}</span>
             <AppStarRating
               :ico-star-out='icoStarOut'
               :ico-star='icoStar'
@@ -359,55 +373,103 @@
               >
               <label for='select_images'>
                 <img src='~/assets/images/icons/ArticlePage/write-review-photo.svg' alt=''>
-                <span>Додати свитлину</span>
+                <span>{{ $t('addPhoto') }}</span>
               </label>
             </div>
             <div>
               <img src='~/assets/images/icons/ArticlePage/write-review-video.svg' alt=''>
-              <span>Додати видео</span>
+              <span>{{ $t('addVideo') }}</span>
             </div>
           </div>
         </div>
         <AppInput
           :is-bold-label='true'
-          label='Переваги'
-          placeholder='Що вам сподобалось'
+          :label='$t("pluses")'
+          :placeholder='$t("whatYouLike")'
           :value='writeReview.pros'
           @input='(val) => writeReview.pros = val'
         />
         <AppInput
           :is-bold-label='true'
-          label='Недолики'
-          placeholder='Що вам не сподобалось'
+          :label='$t("minuses")'
+          :placeholder='$t("whatYouDidntLike")'
           :value='writeReview.cons'
           @input='(val) => writeReview.cons = val'
         />
         <AppInput
           :is-bold-label='true'
-          label='Ваше имя та призвище'
-          placeholder='Петро Петренко'
+          :label='$t("yourFIO")'
+          :placeholder='$t("placeholderName")'
           :value='writeReview.name'
           @input='(val) => writeReview.name = val'
         />
         <AppInput
           :is-bold-label='true'
-          label='Електрона пошта'
+          :label='$t("yourEmail")'
           placeholder='example@mail.com'
           :value='writeReview.email'
           @input='(val) => writeReview.email = val'
         />
         <div class='write-review-buttons' style='display: flex; justify-content: space-between; margin-top: 20px'>
           <AppButton
-            text='Додати'
+            :text='$t("add")'
             bg-color='#221F1F'
             color='#D2D4E9'
             @click='sendReview'>
           </AppButton>
           <AppButton
-            text='Скасувати'
+            :text='$t("cancel")'
             bg-color='#6A6C7E'
             color='#D2D4E9'
             @click='isWriteReviewOpened = false'>
+          </AppButton>
+        </div>
+      </div>
+    </AppModalCard>
+
+    <AppModalCard
+      v-show='isWriteAnswerReviewOpened'
+      class='write-review-modal-container'
+      :default-header='false'
+      width='732px'
+      @close='isWriteAnswerReviewOpened = false'
+    >
+      <div class='write-review-modal'>
+        <span class='title'>{{ $t('writeAnswerReview') }}</span>
+        <hr>
+        <AppInput
+          :is-textarea='true'
+          :is-bold-label='true'
+          :label='$t("comment")'
+          :value='writeAnswerReview.comment'
+          @input='(val) => writeAnswerReview.comment = val'
+        />
+        <AppInput
+          :is-bold-label='true'
+          :label='$t("yourFIO")'
+          :placeholder='$t("placeholderName")'
+          :value='writeAnswerReview.name'
+          @input='(val) => writeAnswerReview.name = val'
+        />
+        <AppInput
+          :is-bold-label='true'
+          :label='$t("yourEmail")'
+          placeholder='example@mail.com'
+          :value='writeAnswerReview.email'
+          @input='(val) => writeAnswerReview.email = val'
+        />
+        <div class='write-review-buttons' style='display: flex; justify-content: space-between; margin-top: 20px'>
+          <AppButton
+            :text='$t("add")'
+            bg-color='#221F1F'
+            color='#D2D4E9'
+            @click='sendAnswerReview'>
+          </AppButton>
+          <AppButton
+            :text='$t("cancel")'
+            bg-color='#6A6C7E'
+            color='#D2D4E9'
+            @click='isWriteAnswerReviewOpened = false'>
           </AppButton>
         </div>
       </div>
@@ -416,6 +478,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex';
 import AppArticleSlider from '@/components/ui/AppArticleSlider.vue';
 import ProductsBlock from '@/components/ui/ProductsBlock.vue';
 import ProductOne from '@/components/ui/ProductOne.vue';
@@ -439,6 +502,12 @@ export const writeReview = {
   video_url: null,
   images: null,
   get_email_on_answers: false,
+};
+
+export const writeAnswerReview = {
+  name: '',
+  comment: '',
+  email: '',
 };
 
 export default {
@@ -504,16 +573,26 @@ export default {
       isOpenedInfo: false,
       isAboutActive: true,
       isWriteReviewOpened: false,
+      isWriteAnswerReviewOpened: false,
       buyIcon,
       writeReview: { ...writeReview, article_id: this.$route.params.id },
+      writeAnswerReview: { ...writeAnswerReview, article_id: this.$route.params.id },
       writeReviewErrors: [],
     };
+  },
+  computed: {
+    ...mapGetters({
+      cartItems: 'cartItems',
+    }),
   },
   beforeMount() {
     this.$store.commit(
       'setHeaderLocate', this.podCatsItems);
   },
   methods: {
+    ...mapMutations({
+      pushCartItem: 'pushCartItem',
+    }),
     xssClear(value) {
       const regex = /( |<([^>]+)>)/ig;
       return value.replace(regex, ' ');
@@ -613,9 +692,77 @@ export default {
       });
 
       this.comments = comments.data;
+      this.comments.reviews = this.comments.reviews.reverse();
 
       this.isWriteReviewOpened = false;
       this.writeReview = { ...writeReview, article_id: this.$route.params.id };
+    },
+    async sendAnswerReview() {
+
+      const regEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      let error = false;
+
+      if (this.writeAnswerReview.comment.length < 5) {
+        this.$toast.error('Длина комментария меньше 5');
+        error = true;
+      }
+
+      if (this.writeAnswerReview.comment.length > 200) {
+        this.$toast.error('Длина комментария больше 200');
+        error = true;
+      }
+
+      if (this.writeAnswerReview.name.length < 3) {
+        this.$toast.error('Длина имени меньше 3');
+        error = true;
+      }
+
+      if (this.writeAnswerReview.name.length > 30) {
+        this.$toast.error('Длина имени больше 30');
+        error = true;
+      }
+
+      if (!regEmail.test(this.writeAnswerReview.email)) {
+        this.$toast.error('Email указан неккоректно');
+        error = true;
+      }
+
+      if (error) return;
+
+      const formData = new FormData();
+      Object.keys(this.writeAnswerReview).forEach(key => {
+          formData.append(key, this.writeAnswerReview[key]);
+        },
+      );
+
+      for (const pair of formData.entries()) {
+        Debug.log(pair[0] + ', ' + pair[1]);
+      }
+
+      const res = await this.$axios.$post('/Reviews/post_answer',
+        formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+      if (!res) return;
+
+      const comments = await this.$axios.$get('/Reviews/get', {
+        params: {
+          article_id: this.$route.params.id,
+          sort: 'by_date',
+          type: 'review',
+          limit: 100,
+          page: 1,
+        },
+      });
+
+      this.comments = comments.data;
+      this.comments.reviews = this.comments.reviews.reverse();
+
+      this.isWriteAnswerReviewOpened = false;
+      this.writeAnswerReview = { ...writeAnswerReview, article_id: this.$route.params.id };
     },
     reviewAddImages(e) {
       const files = e.target.files;
@@ -623,6 +770,12 @@ export default {
         return;
       this.writeReview.images = files;
       Debug.log(files);
+    },
+    routeToCart() {
+      const id = Number(this.$route.params.id);
+      console.log(this.cartItems);
+      if (!this.cartItems.includes(id)) this.pushCartItem(id);
+      this.$router.push(this.localePath('/cart'));
     },
   },
 };
@@ -1006,7 +1159,7 @@ export default {
           display: flex;
           align-items: center;
           margin-top: 10px;
-          
+
           img {
             max-width: 105px;
             max-height: 105px;
@@ -1084,5 +1237,22 @@ export default {
 
 .file_upload {
   display: none;
+}
+
+.answer-review-container {
+  padding: 10px;
+
+  .img-and-name {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-right: 5px;
+    }
+  }
+
+  .comment {
+    margin: 10px 0;
+  }
 }
 </style>

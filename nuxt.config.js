@@ -50,6 +50,7 @@ export default {
   plugins: [
     '~/plugins/axios',
     '~/plugins/nuxt.init.server',
+    '~/plugins/nuxt.init.client',
     '~/plugins/directive',
     '~/plugins/toast',
   ],
