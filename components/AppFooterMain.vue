@@ -90,7 +90,6 @@ export default {
     });
 
     this.items = resultItems;
-    console.log(this.items);
   },
   fetchOnServer: false,
   computed: {

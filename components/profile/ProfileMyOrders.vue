@@ -32,6 +32,11 @@ export default {
 
 <style scoped lang='scss'>
 
+h1 {
+  font-size: 31px;
+  margin: 0;
+}
+
 .buttons {
   margin-top: 20px;
   display: flex;
@@ -41,7 +46,7 @@ button, a {
   padding: 12.5px 35.5px;
   background-color: gray;
   border-radius: 11px;
-  border: 0px solid white;
+  border: 0 solid white;
 }
 
 button:hover {

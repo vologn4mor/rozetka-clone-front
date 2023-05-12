@@ -1,16 +1,21 @@
 <template>
-  <div v-if='!$fetchState.pending'>
-    <h1>Просмотренные товары</h1>
-    <div class='product-list'>
-      <ProductOne
-        v-for='item in items'
-        :id='item.id'
-        :key='item.id'
-        :item-state='item.sell_status'
-        :cost='Number(item.price)'
-        :name='item.title'
-        :image='item.preview_img.url'
-      />
+  <div>
+    <div v-if='!$fetchState.pending'>
+      <h1>Просмотренные товары</h1>
+      <div class='product-list'>
+        <ProductOne
+          v-for='item in items'
+          :id='item.id'
+          :key='item.id'
+          :item-state='item.sell_status'
+          :cost='Number(item.price)'
+          :name='item.title'
+          :image='item.preview_img.url'
+        />
+      </div>
+    </div>
+    <div v-else class='loading'>
+      <img src='@/assets/images/loader.gif' alt=''>
     </div>
   </div>
 
@@ -41,7 +46,6 @@ export default {
     });
 
     this.items = resultItems;
-    console.log(this.items);
   },
   fetchKey: 'site-sidebar',
   computed: {
@@ -62,7 +66,8 @@ export default {
 
 <style scoped lang='scss'>
 h1 {
-  margin-bottom: 0;
+  font-size: 31px;
+  margin: 0;
 }
 
 .product-list {
@@ -80,6 +85,19 @@ h1 {
 
   div:last-child {
     margin: 0 0 10px 5px
+  }
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 300px;
+
+  img {
+    max-width: 50px;
+    max-height: 50px;
   }
 }
 </style>
