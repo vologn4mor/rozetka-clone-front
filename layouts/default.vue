@@ -45,6 +45,15 @@ export default {
   font-family: Mariupol-Regular;
 }
 
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.main-container {
+  min-height: 692px;
+}
+
 </style>
 
 

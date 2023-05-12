@@ -41,16 +41,30 @@
         <div class='text_second_block'><span>{{ $t('copyright') }}</span></div>
       </div>
     </div>
-    <ProductsBlock :title='$t("lastReviewedProducts")' link='/'>
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+    <ProductsBlock
+      :title='$t("lastReviewedProducts")'
+      :link='localePath("/profile/checked")'
+      custom-style='footer-style'
+    >
+      <!--      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />-->
+      <!--      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />-->
+      <!--      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />-->
+      <!--      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />-->
+      <ProductOne
+        v-for='item in items'
+        :id='item.id'
+        :key='item.id'
+        :item-state='item.sell_status'
+        :cost='Number(item.price)'
+        :name='item.title'
+        :image='item.preview_img.url'
+      />
     </ProductsBlock>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import AppCard from '@/components/ui/AppCard.vue';
 import ProductsBlock from '@/components/ui/ProductsBlock.vue';
 import ProductOne from '@/components/ui/ProductOne.vue';
@@ -58,6 +72,32 @@ import ProductOne from '@/components/ui/ProductOne.vue';
 export default {
   name: 'AppFooter',
   components: { ProductOne, ProductsBlock, AppCard },
+  data() {
+    return {
+      items: [],
+    };
+  },
+  async fetch() {
+    if (!this.lastChecked.length) return;
+    const reqData = this.lastChecked.slice(0, 4);
+    const res = await this.$axios.$post('/Goods/from-list-light', reqData);
+
+    const resultItems = [];
+
+    reqData.forEach(id => {
+      const item = res.data.articles.filter(i => id === i.id);
+      resultItems.push(item[0]);
+    });
+
+    this.items = resultItems;
+    console.log(this.items);
+  },
+  fetchOnServer: false,
+  computed: {
+    ...mapGetters({
+      lastChecked: 'lastChecked',
+    }),
+  },
 };
 </script>
 

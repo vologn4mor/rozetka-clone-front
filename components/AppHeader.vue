@@ -37,13 +37,19 @@
         </div>
       </div>
       <div class='header-menu'>
-        <img src='~assets/images/icons/header/favorite.svg' alt='favorite'>
-        <img
-          src='~assets/images/icons/header/cart.svg'
-          alt='cart'
-          @click='$router.push(localePath("/cart"))'
-        >
-        <img src='~assets/images/icons/header/user.svg' alt='user'>
+        <nuxt-link :to='localePath("/")'>
+          <img src='~assets/images/icons/header/favorite.svg' alt='favorite'>
+        </nuxt-link>
+
+        <nuxt-link :to='localePath("/cart")'>
+          <img
+            src='~assets/images/icons/header/cart.svg'
+            alt='cart'
+          >
+        </nuxt-link>
+        <nuxt-link :to='localePath("/profile/orders")'>
+          <img src='~assets/images/icons/header/user.svg' alt='user'>
+        </nuxt-link>
       </div>
     </div>
     <div
@@ -394,15 +400,15 @@ export default {
 .header-menu {
   display: flex;
 
-  img:first-child {
+  a:first-child {
     margin-left: 20px;
   }
 
-  img:nth-child(2) {
+  a:nth-child(2) {
     margin: 0 20px;
   }
 
-  img:hover {
+  a:hover {
     cursor: pointer;
   }
 }

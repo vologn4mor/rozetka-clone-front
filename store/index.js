@@ -4,6 +4,7 @@ export const state = () => ({
   categories: null,
   headerLocate: [{ name: null, id: null }],
   cartItems: [],
+  lastChecked: [],
 });
 
 export const mutations = {
@@ -18,18 +19,42 @@ export const mutations = {
     localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
   },
   pushCartItem(state, payload) {
-    if (state.cartItems.includes(payload)) {
-      state.cartItems = state.cartItems.filter(item => item !== payload);
+    if (state.cartItems.filter(item => item.id === payload).length > 0) {
+      state.cartItems = state.cartItems.filter(item => item.id !== payload);
     } else {
-      state.cartItems.push(payload);
+      state.cartItems.push({ id: payload, count: 1 });
     }
     localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
   },
   removeCartItem(state, payload) {
-    if (state.cartItems.includes(payload)) {
-      state.cartItems = state.cartItems.filter(item => item !== payload);
+    if (state.cartItems.filter(item => item.id === payload).length > 0) {
+      state.cartItems = state.cartItems.filter(item => item.id !== payload);
     }
     localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+  },
+  changeItemCount(state, payload) {
+    state.cartItems = state.cartItems.map(item => {
+      if (item.id === payload.id) {
+        return {
+          ...item,
+          count: payload.count,
+        };
+      } else {
+        return item;
+      }
+    });
+    localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+  },
+  setLastChecked(state, payload) {
+    state.lastChecked = payload;
+    localStorage.setItem('lastChecked', JSON.stringify(state.lastChecked));
+  },
+  pushLastChecked(state, payload) {
+    if (state.lastChecked.includes(payload)) {
+      state.lastChecked = state.lastChecked.filter(item => item !== payload);
+    }
+    state.lastChecked.unshift(payload);
+    localStorage.setItem('lastChecked', JSON.stringify(state.lastChecked));
   },
 };
 
@@ -37,6 +62,7 @@ export const getters = {
   categories: s => s.categories,
   headerLocate: s => s.headerLocate,
   cartItems: s => s.cartItems,
+  lastChecked: s => s.lastChecked,
 };
 
 export const actions = {
@@ -55,5 +81,10 @@ export const actions = {
     const cartItems = JSON.parse(localStorage.getItem('cartItems'));
     if (!cartItems) return localStorage.setItem('cartItems', JSON.stringify([]));
     commit('setCartItems', cartItems);
+  },
+  initLastChecked({ commit }) {
+    const lastChecked = JSON.parse(localStorage.getItem('lastChecked'));
+    if (!lastChecked) return localStorage.setItem('lastChecked', JSON.stringify([]));
+    commit('setLastChecked', lastChecked);
   },
 };
