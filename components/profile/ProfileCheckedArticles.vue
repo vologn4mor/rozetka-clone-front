@@ -35,7 +35,7 @@ export default {
   },
   async fetch() {
     if (!this.lastChecked.length) return;
-    const reqData = this.lastChecked.slice(0, 9);
+    const reqData = this.lastChecked.slice(0, 10);
     const res = await this.$axios.$post('/Goods/from-list-light', reqData);
 
     const resultItems = [];
