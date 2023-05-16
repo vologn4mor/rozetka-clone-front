@@ -7,7 +7,7 @@
         <img src='~/assets/images/icons/show-more-arrow.svg' alt='arrow'>
       </div>
     </div>
-    <div class='products'>
+    <div :class='!customStyle ? "products" : customStyle'>
       <slot />
     </div>
   </div>
@@ -23,6 +23,11 @@ export default {
     },
     link: {
       type: String,
+      default: '',
+    },
+    customStyle: {
+      type: String,
+      required: false,
       default: '',
     },
   },
@@ -65,5 +70,23 @@ a {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.footer-style {
+  display: flex;
+  margin-top: 20px;
+
+  div {
+
+    margin: 0 7.8px;
+  }
+
+  div:first-child {
+    margin: 0 7.8px 0 0;
+  }
+
+  div:last-child {
+    margin: 0 0 0 7.8px
+  }
 }
 </style>

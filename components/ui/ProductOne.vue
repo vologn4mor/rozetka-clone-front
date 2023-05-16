@@ -69,7 +69,7 @@ export default {
   computed: {
     ...mapGetters({ cartItems: 'cartItems' }),
     isInCartItems() {
-      return this.cartItems.includes(this.id);
+      return this.cartItems.filter(item => item.id === this.id).length;
     },
   },
   methods: {

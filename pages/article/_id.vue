@@ -588,10 +588,12 @@ export default {
   beforeMount() {
     this.$store.commit(
       'setHeaderLocate', this.podCatsItems);
+    this.pushLastChecked(Number(this.$route.params.id));
   },
   methods: {
     ...mapMutations({
       pushCartItem: 'pushCartItem',
+      pushLastChecked: 'pushLastChecked',
     }),
     xssClear(value) {
       const regex = /( |<([^>]+)>)/ig;
@@ -773,7 +775,6 @@ export default {
     },
     routeToCart() {
       const id = Number(this.$route.params.id);
-      console.log(this.cartItems);
       if (!this.cartItems.includes(id)) this.pushCartItem(id);
       this.$router.push(this.localePath('/cart'));
     },

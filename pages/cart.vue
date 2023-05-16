@@ -10,9 +10,9 @@
           <div class='cart-main-container'>
             <div class='img-and-name' @click='$router.push(localePath(`/article/${item.id}`))'>
               <div>
-                <img :src='item.small_img' alt=''>
+                <img :src='item.preview_img.url' alt=''>
               </div>
-              <span>{{ item.name }}</span>
+              <span>{{ item.title }}</span>
             </div>
             <div class='second-block'>
               <div>
@@ -93,18 +93,44 @@ export default {
     };
   },
   async fetch() {
-    const items = [];
-    await Promise.all(this.cartItems.map(async id => {
-      const res = await this.$axios.$get('/Goods/cart-item', {
-        params: {
-          id,
-        },
-      });
-      if (!res) return;
-      items.push({ ...res.data, count: 1, total_sum_item: res.data.price });
-    }));
-    this.items = items;
-    this.total_count = items.length;
+    const cartItemsIds = this.cartItems.map(item => item.id);
+    const res = await this.$axios.$post('/Goods/from-list-light', cartItemsIds);
+    if (!res) return;
+
+    const data = res.data.articles.map(item => {
+      const cartItem = this.cartItems.filter((itemCart) => itemCart.id === item.id);
+      return {
+        ...item,
+        count: cartItem[0].count,
+        total_sum_item: item.price,
+      };
+    });
+    // items = res.data.articles.map(item => {
+    //   return { ...item, count: item }
+    // })
+    // res.data.forEach(item => {
+    //   items.push({ ...item, count: item.count, total_sum_item: res.data.price })
+    // })
+
+    // await Promise.all(this.cartItems.map(async item => {
+    //   const res = await this.$axios.$get('/Goods/cart-item', {
+    //     params: {
+    //       id: item.id,
+    //     },
+    //   });
+    //   if (!res) return;
+    //   items.push({ ...res.data, count: item.count, total_sum_item: res.data.price });
+    // }));
+    // console.log(items);
+
+    // this.items = items.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+    // this.total_count = items.length;
+    // this.items.forEach(item => {
+    //   this.total_sum += Number(item.price);
+    // });
+
+    this.items = data.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
+    this.total_count = data.length;
     this.items.forEach(item => {
       this.total_sum += Number(item.price);
     });
@@ -132,11 +158,13 @@ export default {
     ...mapMutations({
       removeCartItem: 'removeCartItem',
       setHeaderLocate: 'setHeaderLocate',
+      changeItemCount: 'changeItemCount',
     }),
     changeCount(id, isAdd) {
       this.items = this.items.map(item => {
         if (item.id === id) {
           if (!isAdd && item.count === 1) return item;
+          this.changeItemCount({ id, count: item.count + (isAdd ? 1 : -1) });
           return {
             ...item,
             count: item.count + (isAdd ? 1 : -1),
@@ -165,13 +193,17 @@ export default {
 
 .cart-main-left {
   div {
-    margin-top: 10px;
+    margin: 10px 0;
   }
 
   .cart-main-container {
     display: flex;
     align-items: center;
     justify-content: space-around;
+
+    div {
+      margin: 0;
+    }
 
     .img-and-name {
       display: flex;
@@ -195,7 +227,7 @@ export default {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 295px;
+        width: 295px;
       }
     }
 
