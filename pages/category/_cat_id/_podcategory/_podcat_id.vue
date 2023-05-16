@@ -15,16 +15,16 @@
         <div>
           <div><span class='bold'>Цiна</span></div>
           <div class='cost-inputs-container'>
-            <input value='' type='text' placeholder='вид' @input='minCost = $event.target.value'>
+            <input value='' type='text' placeholder='вид' @input='minCost = Number($event.target.value)'>
             <span>&mdash;</span>
-            <input value='' type='text' placeholder='до' @input='maxCost = $event.target.value'>
+            <input value='' type='text' placeholder='до' @input='maxCost = Number($event.target.value)'>
             <button @click='filterFetch'>ok</button>
           </div>
           <div>
             <span class='bold'>бренд</span>
             <input v-model='searchBrand' type='text' placeholder='пошук'>
           </div>
-          <div class='brands-list'>
+          <div class='brands-list' v-if='filtredBrands'>
             <div v-for='item in filtredBrands' :key='item.id'>
               <input v-model='item.isSelected' type='checkbox' />
               <small>{{ item.name }}</small>
@@ -97,13 +97,13 @@ export default {
 
       const filtres = await ctx.$axios.$get('/Values/category-chars-values', {
         params: {
-          category_id: ctx.route.params.cat_id,
+          category_id: ctx.route.params.podcat_id,
         },
       });
 
-      const brands = await ctx.$axios.$get('/Brands/category-brands', {
+      const brands = await ctx.$axios.$get('/Brands/filter-brands', {
         params: {
-          category_id: ctx.route.params.cat_id,
+          category_id: ctx.route.params.podcat_id,
           count: 999,
         },
       });
@@ -179,8 +179,8 @@ export default {
               upper_value: 0,
             },
           ],
-          price_low: this.minCost ? Number(this.minCost) : 0,
-          price_high: this.maxCost ? Number(this.maxCost) : 999999,
+          price_low: !isNaN(this.minCost) ? this.minCost : 0,
+          price_high: !isNaN(this.maxCost) ? this.maxCost : 999999,
         },
         {
           params: {
