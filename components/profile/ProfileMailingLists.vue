@@ -1,81 +1,78 @@
 <template>
   <div>
-    <h1>Рассылки</h1>
+    <h1>{{ $t('mailingLists') }}</h1>
     <hr>
 
     <div class='container'>
       <div class='select-container'>
-        <h4>Види розсилок</h4>
+        <h4>{{ $t('typesMailing') }}</h4>
         <div class='select-block'>
           <div class='select-checkbox'>
             <input type='checkbox'>
-            <span>Опитуванния</span>
+            <span>{{ $t('poll') }}</span>
           </div>
-          <div class='select-text'>Отримуйте запрошення для участі в опитуваннях, консультаціях і тестуванні
-            інструментів.
+          <div class='select-text'>
+            {{ $t('pollText') }}
           </div>
         </div>
         <div class='select-block'>
           <div class='select-checkbox'>
             <input type='checkbox'>
-            <span>Новини Ладна Хата</span>
+            <span>{{ $t('newsLadnaHata') }}</span>
           </div>
           <div class='select-text'>
-            Новини компанії та пропозиції співпраці.
+            {{ $t('newsLadnaHataText') }}
           </div>
         </div>
         <div class='select-block'>
           <div class='select-checkbox'>
             <input type='checkbox'>
-            <span>Маркетингові пропозиції</span>
+            <span>{{ $t('marketingOffers') }}</span>
           </div>
           <div class='select-text'>
-            Періодично ми проводимо маркетингові активності та акції зі знижками, розіграшами,
-            промокодами та іншими інструментами, що можуть допомогти вам заощадити на покупці, підібрати подарунок собі
-            чи рідним.
+            {{ $t('marketingOffersText') }}
           </div>
         </div>
         <div class='select-block'>
           <div class='select-checkbox'>
             <input type='checkbox'>
-            <span>Рекомендації засновані на клієнтському досвіді</span>
+            <span>{{ $t('RecommendationsCustomersExperience') }}</span>
           </div>
           <div class='select-text'>
-            Наші алгоритми вивчають поведінку клієнтів. Ґрунтуючись на цій інформації, ми формуємо персональні,
-            своєчасні та вигідні пропозиції для підписника.
+            {{ $t('RecommendationsCustomersExperienceText') }}
           </div>
         </div>
       </div>
       <div class='select-container'>
-        <h4>Канали зв’язку</h4>
+        <h4>{{ $t('communicationChannels') }}</h4>
         <div class='select-block'>
           <div class='select-checkbox'>
             <input type='checkbox'>
-            <span>Email-листи</span>
+            <span>{{ $t('emailLists') }}</span>
           </div>
         </div>
         <div class='select-block'>
           <div class='select-checkbox'>
             <input type='checkbox'>
-            <span>Повідомлення у Viber</span>
+            <span>{{ $t('messageInViber') }}</span>
           </div>
         </div>
         <div class='select-block'>
           <div class='select-checkbox'>
             <input type='checkbox'>
-            <span>SMS-повідомлення</span>
+            <span>{{ $t('messageSms') }}</span>
           </div>
         </div>
         <div class='select-block'>
           <div class='select-checkbox'>
             <input type='checkbox'>
-            <span>Сповіщення у мобільному додатку</span>
+            <span>{{ $t('notificationsInMobileApp') }}</span>
           </div>
         </div>
         <div class='select-block'>
           <div class='select-checkbox'>
             <input type='checkbox'>
-            <span>Сповіщення у веб-браузері</span>
+            <span>{{ $t('notificationsInWebApp') }}</span>
           </div>
         </div>
       </div>

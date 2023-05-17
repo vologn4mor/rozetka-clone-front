@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1>Мой кошелек</h1>
+    <h1>{{ $t('myWallet') }}</h1>
     <div class='card first-block'>
-      <span>Підтвердіть номер телефону, щоб створити свій гаманець</span>
-      <ButtonProfile title='Підтвердити номер' style-btn='gray' />
+      <span>{{ $t('verifyYourPhoneNumber') }}</span>
+      <ButtonProfile :title='$t("confirmPhoneNumber")' style-btn='gray' />
     </div>
     <div class='cards-block'>
       <div class='card add-card'>
-        <ButtonProfile title='Додати картку' style-btn='gray' />
+        <ButtonProfile :title='$t("addCard")' style-btn='gray' />
       </div>
       <div class='cards-container'>
         <div class='card-info-block'>

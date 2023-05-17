@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h1>Мои заказы</h1>
+    <h1>{{ $t('myOrders') }}</h1>
     <div class='buttons'>
-      <button class='first-btn'>Всі замовлення</button>
-      <button class='second-btn'>Гарантія та повернення</button>
+      <button class='first-btn'>{{ $t('allOrders') }}</button>
+      <button class='second-btn'>{{ $t('guaranteeAndReturns') }}</button>
     </div>
     <div class='empty-window'>
       <img src='@/assets/images/Profile/orders-empty.svg' alt=''>
-      <h3>Список замовлень пустий</h3>
-      <p>Ви ще нічого не замовляли</p>
-      <nuxt-link :to='localePath("/")' class='first-btn'>Перейти на головну</nuxt-link>
+      <h3>{{ $t('ordersListEmpty') }}</h3>
+      <p>{{ $t('youHaveNotOrdered') }}</p>
+      <nuxt-link :to='localePath("/")' class='first-btn'>{{ $t('goToMain') }}</nuxt-link>
     </div>
   </div>
 </template>

@@ -10,27 +10,27 @@
           <hr>
           <div>
             <img src='@/assets/images/icons/profile/my-orders.svg' alt=''>
-            <span><nuxt-link :to='localePath("/profile/orders")'>Мои заказы</nuxt-link></span>
+            <span><nuxt-link :to='localePath("/profile/orders")'>{{ $t('myOrders') }}</nuxt-link></span>
           </div>
           <div>
             <img src='@/assets/images/icons/profile/favorite-list.svg' alt=''>
-            <span><nuxt-link :to='localePath("/profile/favorite")'>Список желаний</nuxt-link></span>
+            <span><nuxt-link :to='localePath("/profile/favorite")'>{{ $t('favoriteList') }}</nuxt-link></span>
           </div>
           <div>
             <img src='@/assets/images/icons/profile/checked-articles.svg' alt=''>
-            <span><nuxt-link :to='localePath("/profile/checked")'>Просмотренные товары</nuxt-link></span>
+            <span><nuxt-link :to='localePath("/profile/checked")'>{{ $t('checkedArticles') }}</nuxt-link></span>
           </div>
           <div>
             <img src='@/assets/images/icons/profile/my-bonuses.svg' alt=''>
-            <span><nuxt-link :to='localePath("/profile/bonuses")'>Мои бонусы</nuxt-link></span>
+            <span><nuxt-link :to='localePath("/profile/bonuses")'>{{ $t('myBonuses') }}</nuxt-link></span>
           </div>
           <div>
             <img src='@/assets/images/icons/profile/my-wallet.svg' alt=''>
-            <span><nuxt-link :to='localePath("/profile/wallet")'>Мой кошелек</nuxt-link></span>
+            <span><nuxt-link :to='localePath("/profile/wallet")'>{{ $t('myWallet') }}</nuxt-link></span>
           </div>
           <div>
             <img src='@/assets/images/icons/profile/mailing-lists.svg' alt=''>
-            <span><nuxt-link :to='localePath("/profile/mailing")'>Рассылки</nuxt-link></span>
+            <span><nuxt-link :to='localePath("/profile/mailing")'>{{ $t('mailingLists') }}</nuxt-link></span>
           </div>
         </div>
 

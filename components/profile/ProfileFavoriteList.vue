@@ -1,5 +1,5 @@
 <template>
-  <div><h1>Список желаний</h1></div>
+  <div><h1>{{ $t('favoriteList') }}</h1></div>
 </template>
 
 <script>

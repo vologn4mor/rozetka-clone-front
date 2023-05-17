@@ -13,16 +13,16 @@
     <div class='main-container'>
       <div class='filter-container'>
         <div>
-          <div><span class='bold'>Цiна</span></div>
+          <div><span class='bold'>{{ $t('price') }}</span></div>
           <div class='cost-inputs-container'>
-            <input value='' type='text' placeholder='вид' @input='minCost = Number($event.target.value)'>
+            <input value='' type='text' :placeholder='$t("from")' @input='minCost = Number($event.target.value)'>
             <span>&mdash;</span>
-            <input value='' type='text' placeholder='до' @input='maxCost = Number($event.target.value)'>
-            <button @click='filterFetch'>ok</button>
+            <input value='' type='text' :placeholder='$t("to")' @input='maxCost = Number($event.target.value)'>
+            <button @click='filterFetch'>OK</button>
           </div>
-          <div>
-            <span class='bold'>бренд</span>
-            <input v-model='searchBrand' type='text' placeholder='пошук'>
+          <div class='brands-search'>
+            <span class='bold'>{{ $t('brand') }}</span>
+            <input v-model='searchBrand' type='text' :placeholder='$t("search")'>
           </div>
           <div class='brands-list' v-if='filtredBrands'>
             <div v-for='item in filtredBrands' :key='item.id'>
@@ -44,16 +44,45 @@
           </div>
         </div>
       </div>
-      <div class='articles-container'>
-        <ProductOne
-          v-for='item in articles.data.articles'
-          :id='Number(item.id)'
-          :key='item.id'
-          :item-state='item.sell_status'
-          :cost='Number(item.price)'
-          :name='item.title'
-          :image='item.preview_img.url'
-        />
+      <div class='main-container-right'>
+        <div class='articles-container'>
+          <ProductOne
+            v-for='item in articles.data.articles'
+            :id='Number(item.id)'
+            :key='item.id'
+            :item-state='item.sell_status'
+            :cost='Number(item.price)'
+            :name='item.title'
+            :image='item.preview_img.url'
+          />
+        </div>
+        <div class='buttons-container'>
+          <!--          <small>{{ page }} / {{ articles.data.total_pages }} ({{ articles.data.total_goods }})-->
+          <!--            (({{ Math.floor(page / 7) }}))</small>-->
+          <button @click='switchPage(false)'>&lt;</button>
+          <div v-if='articles.data.total_pages > 8'>
+            <div>
+              <button v-for='item in 7' :key='item' :class='page === item ? "active-btn" : null' @click='page = item'>
+                {{ item }}
+              </button>
+              <button>
+                ...
+              </button>
+              <button :class='page === articles.data.total_pages ? "active-btn" : null'
+                      @click='page = articles.data.total_pages'>
+                {{ articles.data.total_pages }}
+              </button>
+            </div>
+          </div>
+          <div v-else>
+            <button v-for='item in articles.data.total_pages' :key='item' :class='page === item ? "active-btn" : null'
+                    @click='page = item'>
+              {{ item }}
+            </button>
+          </div>
+
+          <button @click='switchPage(true)'>&gt;</button>
+        </div>
       </div>
     </div>
   </div>
@@ -90,7 +119,7 @@ export default {
       const articles = await ctx.$axios.$get('/Goods/category-articles', {
         params: {
           category_id: ctx.route.params.podcat_id,
-          goods_on_page: 20,
+          goods_on_page: 10,
           page: 1,
         },
       });
@@ -131,11 +160,21 @@ export default {
       selectedChars: [],
       minCost: 0,
       maxCost: 0,
+      page: 1,
     };
   },
+  // computed: {
+  //   buttonsPagination: () => {
+  //     const buttons = []
+  //     for (let i = this.page; i)
+  //   }
+  // },
   watch: {
     searchBrand(val) {
       this.filtredBrands = this.brands.filter(item => item.name.toLowerCase().includes(val.toLowerCase()));
+    },
+    async page() {
+      await this.filterFetch(false);
     },
   },
   beforeMount() {
@@ -157,7 +196,7 @@ export default {
       if (value.length < 40) return value;
       return value.slice(0, 40) + '...';
     },
-    async filterFetch() {
+    async filterFetch(clearPage = true) {
       const brands = [];
       const filtres = [];
       this.filtredBrands.forEach(item => {
@@ -168,6 +207,8 @@ export default {
           if (val.isSelected) filtres.push(val.id);
         });
       });
+
+      if (clearPage) this.page = 1;
 
       const res = await this.$axios.$post('/Goods/category-articles', {
           values_id: filtres,
@@ -185,8 +226,8 @@ export default {
         {
           params: {
             category_id: this.$route.params.podcat_id,
-            goods_on_page: 20,
-            page: 1,
+            goods_on_page: 10,
+            page: this.page,
           },
         });
 
@@ -195,6 +236,16 @@ export default {
       // console.log(brands);
       // console.log(filtres);
       // console.log(res);
+    },
+    async switchPage(step) {
+      if (step) {
+        if (this.page === this.articles.data.total_pages) return;
+        this.page += 1;
+      } else {
+        if (this.page === 1) return;
+        this.page -= 1;
+      }
+      await this.filterFetch(false);
     },
   },
 };
@@ -206,11 +257,42 @@ export default {
   justify-content: space-evenly;
 }
 
+.main-container-right {
+  width: 100%;
+}
+
 .articles-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-content: start;
+  width: 100%;
+}
+
+.buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+
+  button {
+    //padding: 5px;
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    border-radius: 11px;
+    border: 2px solid $main-light-gray
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+
+  .active-btn {
+    background-color: $main-gray;
+    color: $main-light-gray;
+    border: 2px solid $main-gray
+  }
 }
 
 .main-container {
@@ -222,6 +304,10 @@ export default {
 }
 
 .filter-container {
+  max-width: 226px;
+  width: 100%;
+  margin-right: 20px;
+  padding: 0 6px;
 
   input {
     border-radius: 9px;
@@ -251,6 +337,7 @@ export default {
     input {
       max-width: 41px;
       text-align: center;
+      padding: 11px 16px;
     }
 
     input::placeholder {
@@ -260,6 +347,33 @@ export default {
     span {
       margin: 0 5px;
       color: $main-light-gray;
+    }
+
+    button {
+      margin-left: 10px;
+      border-radius: 11px;
+      border: none;
+      background-color: $main-light-gray;
+      padding: 11px 12px;
+      color: $main-gray;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      cursor: pointer;
+    }
+  }
+
+  .brands-search {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      padding: 11px 10px;
+    }
+
+    span {
+      margin: 10px 0 0 0;
     }
   }
 
