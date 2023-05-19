@@ -2,7 +2,7 @@
   <div class='footer'>
     <div class='footer-container'>
       <div class='footer-container-left'>
-        <span>LOGO</span>
+        <img src='~/assets/images/logo-footer.svg' alt=''>
         <img src='~/assets/images/HomePage/qr_code.png' alt='qrCode'>
       </div>
       <div class='footer-container-main'>
@@ -82,7 +82,7 @@ export default {
 
 <style scoped lang='scss'>
 .footer {
-  background-color: $main-dark-gray;
+  background-color: $lh-dark;
   width: 100%;
   color: $main-light-gray;
   padding: 38px 0;
@@ -104,6 +104,10 @@ export default {
       font-weight: 700;
       font-size: 32px;
       margin: 14px 0 28px 0;
+    }
+
+    img:first-child {
+      margin-bottom: 20px;
     }
 
     img {
@@ -128,11 +132,12 @@ export default {
         justify-content: space-between;
 
         span:first-child {
-          font-weight: bold;
+          color: $lh-accent-green;
         }
 
         span {
           margin-bottom: 10px;
+          color: $lh-white;
         }
       }
     }
@@ -142,6 +147,7 @@ export default {
       display: flex;
       width: 100%;
       justify-content: space-between;
+      color: $lh-white;
     }
   }
 

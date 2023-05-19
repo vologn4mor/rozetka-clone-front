@@ -5,6 +5,7 @@ export const state = () => ({
   headerLocate: [{ name: null, id: null }],
   cartItems: [],
   lastChecked: [],
+  favoriteItems: [],
 });
 
 export const mutations = {
@@ -18,6 +19,10 @@ export const mutations = {
     state.cartItems = payload;
     localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
   },
+  setFavoriteItems(state, payload) {
+    state.favoriteItems = payload;
+    localStorage.setItem('favoriteItems', JSON.stringify(state.favoriteItems));
+  },
   pushCartItem(state, payload) {
     if (state.cartItems.filter(item => item.id === payload).length > 0) {
       state.cartItems = state.cartItems.filter(item => item.id !== payload);
@@ -26,11 +31,26 @@ export const mutations = {
     }
     localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
   },
+  pushFavoriteItem(state, payload) {
+    console.log(payload);
+    if (state.favoriteItems.filter(item => item === payload).length > 0) {
+      state.favoriteItems = state.favoriteItems.filter(item => item !== payload);
+    } else {
+      state.favoriteItems.push(payload);
+    }
+    localStorage.setItem('favoriteItems', JSON.stringify(state.favoriteItems));
+  },
   removeCartItem(state, payload) {
     if (state.cartItems.filter(item => item.id === payload).length > 0) {
       state.cartItems = state.cartItems.filter(item => item.id !== payload);
     }
     localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+  },
+  removeFavoriteItem(state, payload) {
+    if (state.favoriteItems.filter(item => item === payload).length > 0) {
+      state.favoriteItems = state.favoriteItems.filter(item => item !== payload);
+    }
+    localStorage.setItem('cartItems', JSON.stringify(state.favoriteItems));
   },
   changeItemCount(state, payload) {
     state.cartItems = state.cartItems.map(item => {
@@ -63,6 +83,7 @@ export const getters = {
   headerLocate: s => s.headerLocate,
   cartItems: s => s.cartItems,
   lastChecked: s => s.lastChecked,
+  favoriteItems: s => s.favoriteItems,
 };
 
 export const actions = {
@@ -86,5 +107,10 @@ export const actions = {
     const lastChecked = JSON.parse(localStorage.getItem('lastChecked'));
     if (!lastChecked) return localStorage.setItem('lastChecked', JSON.stringify([]));
     commit('setLastChecked', lastChecked);
+  },
+  initFavoriteItems({ commit }) {
+    const favoriteItems = JSON.parse(localStorage.getItem('favoriteItems'));
+    if (!favoriteItems) return localStorage.setItem('favoriteItems', JSON.stringify([]));
+    commit('setFavoriteItems', favoriteItems);
   },
 };

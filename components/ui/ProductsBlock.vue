@@ -51,6 +51,8 @@ a {
   justify-content: space-between;
 
   .text {
+    color: $lh-accent-orange;
+    font-weight: bold;
     font-size: 18px;
     font-family: KyivTypeSans;
   }

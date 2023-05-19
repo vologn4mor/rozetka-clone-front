@@ -7,7 +7,7 @@
           <span>{{ $t('categories') }}</span>
         </div>
         <div class='header-logo' @click='routeTo("/")'>
-          <span>LOGO</span>
+          <img src='~assets/images/logo-header.svg' alt=''>
         </div>
         <div class='search-container'>
           <div class='search-input-container'>
@@ -183,7 +183,7 @@ export default {
 
 <style scoped lang='scss'>
 .header {
-  background-color: $main-dark-gray;
+  background-color: $lh-dark;
   height: 68px;
   width: 100%;
   position: sticky;
@@ -202,7 +202,7 @@ export default {
 }
 
 .categories-container {
-  background-color: $main-light-gray;
+  background-color: $lh-accent-green;
   width: 140px;
   height: 41px;
   border-radius: 109px;
@@ -216,6 +216,7 @@ export default {
 
   span {
     font-size: 20px;
+    color: $lh-white;
   }
 
 }
@@ -301,7 +302,7 @@ export default {
     .podCat-text {
       margin-bottom: 5px;
       font-size: 12px;
-      color: gray;
+      color: $lh-accent-orange;
     }
 
     .podCat-name:hover, .podCat-text:hover {
@@ -312,7 +313,7 @@ export default {
 }
 
 .header-logo {
-  margin-left: 49px;
+  margin-left: 5px;
 
   span {
     font-family: KyivTypeSans;
@@ -329,12 +330,12 @@ export default {
 .search-container {
   display: flex;
   align-items: center;
-  margin-left: 49px;
   max-width: 836px;
   width: 100%;
 
   .search-input-container {
-    background-color: $main-light-gray;
+    margin-left: 5px;
+    background-color: $lh-white;
     padding: 11.5px;
     border-radius: 151px 0 0 151px;
     justify-content: space-between;
@@ -349,7 +350,7 @@ export default {
     input {
       margin-left: 7px;
       border: none;
-      background-color: $main-light-gray;
+      background-color: $lh-white;
       width: 100%;
     }
 
@@ -361,8 +362,8 @@ export default {
 
   button {
     border: none;
-    color: $main-light-gray;
-    background-color: $main-gray;
+    color: $lh-white;
+    background-color: $lh-accent-green;
     padding: 12.4px 20px;
     border-radius: 0 151px 151px 0;
   }
@@ -373,7 +374,7 @@ export default {
 }
 
 .lang-selector-container {
-  color: $main-light-gray;
+  color: $lh-accent-green;
   font-size: 18px;
   display: flex;
   align-items: center;

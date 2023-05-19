@@ -188,7 +188,7 @@ export default {
 
         p {
           margin: 0 0 14px 0;
-          color: $main-gray;
+          color: $lh-accent-orange;
         }
 
         a {

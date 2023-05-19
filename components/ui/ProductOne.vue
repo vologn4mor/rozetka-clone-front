@@ -8,7 +8,13 @@
           :title='name'
           alt='ads'>
       </div>
-      <img id='favorite' src='~assets/images/icons/product-favorite.svg' alt='favorite' class='favorite'>
+      <client-only>
+        <img
+          id='favorite'
+          :src='isInFavoriteList ? favoriteRemoveIcon : favoriteAddIcon'
+          alt='favorite'
+          class='favorite'>
+      </client-only>
       <client-only>
         <img
           id='cart'
@@ -32,6 +38,8 @@ src='https://www.vodafone.com.au/images/devices/samsung/samsung-s23-plus/samsung
 import { mapGetters, mapMutations } from 'vuex';
 import cartIconMinus from '@/assets/images/icons/item-cart-minus.svg';
 import cartIconPlus from '@/assets/images/icons/item-cart-plus.svg';
+import favoriteAddIcon from '@/assets/images/icons/product-favorite.svg';
+import favoriteRemoveIcon from '@/assets/images/icons/profile/favorite-list.svg';
 
 
 export default {
@@ -64,16 +72,24 @@ export default {
     return {
       cartIconMinus,
       cartIconPlus,
+      favoriteAddIcon,
+      favoriteRemoveIcon,
     };
   },
   computed: {
-    ...mapGetters({ cartItems: 'cartItems' }),
+    ...mapGetters({ cartItems: 'cartItems', favoriteItems: 'favoriteItems' }),
     isInCartItems() {
       return this.cartItems.filter(item => item.id === this.id).length;
     },
+    isInFavoriteList() {
+      return this.favoriteItems.filter(item => item === this.id).length;
+    },
   },
   methods: {
-    ...mapMutations({ pushCartItem: 'pushCartItem' }),
+    ...mapMutations({
+      pushCartItem: 'pushCartItem',
+      pushFavoriteItem: 'pushFavoriteItem',
+    }),
     cuttedName(value) {
       if (value.length < 22) return value;
       return value.slice(0, 22) + '...';
@@ -83,6 +99,7 @@ export default {
       switch (event.target.id) {
         case 'favorite':
           // TODO favorite
+          this.pushFavoriteItem(this.id);
           break;
         case 'cart':
           // TODO cart
@@ -108,7 +125,7 @@ p {
 
 .product {
   border-radius: 10px;
-  background-color: $main-light-gray;
+  background-color: $lh-gray;
   height: 284px;
   width: 226px;
   display: flex;
@@ -147,6 +164,8 @@ p {
   position: relative;
   top: -182px;
   left: 186px;
+  width: 22px;
+  height: 22px;
 }
 
 .cart {
@@ -162,11 +181,12 @@ p {
   margin-left: 5px;
 
   .cost {
+    color: $lh-accent-orange;
     font-family: Mariupol-Bold;
   }
 
   .state {
-    color: $main-gray;
+    color: $lh-accent-green;
   }
 }
 
