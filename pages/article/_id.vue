@@ -825,7 +825,7 @@ export default {
 
     span {
       padding: 13px 40px;
-      background-color: $light-gray;
+      background-color: #EEEBE780;;
       border-radius: 15px 15px 0 0;
     }
 
@@ -834,12 +834,12 @@ export default {
     }
 
     .active-button {
-      background-color: $main-light-gray;
+      background-color: $lh-gray;
     }
   }
 
   .info-text {
-    background: $main-light-gray;
+    background: $lh-gray;
     padding: 1rem;
     max-height: 355px;
     height: auto;
@@ -859,7 +859,7 @@ export default {
     bottom: 0;
     width: 100%;
     height: 40px;
-    background: linear-gradient(180deg, transparent, $main-light-gray 50%);
+    background: linear-gradient(180deg, transparent, $lh-gray 50%);
   }
 
   .opened-info-text {
@@ -1027,7 +1027,7 @@ export default {
   }
 
   .reviews-container {
-    border: 3px solid $main-light-gray;
+    border: 3px solid $lh-gray;
     border-radius: 11px;
 
     .reviews-header {
@@ -1048,7 +1048,7 @@ export default {
       .write-review-btn {
         display: flex;
         align-items: center;
-        background-color: $main-dark-gray;
+        background-color: $lh-accent-green;
         padding: 8px 12px;
         border-radius: 11px;
 
@@ -1057,7 +1057,7 @@ export default {
         }
 
         span {
-          color: $main-light-gray;
+          color: $lh-gray;
           font-size: 18px;
         }
       }
@@ -1076,14 +1076,14 @@ export default {
 
       .reviews-list-item {
         margin: 10px 0;
-        border: 3px solid $main-light-gray;
+        border: 3px solid $lh-gray;
         border-radius: 15px;
 
         .reviews-list-item-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          background-color: $main-light-gray;
+          background-color: $lh-gray;
           padding: 10px;
           border-radius: 11px 11px 0 0;
 
@@ -1177,14 +1177,14 @@ export default {
     }
 
     .reviews-list::-webkit-scrollbar-track {
-      background: $main-light-gray; /* цвет зоны отслеживания */
+      background: $lh-gray; /* цвет зоны отслеживания */
       border-radius: 20px;
     }
 
     .reviews-list::-webkit-scrollbar-thumb {
-      background-color: $main-gray; /* цвет бегунка */
+      background-color: $lh-accent-green; /* цвет бегунка */
       border-radius: 20px; /* округлось бегунка */
-      border: 3px solid $main-light-gray; /* отступ вокруг бегунка */
+      border: 3px solid $lh-gray; /* отступ вокруг бегунка */
       margin: 6px;
     }
   }

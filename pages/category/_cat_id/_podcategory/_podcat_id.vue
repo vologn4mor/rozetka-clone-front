@@ -24,10 +24,13 @@
             <span class='bold'>{{ $t('brand') }}</span>
             <input v-model='searchBrand' type='text' :placeholder='$t("search")'>
           </div>
-          <div class='brands-list' v-if='filtredBrands'>
-            <div v-for='item in filtredBrands' :key='item.id'>
-              <input v-model='item.isSelected' type='checkbox' />
-              <small>{{ item.name }}</small>
+          <div v-if='filtredBrands' class='brands-list'>
+            <div v-for='item in filtredBrands' :key='item.id' class='checkbox-container'>
+              <div>
+                <input :id='item.id' v-model='item.isSelected' type='checkbox' class='checkbox' />
+                <label :for='item.id'></label>
+                <span>{{ item.name }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -36,10 +39,11 @@
             <p>{{ item.name }}</p>
             <img src='~assets/images/icons/category-arrow.svg' alt='' :class='item.isOpened ? "opened-filter" : null'>
           </div>
-          <div v-for='value in item.values' :key='value.id' style='max-width: 258px'>
+          <div v-for='value in item.values' :key='value.id' style='max-width: 258px' class='checkbox-container'>
             <div :class='!item.isOpened ? "hide" : null'>
-              <input v-model='value.isSelected' type='checkbox' />
-              <small>{{ clearText(value.name) }}</small>
+              <input :id='value.id' v-model='value.isSelected' type='checkbox' class='checkbox' />
+              <label :for='value.id'></label>
+              <span>{{ clearText(value.name) }}</span>
             </div>
           </div>
         </div>
@@ -68,15 +72,18 @@
               <button>
                 ...
               </button>
-              <button :class='page === articles.data.total_pages ? "active-btn" : null'
-                      @click='page = articles.data.total_pages'>
+              <button
+                :class='page === articles.data.total_pages ? "active-btn" : null'
+                @click='page = articles.data.total_pages'>
                 {{ articles.data.total_pages }}
               </button>
             </div>
           </div>
           <div v-else>
-            <button v-for='item in articles.data.total_pages' :key='item' :class='page === item ? "active-btn" : null'
-                    @click='page = item'>
+            <button
+              v-for='item in articles.data.total_pages'
+              :key='item' :class='page === item ? "active-btn" : null'
+              @click='page = item'>
               {{ item }}
             </button>
           </div>
@@ -252,6 +259,30 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+
+input[type="checkbox"] + label {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid $lh-accent-green;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label:after {
+  position: relative;
+  top: -2px;
+  left: 2px;
+  content: '\2714';
+  color: $lh-accent-orange;
+  font-size: 14px;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+
 .podcats-block {
   display: flex;
   justify-content: space-evenly;
@@ -299,8 +330,20 @@ export default {
   display: flex;
 }
 
+.checkbox-container {
+  div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+
+    span {
+      margin-left: 5px;
+    }
+  }
+}
+
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .filter-container {
@@ -353,9 +396,9 @@ export default {
       margin-left: 10px;
       border-radius: 11px;
       border: none;
-      background-color: $main-light-gray;
+      background-color: $lh-accent-green;
       padding: 11px 12px;
-      color: $main-gray;
+      color: $lh-white;
       text-transform: uppercase;
     }
 
