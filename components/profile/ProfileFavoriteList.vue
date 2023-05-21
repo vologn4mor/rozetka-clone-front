@@ -9,6 +9,7 @@
         :key='item.id'
         :item-state='item.sell_status'
         :cost='Number(item.price)'
+        :cost-old='Number(item.old_price)'
         :name='item.title'
         :image='item.preview_img.url'
       />

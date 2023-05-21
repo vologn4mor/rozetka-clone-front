@@ -25,7 +25,16 @@
     </div>
     <div class='product-info'>
       <p class='name'>{{ cuttedName(name) }}</p>
-      <p class='cost'>{{ cost }}₴</p>
+      <!--      <p class='cost'>{{ cost }}₴</p>-->
+      <div v-if='costOld' style='display: flex; align-items: center'>
+        <p class='cost orange'>{{ cost.toLocaleString('ru-RU') }}₴</p>
+        <span class='old-cost'>{{ costOld.toLocaleString('ru-RU') }}₴</span>
+      </div>
+      <div v-else>
+        <p class='cost' style='margin: 8px 5px;'>
+          {{ cost.toLocaleString('ru-RU') }}₴
+        </p>
+      </div>
       <p class='state'>{{ $t(itemState) }}</p>
     </div>
   </div>
@@ -57,6 +66,11 @@ export default {
     cost: {
       type: Number,
       required: true,
+    },
+    costOld: {
+      type: Number,
+      required: false,
+      default: 0,
     },
     itemState: {
       type: String,
@@ -120,7 +134,8 @@ export default {
 <style scoped lang='scss'>
 
 p {
-  margin: 8px 5px;
+  //margin: 8px 5px;
+  margin: 4px 5px;
 }
 
 .product {
@@ -181,8 +196,16 @@ p {
   margin-left: 5px;
 
   .cost {
-    color: $lh-accent-orange;
     font-family: Mariupol-Bold;
+  }
+
+  .orange {
+    color: $lh-accent-orange;
+  }
+
+  .old-cost {
+    font-size: 12px;
+    text-decoration: line-through;
   }
 
   .state {

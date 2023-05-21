@@ -47,7 +47,7 @@
             alt='cart'
           >
         </nuxt-link>
-        <nuxt-link :to='localePath("/profile/orders")'>
+        <nuxt-link :to='localePath("/profile")'>
           <img src='~assets/images/icons/header/user.svg' alt='user'>
         </nuxt-link>
       </div>
@@ -267,7 +267,7 @@ export default {
     }
 
     .active {
-      background-color: $main-light-gray;
+      background-color: $lh-gray;
     }
 
     .item-name:hover {

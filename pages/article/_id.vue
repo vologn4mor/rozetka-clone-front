@@ -62,7 +62,7 @@
         <AppCard width='710'>
           <div class='right-first'>
             <div class='right-first-item'>
-              <span>{{ article.price }}₴</span>
+              <span>{{ Number(article.price).toLocaleString('ru-RU') }}₴</span>
               <span>{{ $t('productRating') }}4.0</span>
               <div>
                 <img src='~assets/images/icons/ArticlePage/star-filled-black.svg' alt=''>
