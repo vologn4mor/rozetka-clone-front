@@ -217,7 +217,7 @@ export default {
 
       if (clearPage) this.page = 1;
 
-      const res = await this.$axios.$post('/Goods/category-articles', {
+      this.articles = await this.$axios.$post('/Goods/category-articles', {
           values_id: filtres,
           brands_id: brands,
           slider_values: [
@@ -238,7 +238,7 @@ export default {
           },
         });
 
-      this.articles = res;
+      // this.articles = res;
       //
       // console.log(brands);
       // console.log(filtres);
@@ -296,7 +296,7 @@ input[type="checkbox"] {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  align-content: start;
+  align-content: flex-start;
   width: 100%;
 }
 
@@ -446,7 +446,7 @@ input[type="checkbox"] {
 
   .brands-list::-webkit-scrollbar {
     width: 6px; /* ширина всей полосы прокрутки */
-    margin: 0px;
+    margin: 0;
   }
 
   .brands-list::-webkit-scrollbar-track {
@@ -457,7 +457,7 @@ input[type="checkbox"] {
   .brands-list::-webkit-scrollbar-thumb {
     background-color: #B0B1BA; /* цвет бегунка */
     border-radius: 20px; /* округлось бегунка */
-    border: 0px solid $main-light-gray; /* отступ вокруг бегунка */
+    border: 0 solid $main-light-gray; /* отступ вокруг бегунка */
     margin: 6px;
   }
 }

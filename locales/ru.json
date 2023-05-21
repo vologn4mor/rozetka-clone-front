@@ -131,5 +131,6 @@
   "messageInViber": "Сообщения в Viber",
   "messageSms": "SMS-сообщения",
   "notificationsInMobileApp": "Уведомления в мобильном приложении",
-  "notificationsInWebApp": "Уведомления в веб-браузере"
+  "notificationsInWebApp": "Уведомления в веб-браузере",
+  "continue": "Продолжить"
 }

@@ -42,4 +42,9 @@ button:hover {
   color: $main-gray;
 }
 
+.green {
+  background-color: $lh-accent-green;
+  color: $lh-white;
+}
+
 </style>

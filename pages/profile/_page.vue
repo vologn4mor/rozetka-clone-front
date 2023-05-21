@@ -5,7 +5,7 @@
         <div class='card-content'>
           <div>
             <img src='@/assets/images/icons/profile/user.svg' alt=''>
-            <span>Имя Фамилия</span>
+            <span><nuxt-link :to='localePath("/profile")'>Имя Фамилия</nuxt-link></span>
           </div>
           <hr>
           <div>
@@ -37,9 +37,9 @@
       </AppCard>
     </div>
     <div class='profile-page'>
+      <ProfilePersonalData v-if="$route.path === localePath('/profile')" />
       <ProfileMyOrders
-        v-if="$route.path === localePath('/profile/orders') ||
-              $route.path === localePath('/profile')" />
+        v-if="$route.path === localePath('/profile/orders')" />
       <ProfileFavoriteList v-if="$route.path === localePath('/profile/favorite')" />
       <ProfileCheckedArticles v-if="$route.path === localePath('/profile/checked')" />
       <ProfileMyBonuses v-if="$route.path === localePath('/profile/bonuses')" />
@@ -108,7 +108,7 @@ export default {
   width: 100%;
 }
 
-a.nuxt-link-active {
+a.nuxt-link-exact-active {
   font-weight: bold;
 }
 </style>

@@ -10,7 +10,7 @@
         <span>+380 </span>
         <input ref='inputNumber' type='tel' />
       </div>
-      <nuxt-link :to='localePath("/")' class='first-btn'>{{ $t('sendSmsCode') }}</nuxt-link>
+      <nuxt-link :to='localePath("/")' class='first-btn'>{{ $t('continue') }}</nuxt-link>
     </div>
   </div>
 </template>
@@ -54,8 +54,9 @@ h1 {
 }
 
 .first-btn {
-  background-color: $main-gray;
-  color: $main-light-gray;
+  background-color: $lh-accent-green;
+  color: $lh-white;
+  text-align: center;
 }
 
 button, a {

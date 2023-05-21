@@ -54,13 +54,13 @@ button:hover {
 }
 
 .first-btn {
-  background-color: $main-gray;
-  color: $main-light-gray;
+  background-color: $lh-accent-green;
+  color: $lh-white;
 }
 
 .second-btn {
-  background-color: $main-light-gray;
-  color: $main-gray;
+  background-color: #7C7B89;
+  color: $lh-white;
   margin-left: 16px;
 }
 
