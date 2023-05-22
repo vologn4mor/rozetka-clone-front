@@ -1,16 +1,16 @@
 <template>
   <div>
-    <h1>Мои бонусы</h1>
+    <h1>{{ $t('myBonuses') }}</h1>
     <div class='empty-window'>
       <img src='@/assets/images/Profile/my-bonuses.svg' alt=''>
-      <h3>Активуй бонусний рахунок за хвилину!</h3>
-      <p>На вказаний номер буде висланий(о) SMS або Viber повідомлення з кодом підтвердження</p>
+      <h3>{{ $t('activateBonusAccForMin') }}</h3>
+      <p>{{ $t('smsOrViberSendMessageWithCode') }}</p>
       <div class='custom-input' @click='$refs.inputNumber.focus()'>
         <img src='@/assets/images/Profile/ua.png' alt=''>
         <span>+380 </span>
         <input ref='inputNumber' type='tel' />
       </div>
-      <nuxt-link :to='localePath("/")' class='first-btn'>Послати SMS повидомлення</nuxt-link>
+      <nuxt-link :to='localePath("/")' class='first-btn'>{{ $t('continue') }}</nuxt-link>
     </div>
   </div>
 </template>
@@ -54,8 +54,9 @@ h1 {
 }
 
 .first-btn {
-  background-color: $main-gray;
-  color: $main-light-gray;
+  background-color: $lh-accent-green;
+  color: $lh-white;
+  text-align: center;
 }
 
 button, a {

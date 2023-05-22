@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if='!$fetchState.pending'>
-      <h1>Просмотренные товары</h1>
+      <h1>{{ $t('checkedArticles') }}</h1>
       <div class='product-list'>
         <ProductOne
           v-for='item in items'
@@ -9,6 +9,7 @@
           :key='item.id'
           :item-state='item.sell_status'
           :cost='Number(item.price)'
+          :cost-old='Number(item.old_price)'
           :name='item.title'
           :image='item.preview_img.url'
         />

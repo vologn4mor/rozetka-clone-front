@@ -1,56 +1,62 @@
 <template>
-  <div class='profile-container'>
-    <div class='profile-menu'>
-      <AppCard>
-        <div class='card-content'>
-          <div>
-            <img src='@/assets/images/icons/profile/user.svg' alt=''>
-            <span>Имя Фамилия</span>
+  <client-only>
+    <div v-if='user' class='profile-container'>
+      <div class='profile-menu'>
+        <AppCard>
+          <div class='card-content'>
+            <div>
+              <img src='@/assets/images/icons/profile/user.svg' alt=''>
+              <span><nuxt-link :to='localePath("/profile")'>{{ user.first_name }} {{ user.last_name
+                }}</nuxt-link></span>
+            </div>
+            <hr>
+            <div>
+              <img src='@/assets/images/icons/profile/my-orders.svg' alt=''>
+              <span><nuxt-link :to='localePath("/profile/orders")'>{{ $t('myOrders') }}</nuxt-link></span>
+            </div>
+            <div>
+              <img src='@/assets/images/icons/profile/favorite-list.svg' alt=''>
+              <span><nuxt-link :to='localePath("/profile/favorite")'>{{ $t('favoriteList') }}</nuxt-link></span>
+            </div>
+            <div>
+              <img src='@/assets/images/icons/profile/checked-articles.svg' alt=''>
+              <span><nuxt-link :to='localePath("/profile/checked")'>{{ $t('checkedArticles') }}</nuxt-link></span>
+            </div>
+            <div>
+              <img src='@/assets/images/icons/profile/my-bonuses.svg' alt=''>
+              <span><nuxt-link :to='localePath("/profile/bonuses")'>{{ $t('myBonuses') }}</nuxt-link></span>
+            </div>
+            <div>
+              <img src='@/assets/images/icons/profile/my-wallet.svg' alt=''>
+              <span><nuxt-link :to='localePath("/profile/wallet")'>{{ $t('myWallet') }}</nuxt-link></span>
+            </div>
+            <div>
+              <img src='@/assets/images/icons/profile/mailing-lists.svg' alt=''>
+              <span><nuxt-link :to='localePath("/profile/mailing")'>{{ $t('mailingLists') }}</nuxt-link></span>
+            </div>
+            <div>
+              <span style='margin-left: 29px' @click='logoutHandler'>Выход</span>
+            </div>
           </div>
-          <hr>
-          <div>
-            <img src='@/assets/images/icons/profile/my-orders.svg' alt=''>
-            <span><nuxt-link :to='localePath("/profile/orders")'>Мои заказы</nuxt-link></span>
-          </div>
-          <div>
-            <img src='@/assets/images/icons/profile/favorite-list.svg' alt=''>
-            <span><nuxt-link :to='localePath("/profile/favorite")'>Список желаний</nuxt-link></span>
-          </div>
-          <div>
-            <img src='@/assets/images/icons/profile/checked-articles.svg' alt=''>
-            <span><nuxt-link :to='localePath("/profile/checked")'>Просмотренные товары</nuxt-link></span>
-          </div>
-          <div>
-            <img src='@/assets/images/icons/profile/my-bonuses.svg' alt=''>
-            <span><nuxt-link :to='localePath("/profile/bonuses")'>Мои бонусы</nuxt-link></span>
-          </div>
-          <div>
-            <img src='@/assets/images/icons/profile/my-wallet.svg' alt=''>
-            <span><nuxt-link :to='localePath("/profile/wallet")'>Мой кошелек</nuxt-link></span>
-          </div>
-          <div>
-            <img src='@/assets/images/icons/profile/mailing-lists.svg' alt=''>
-            <span><nuxt-link :to='localePath("/profile/mailing")'>Рассылки</nuxt-link></span>
-          </div>
-        </div>
 
-      </AppCard>
+        </AppCard>
+      </div>
+      <div class='profile-page'>
+        <ProfilePersonalData v-if="$route.path === localePath('/profile')" />
+        <ProfileMyOrders
+          v-if="$route.path === localePath('/profile/orders')" />
+        <ProfileFavoriteList v-if="$route.path === localePath('/profile/favorite')" />
+        <ProfileCheckedArticles v-if="$route.path === localePath('/profile/checked')" />
+        <ProfileMyBonuses v-if="$route.path === localePath('/profile/bonuses')" />
+        <ProfileMyWallet v-if="$route.path === localePath('/profile/wallet')" />
+        <ProfileMailingLists v-if="$route.path === localePath('/profile/mailing')" />
+      </div>
     </div>
-    <div class='profile-page'>
-      <ProfileMyOrders
-        v-if="$route.path === localePath('/profile/orders') ||
-              $route.path === localePath('/profile')" />
-      <ProfileFavoriteList v-if="$route.path === localePath('/profile/favorite')" />
-      <ProfileCheckedArticles v-if="$route.path === localePath('/profile/checked')" />
-      <ProfileMyBonuses v-if="$route.path === localePath('/profile/bonuses')" />
-      <ProfileMyWallet v-if="$route.path === localePath('/profile/wallet')" />
-      <ProfileMailingLists v-if="$route.path === localePath('/profile/mailing')" />
-    </div>
-  </div>
+  </client-only>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import AppCard from '@/components/ui/AppCard.vue';
 
 
@@ -60,13 +66,26 @@ export default {
   data() {
     return {};
   },
+  computed: {
+    ...mapGetters('user', {
+      user: 'user',
+    }),
+  },
   beforeMount() {
+    if (!this.user) this.$router.push(this.localePath('/'));
     this.setHeaderLocate([{ name: 'myOrders' }]);
   },
   methods: {
     ...mapMutations({
       setHeaderLocate: 'setHeaderLocate',
     }),
+    ...mapActions('user', {
+      logout: 'logout',
+    }),
+    async logoutHandler() {
+      await this.$router.push(this.localePath('/'));
+      this.logout();
+    },
   },
 };
 </script>
@@ -108,7 +127,7 @@ export default {
   width: 100%;
 }
 
-a.nuxt-link-active {
+a.nuxt-link-exact-active {
   font-weight: bold;
 }
 </style>

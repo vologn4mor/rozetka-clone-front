@@ -48,7 +48,7 @@ export default {
 
 .slick-list {
   height: 100%;
-  background-color: $main-light-gray;
+  background-color: $lh-gray;
   border-radius: 15px;
 }
 

@@ -21,6 +21,7 @@
         :key='item.id'
         :item-state='item.sell_status'
         :cost='Number(item.price)'
+        :cost-old='Number(item.old_price)'
         :name='item.title'
         :image='item.preview_img.url'
       />
@@ -76,6 +77,7 @@
         :key='item.id'
         :item-state='item.sell_status'
         :cost='Number(item.price)'
+        :cost-old='Number(item.old_price)'
         :name='item.title'
         :image='item.preview_img.url'
       />
@@ -87,6 +89,7 @@
         :key='item.id'
         :item-state='item.sell_status'
         :cost='Number(item.price)'
+        :cost-old='Number(item.old_price)'
         :name='item.title'
         :image='item.preview_img.url'
       />
@@ -188,7 +191,7 @@ export default {
 
         p {
           margin: 0 0 14px 0;
-          color: $main-gray;
+          color: $lh-accent-orange;
         }
 
         a {

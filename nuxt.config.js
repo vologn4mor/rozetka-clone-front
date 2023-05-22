@@ -42,7 +42,7 @@ export default {
   css: ['~assets/scss/colors.scss', '~assets/css/normalize.css'],
 
   loading: {
-    color: '#D2D4E9',
+    color: '#F45D48',
     height: '2px',
   },
 

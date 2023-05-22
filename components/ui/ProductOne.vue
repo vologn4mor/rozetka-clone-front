@@ -8,7 +8,13 @@
           :title='name'
           alt='ads'>
       </div>
-      <img id='favorite' src='~assets/images/icons/product-favorite.svg' alt='favorite' class='favorite'>
+      <client-only>
+        <img
+          id='favorite'
+          :src='isInFavoriteList ? favoriteRemoveIcon : favoriteAddIcon'
+          alt='favorite'
+          class='favorite'>
+      </client-only>
       <client-only>
         <img
           id='cart'
@@ -19,7 +25,16 @@
     </div>
     <div class='product-info'>
       <p class='name'>{{ cuttedName(name) }}</p>
-      <p class='cost'>{{ cost }}₴</p>
+      <!--      <p class='cost'>{{ cost }}₴</p>-->
+      <div v-if='costOld' style='display: flex; align-items: center'>
+        <p class='cost orange'>{{ cost.toLocaleString('ru-RU') }}₴</p>
+        <span class='old-cost'>{{ costOld.toLocaleString('ru-RU') }}₴</span>
+      </div>
+      <div v-else>
+        <p class='cost' style='margin: 8px 5px;'>
+          {{ cost.toLocaleString('ru-RU') }}₴
+        </p>
+      </div>
       <p class='state'>{{ $t(itemState) }}</p>
     </div>
   </div>
@@ -32,6 +47,8 @@ src='https://www.vodafone.com.au/images/devices/samsung/samsung-s23-plus/samsung
 import { mapGetters, mapMutations } from 'vuex';
 import cartIconMinus from '@/assets/images/icons/item-cart-minus.svg';
 import cartIconPlus from '@/assets/images/icons/item-cart-plus.svg';
+import favoriteAddIcon from '@/assets/images/icons/product-favorite.svg';
+import favoriteRemoveIcon from '@/assets/images/icons/profile/favorite-list.svg';
 
 
 export default {
@@ -50,6 +67,11 @@ export default {
       type: Number,
       required: true,
     },
+    costOld: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
     itemState: {
       type: String,
       required: true,
@@ -64,16 +86,24 @@ export default {
     return {
       cartIconMinus,
       cartIconPlus,
+      favoriteAddIcon,
+      favoriteRemoveIcon,
     };
   },
   computed: {
-    ...mapGetters({ cartItems: 'cartItems' }),
+    ...mapGetters({ cartItems: 'cartItems', favoriteItems: 'favoriteItems' }),
     isInCartItems() {
       return this.cartItems.filter(item => item.id === this.id).length;
     },
+    isInFavoriteList() {
+      return this.favoriteItems.filter(item => item === this.id).length;
+    },
   },
   methods: {
-    ...mapMutations({ pushCartItem: 'pushCartItem' }),
+    ...mapMutations({
+      pushCartItem: 'pushCartItem',
+      pushFavoriteItem: 'pushFavoriteItem',
+    }),
     cuttedName(value) {
       if (value.length < 22) return value;
       return value.slice(0, 22) + '...';
@@ -83,6 +113,7 @@ export default {
       switch (event.target.id) {
         case 'favorite':
           // TODO favorite
+          this.pushFavoriteItem(this.id);
           break;
         case 'cart':
           // TODO cart
@@ -103,12 +134,13 @@ export default {
 <style scoped lang='scss'>
 
 p {
-  margin: 8px 5px;
+  //margin: 8px 5px;
+  margin: 4px 5px;
 }
 
 .product {
   border-radius: 10px;
-  background-color: $main-light-gray;
+  background-color: $lh-gray;
   height: 284px;
   width: 226px;
   display: flex;
@@ -147,6 +179,8 @@ p {
   position: relative;
   top: -182px;
   left: 186px;
+  width: 22px;
+  height: 22px;
 }
 
 .cart {
@@ -165,8 +199,17 @@ p {
     font-family: Mariupol-Bold;
   }
 
+  .orange {
+    color: $lh-accent-orange;
+  }
+
+  .old-cost {
+    font-size: 12px;
+    text-decoration: line-through;
+  }
+
   .state {
-    color: $main-gray;
+    color: $lh-accent-green;
   }
 }
 

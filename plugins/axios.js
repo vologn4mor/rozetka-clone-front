@@ -4,7 +4,7 @@ let refreshPromise = null;
 export default function({ $axios, redirect, store, app }) {
 
 
-  $axios.defaults.baseURL = process.env.apiBaseUrl;
+  $axios.defaults.baseURL = process.env.apiBaseUrl + 'api/';
 
   $axios.onRequest(config => {
     Debug.log('>>> axios > onRequest:', config);

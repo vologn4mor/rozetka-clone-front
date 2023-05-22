@@ -1,81 +1,87 @@
 <template>
   <div>
-    <h1>Рассылки</h1>
+    <h1>{{ $t('mailingLists') }}</h1>
     <hr>
 
     <div class='container'>
       <div class='select-container'>
-        <h4>Види розсилок</h4>
+        <h4>{{ $t('typesMailing') }}</h4>
         <div class='select-block'>
           <div class='select-checkbox'>
-            <input type='checkbox'>
-            <span>Опитуванния</span>
+            <input id='1' type='checkbox'>
+            <label for='1'></label>
+            <span>{{ $t('poll') }}</span>
           </div>
-          <div class='select-text'>Отримуйте запрошення для участі в опитуваннях, консультаціях і тестуванні
-            інструментів.
+          <div class='select-text'>
+            {{ $t('pollText') }}
           </div>
         </div>
         <div class='select-block'>
           <div class='select-checkbox'>
-            <input type='checkbox'>
-            <span>Новини Ладна Хата</span>
+            <input id='2' type='checkbox'>
+            <label for='2'></label>
+            <span>{{ $t('newsLadnaHata') }}</span>
           </div>
           <div class='select-text'>
-            Новини компанії та пропозиції співпраці.
+            {{ $t('newsLadnaHataText') }}
           </div>
         </div>
         <div class='select-block'>
           <div class='select-checkbox'>
-            <input type='checkbox'>
-            <span>Маркетингові пропозиції</span>
+            <input id='3' type='checkbox'>
+            <label for='3'></label>
+            <span>{{ $t('marketingOffers') }}</span>
           </div>
           <div class='select-text'>
-            Періодично ми проводимо маркетингові активності та акції зі знижками, розіграшами,
-            промокодами та іншими інструментами, що можуть допомогти вам заощадити на покупці, підібрати подарунок собі
-            чи рідним.
+            {{ $t('marketingOffersText') }}
           </div>
         </div>
         <div class='select-block'>
           <div class='select-checkbox'>
-            <input type='checkbox'>
-            <span>Рекомендації засновані на клієнтському досвіді</span>
+            <input id='4' type='checkbox'>
+            <label for='4'></label>
+            <span>{{ $t('RecommendationsCustomersExperience') }}</span>
           </div>
           <div class='select-text'>
-            Наші алгоритми вивчають поведінку клієнтів. Ґрунтуючись на цій інформації, ми формуємо персональні,
-            своєчасні та вигідні пропозиції для підписника.
+            {{ $t('RecommendationsCustomersExperienceText') }}
           </div>
         </div>
       </div>
       <div class='select-container'>
-        <h4>Канали зв’язку</h4>
+        <h4>{{ $t('communicationChannels') }}</h4>
         <div class='select-block'>
           <div class='select-checkbox'>
-            <input type='checkbox'>
-            <span>Email-листи</span>
+            <input id='5' type='checkbox'>
+            <label for='5'></label>
+            <span>{{ $t('emailLists') }}</span>
           </div>
         </div>
         <div class='select-block'>
           <div class='select-checkbox'>
-            <input type='checkbox'>
-            <span>Повідомлення у Viber</span>
+            <input id='6' type='checkbox'>
+            <label for='6'></label>
+            <span>{{ $t('messageInViber') }}</span>
           </div>
         </div>
         <div class='select-block'>
           <div class='select-checkbox'>
-            <input type='checkbox'>
-            <span>SMS-повідомлення</span>
+            <input id='7' type='checkbox'>
+            <label for='7'></label>
+            <span>{{ $t('messageSms') }}</span>
           </div>
         </div>
         <div class='select-block'>
           <div class='select-checkbox'>
-            <input type='checkbox'>
-            <span>Сповіщення у мобільному додатку</span>
+            <input id='8' type='checkbox'>
+            <label for='8'></label>
+            <span>{{ $t('notificationsInMobileApp') }}</span>
           </div>
         </div>
         <div class='select-block'>
           <div class='select-checkbox'>
-            <input type='checkbox'>
-            <span>Сповіщення у веб-браузері</span>
+            <input id='9' type='checkbox'>
+            <label for='9'></label>
+            <span>{{ $t('notificationsInWebApp') }}</span>
           </div>
         </div>
       </div>
@@ -124,6 +130,10 @@ h4 {
   .select-block {
     max-width: 484px;
     margin-top: 24px;
+
+    span {
+      margin-left: 5px;
+    }
   }
 
   .select-checkbox {
@@ -139,5 +149,27 @@ h4 {
     margin-top: 7px;
     color: $main-gray;
   }
+}
+
+input[type="checkbox"] + label {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid $lh-accent-green;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label:after {
+  position: relative;
+  top: -2px;
+  left: 2px;
+  content: '\2714';
+  color: $lh-accent-orange;
+  font-size: 14px;
+}
+
+input[type="checkbox"] {
+  display: none;
 }
 </style>

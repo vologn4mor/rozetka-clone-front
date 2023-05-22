@@ -90,6 +90,7 @@ export default {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
+  color: $lh-accent-orange;
 }
 
 .under-header__right {

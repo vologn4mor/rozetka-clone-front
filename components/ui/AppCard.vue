@@ -20,7 +20,7 @@ export default {
 
 <style scoped lang='scss'>
 .app-card {
-  background-color: $main-light-gray;
+  background-color: $lh-gray;
   border-radius: 12px;
 
   .app-card-content {

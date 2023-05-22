@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1>Мой кошелек</h1>
+    <h1>{{ $t('myWallet') }}</h1>
     <div class='card first-block'>
-      <span>Підтвердіть номер телефону, щоб створити свій гаманець</span>
-      <ButtonProfile title='Підтвердити номер' style-btn='gray' />
+      <span>{{ $t('verifyYourPhoneNumber') }}</span>
+      <ButtonProfile :title='$t("confirmPhoneNumber")' style-btn='green' />
     </div>
     <div class='cards-block'>
       <div class='card add-card'>
-        <ButtonProfile title='Додати картку' style-btn='gray' />
+        <ButtonProfile :title='$t("addCard")' style-btn='green' />
       </div>
       <div class='cards-container'>
         <div class='card-info-block'>
@@ -63,7 +63,7 @@ h1 {
 
 .card {
   border-radius: 11px;
-  background-color: $main-light-gray;
+  background-color: $lh-gray;
 }
 
 .first-block {
@@ -97,13 +97,13 @@ h1 {
   .card-info-block {
 
     .card-header {
-      background-color: $main-light-gray;
+      background-color: $lh-gray;
       padding: 14px 19px;
       border-radius: 11px 11px 0 0;
 
       .menu {
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
 
         span {
           font-size: 20px;
@@ -141,7 +141,7 @@ h1 {
         flex-direction: column;
 
         span:first-child {
-          color: $main-light-gray;
+          color: $lh-gray;
           margin-bottom: 5px;
         }
 

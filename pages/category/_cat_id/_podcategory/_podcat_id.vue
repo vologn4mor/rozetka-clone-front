@@ -13,21 +13,24 @@
     <div class='main-container'>
       <div class='filter-container'>
         <div>
-          <div><span class='bold'>Цiна</span></div>
+          <div><span class='bold'>{{ $t('price') }}</span></div>
           <div class='cost-inputs-container'>
-            <input value='' type='text' placeholder='вид' @input='minCost = Number($event.target.value)'>
+            <input value='' type='text' :placeholder='$t("from")' @input='minCost = Number($event.target.value)'>
             <span>&mdash;</span>
-            <input value='' type='text' placeholder='до' @input='maxCost = Number($event.target.value)'>
-            <button @click='filterFetch'>ok</button>
+            <input value='' type='text' :placeholder='$t("to")' @input='maxCost = Number($event.target.value)'>
+            <button @click='filterFetch'>OK</button>
           </div>
-          <div>
-            <span class='bold'>бренд</span>
-            <input v-model='searchBrand' type='text' placeholder='пошук'>
+          <div class='brands-search'>
+            <span class='bold'>{{ $t('brand') }}</span>
+            <input v-model='searchBrand' type='text' :placeholder='$t("search")'>
           </div>
-          <div class='brands-list' v-if='filtredBrands'>
-            <div v-for='item in filtredBrands' :key='item.id'>
-              <input v-model='item.isSelected' type='checkbox' />
-              <small>{{ item.name }}</small>
+          <div v-if='filtredBrands' class='brands-list'>
+            <div v-for='item in filtredBrands' :key='item.id' class='checkbox-container'>
+              <div>
+                <input :id='item.id' v-model='item.isSelected' type='checkbox' class='checkbox' />
+                <label :for='item.id'></label>
+                <span>{{ item.name }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -36,24 +39,58 @@
             <p>{{ item.name }}</p>
             <img src='~assets/images/icons/category-arrow.svg' alt='' :class='item.isOpened ? "opened-filter" : null'>
           </div>
-          <div v-for='value in item.values' :key='value.id' style='max-width: 258px'>
+          <div v-for='value in item.values' :key='value.id' style='max-width: 258px' class='checkbox-container'>
             <div :class='!item.isOpened ? "hide" : null'>
-              <input v-model='value.isSelected' type='checkbox' />
-              <small>{{ clearText(value.name) }}</small>
+              <input :id='value.id' v-model='value.isSelected' type='checkbox' class='checkbox' />
+              <label :for='value.id'></label>
+              <span>{{ clearText(value.name) }}</span>
             </div>
           </div>
         </div>
       </div>
-      <div class='articles-container'>
-        <ProductOne
-          v-for='item in articles.data.articles'
-          :id='Number(item.id)'
-          :key='item.id'
-          :item-state='item.sell_status'
-          :cost='Number(item.price)'
-          :name='item.title'
-          :image='item.preview_img.url'
-        />
+      <div class='main-container-right'>
+        <div class='articles-container'>
+          <ProductOne
+            v-for='item in articles.data.articles'
+            :id='Number(item.id)'
+            :key='item.id'
+            :item-state='item.sell_status'
+            :cost='Number(item.price)'
+            :cost-old='Number(item.old_price)'
+            :name='item.title'
+            :image='item.preview_img.url'
+          />
+        </div>
+        <div class='buttons-container'>
+          <!--          <small>{{ page }} / {{ articles.data.total_pages }} ({{ articles.data.total_goods }})-->
+          <!--            (({{ Math.floor(page / 7) }}))</small>-->
+          <button @click='switchPage(false)'>&lt;</button>
+          <div v-if='articles.data.total_pages > 8'>
+            <div>
+              <button v-for='item in 7' :key='item' :class='page === item ? "active-btn" : null' @click='page = item'>
+                {{ item }}
+              </button>
+              <button>
+                ...
+              </button>
+              <button
+                :class='page === articles.data.total_pages ? "active-btn" : null'
+                @click='page = articles.data.total_pages'>
+                {{ articles.data.total_pages }}
+              </button>
+            </div>
+          </div>
+          <div v-else>
+            <button
+              v-for='item in articles.data.total_pages'
+              :key='item' :class='page === item ? "active-btn" : null'
+              @click='page = item'>
+              {{ item }}
+            </button>
+          </div>
+
+          <button @click='switchPage(true)'>&gt;</button>
+        </div>
       </div>
     </div>
   </div>
@@ -90,7 +127,7 @@ export default {
       const articles = await ctx.$axios.$get('/Goods/category-articles', {
         params: {
           category_id: ctx.route.params.podcat_id,
-          goods_on_page: 20,
+          goods_on_page: 10,
           page: 1,
         },
       });
@@ -131,11 +168,21 @@ export default {
       selectedChars: [],
       minCost: 0,
       maxCost: 0,
+      page: 1,
     };
   },
+  // computed: {
+  //   buttonsPagination: () => {
+  //     const buttons = []
+  //     for (let i = this.page; i)
+  //   }
+  // },
   watch: {
     searchBrand(val) {
       this.filtredBrands = this.brands.filter(item => item.name.toLowerCase().includes(val.toLowerCase()));
+    },
+    async page() {
+      await this.filterFetch(false);
     },
   },
   beforeMount() {
@@ -157,7 +204,7 @@ export default {
       if (value.length < 40) return value;
       return value.slice(0, 40) + '...';
     },
-    async filterFetch() {
+    async filterFetch(clearPage = true) {
       const brands = [];
       const filtres = [];
       this.filtredBrands.forEach(item => {
@@ -169,7 +216,9 @@ export default {
         });
       });
 
-      const res = await this.$axios.$post('/Goods/category-articles', {
+      if (clearPage) this.page = 1;
+
+      this.articles = await this.$axios.$post('/Goods/category-articles', {
           values_id: filtres,
           brands_id: brands,
           slider_values: [
@@ -185,43 +234,124 @@ export default {
         {
           params: {
             category_id: this.$route.params.podcat_id,
-            goods_on_page: 20,
-            page: 1,
+            goods_on_page: 10,
+            page: this.page,
           },
         });
 
-      this.articles = res;
+      // this.articles = res;
       //
       // console.log(brands);
       // console.log(filtres);
       // console.log(res);
+    },
+    async switchPage(step) {
+      if (step) {
+        if (this.page === this.articles.data.total_pages) return;
+        this.page += 1;
+      } else {
+        if (this.page === 1) return;
+        this.page -= 1;
+      }
+      await this.filterFetch(false);
     },
   },
 };
 </script>
 
 <style scoped lang='scss'>
+
+input[type="checkbox"] + label {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid $lh-accent-green;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label:after {
+  position: relative;
+  top: -2px;
+  left: 2px;
+  content: '\2714';
+  color: $lh-accent-orange;
+  font-size: 14px;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+
 .podcats-block {
   display: flex;
   justify-content: space-evenly;
+}
+
+.main-container-right {
+  width: 100%;
 }
 
 .articles-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  align-content: start;
+  align-content: flex-start;
+  width: 100%;
+}
+
+.buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+
+  button {
+    //padding: 5px;
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    border-radius: 11px;
+    border: 2px solid $main-light-gray
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+
+  .active-btn {
+    background-color: $main-gray;
+    color: $main-light-gray;
+    border: 2px solid $main-gray
+  }
 }
 
 .main-container {
   display: flex;
 }
 
+.checkbox-container {
+  div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+
+    span {
+      margin-left: 5px;
+    }
+  }
+}
+
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .filter-container {
+  max-width: 226px;
+  width: 100%;
+  margin-right: 20px;
+  padding: 0 6px;
 
   input {
     border-radius: 9px;
@@ -251,6 +381,7 @@ export default {
     input {
       max-width: 41px;
       text-align: center;
+      padding: 11px 16px;
     }
 
     input::placeholder {
@@ -260,6 +391,33 @@ export default {
     span {
       margin: 0 5px;
       color: $main-light-gray;
+    }
+
+    button {
+      margin-left: 10px;
+      border-radius: 11px;
+      border: none;
+      background-color: $lh-accent-green;
+      padding: 11px 12px;
+      color: $lh-white;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      cursor: pointer;
+    }
+  }
+
+  .brands-search {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      padding: 11px 10px;
+    }
+
+    span {
+      margin: 10px 0 0 0;
     }
   }
 
@@ -289,7 +447,7 @@ export default {
 
   .brands-list::-webkit-scrollbar {
     width: 6px; /* ширина всей полосы прокрутки */
-    margin: 0px;
+    margin: 0;
   }
 
   .brands-list::-webkit-scrollbar-track {
@@ -300,7 +458,7 @@ export default {
   .brands-list::-webkit-scrollbar-thumb {
     background-color: #B0B1BA; /* цвет бегунка */
     border-radius: 20px; /* округлось бегунка */
-    border: 0px solid $main-light-gray; /* отступ вокруг бегунка */
+    border: 0 solid $main-light-gray; /* отступ вокруг бегунка */
     margin: 6px;
   }
 }
