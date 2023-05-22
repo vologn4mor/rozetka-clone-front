@@ -3,7 +3,7 @@
     <span :style='isBoldLabel ? `font-weight: bold;` : null'>{{ label }}</span>
     <input
       v-if='!isTextarea'
-      type='text'
+      :type='type'
       class='input'
       :placeholder='placeholder'
       :value='value'
@@ -11,7 +11,7 @@
     >
     <textarea
       v-else
-      type='text'
+      :type='type'
       class='textarea'
       :style='`height: ${heightTextarea}`'
       :placeholder='placeholder'
@@ -56,6 +56,11 @@ export default {
       type: String,
       required: true,
       default: '',
+    },
+    type: {
+      type: String,
+      required: false,
+      default: 'text',
     },
   },
 };

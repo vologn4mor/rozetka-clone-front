@@ -132,5 +132,6 @@
   "messageSms": "SMS-повідомлення",
   "notificationsInMobileApp": "Сповіщення у мобільному додатку",
   "notificationsInWebApp": "Сповіщення у веб-браузері",
-  "continue": "Продовжити"
+  "continue": "Продовжити",
+  "personalData": "Особисті дані"
 }

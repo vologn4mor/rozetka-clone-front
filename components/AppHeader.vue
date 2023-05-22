@@ -17,6 +17,7 @@
                 v-model='search'
                 type='text'
                 :placeholder='$t("iAmLooking")'
+                autocomplete='off'
               >
             </div>
             <client-only>
@@ -47,9 +48,11 @@
             alt='cart'
           >
         </nuxt-link>
-        <nuxt-link :to='localePath("/profile")'>
+        <nuxt-link v-if='user' :to='localePath("/profile")'>
           <img src='~assets/images/icons/header/user.svg' alt='user'>
         </nuxt-link>
+        <img v-else src='~assets/images/icons/header/user.svg' alt='user' @click='showLoginModal = true'>
+        <!--        <button v-else>login</button>-->
       </div>
     </div>
     <div
@@ -116,14 +119,35 @@
         />
       </client-only>
     </AppModalCard>
+
+    <AppModalCard v-if='showLoginModal' @close='showLoginModal = false'>
+      <!--      <input v-model='loginEmail' type='email' autocomplete='email'>-->
+      <!--      <input v-model='loginPassword' type='password' autocomplete='password'>-->
+      <AppInput
+        :value='loginEmail'
+        label='Login'
+        placeholder='example@gmail.com'
+        @input='val => loginEmail = val'
+      />
+      <AppInput
+        :value='loginPassword'
+        label='Password'
+        type='password'
+        @input='val => loginPassword = val'
+      />
+      <AppButton text='Войти' @click='loginHandler' />
+    </AppModalCard>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import AppInput from '@/components/ui/AppInput.vue';
+import AppButton from '@/components/ui/AppButton.vue';
 
 export default {
   name: 'AppHeader',
+  components: { AppButton, AppInput },
   data() {
     return {
       showMicModal: false,
@@ -131,11 +155,17 @@ export default {
       isCatOpened: false,
       podCatWatchId: null,
       podCatWatch: [],
+      showLoginModal: false,
+      loginEmail: '',
+      loginPassword: '',
     };
   },
   computed: {
     ...mapGetters({
       categories: 'categories',
+    }),
+    ...mapGetters('user', {
+      user: 'user',
     }),
     isMozilla: () => {
       if (!process.client) return;
@@ -162,6 +192,9 @@ export default {
     ...mapActions({
       initCategories: 'initCategories',
     }),
+    ...mapActions('user', {
+      login: 'login',
+    }),
     async onLanguageChange(event) {
       this.podCatWatchId = this.categories[0].id;
       await this.$router.replace(this.switchLocalePath(event));
@@ -176,8 +209,11 @@ export default {
       this.isCatOpened = false;
       this.$router.push(this.localePath(link));
     },
+    async loginHandler() {
+      const res = await this.login({ email: this.loginEmail, password: this.loginPassword });
+      if (res) this.showLoginModal = false;
+    },
   },
-
 };
 </script>
 

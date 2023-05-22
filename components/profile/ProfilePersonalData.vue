@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>{{ $t('personalData') }}</h1>
-    <ProfileDropdown label='Особисті дані' :icon='personalData'>
+    <ProfileDropdown :label='$t("personalData")' :icon='personalData'>
     </ProfileDropdown>
     <ProfileDropdown label='Мої отримувачі замовлень' :icon='myOrderRecipients'>
     </ProfileDropdown>
