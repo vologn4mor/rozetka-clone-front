@@ -35,7 +35,7 @@
         <div>
           <div>
             <span>Дата рождения</span>
-            <span v-if='!changePersonalData'>{{ user.birth_day }}</span>
+            <span v-if='!changePersonalData'>{{ user.birth_day.split('T')[0] }}</span>
             <div v-else>
               <input
                 id='start'
@@ -44,7 +44,9 @@
                 name='trip-start'
                 min='1970-01-01'
                 :max='new Date().toISOString().split("T")[0]'
-                :value='user.birth_day'>
+                :value='user.birth_day.split("T")[0]'
+                @change='e => userNewData.birth_day = e.target.value + "T00:00:00"'
+              >
             </div>
           </div>
           <div>
@@ -56,6 +58,7 @@
                   v-for='gender in gendersToSelect'
                   :key='gender.id'
                   :value='gender.id'
+                  :selected='userNewData.gender === gender.id'
                 >
                   {{ gender.value }}
                 </option>
@@ -66,12 +69,11 @@
             <span>Язык общения с Ладной Хатой</span>
             <span v-if='!changePersonalData'>{{ user.preferred_language_id }}</span>
             <div v-else>
-              <select class='input'>
+              <select class='input' @input='e => userNewData.preferred_language_id = "EN"'>
                 <option
                   v-for='lang in langsToSelect'
                   :key='lang.id'
                   :value='lang.id'
-                  @change='val => userNewData.lang = val'
                 >
                   {{ lang.value }}
                 </option>
