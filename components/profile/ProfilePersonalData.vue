@@ -36,19 +36,47 @@
           <div>
             <span>Дата рождения</span>
             <span v-if='!changePersonalData'>{{ user.birth_day }}</span>
-            <AppInput
-              v-else
-              :value='user.birth_day'
-              @input='val => userNewData.birth_day = val'
-            />
+            <div v-else>
+              <input
+                id='start'
+                class='input'
+                type='date'
+                name='trip-start'
+                min='1970-01-01'
+                :max='new Date().toISOString().split("T")[0]'
+                :value='user.birth_day'>
+            </div>
           </div>
           <div>
             <span>Пол</span>
             <span v-if='!changePersonalData'>{{ genderToString(user.gender) }}</span>
+            <div v-else>
+              <select class='input' @input='e => userNewData.gender = Number(e.target.value)'>
+                <option
+                  v-for='gender in gendersToSelect'
+                  :key='gender.id'
+                  :value='gender.id'
+                >
+                  {{ gender.value }}
+                </option>
+              </select>
+            </div>
           </div>
           <div>
             <span>Язык общения с Ладной Хатой</span>
             <span v-if='!changePersonalData'>{{ user.preferred_language_id }}</span>
+            <div v-else>
+              <select class='input'>
+                <option
+                  v-for='lang in langsToSelect'
+                  :key='lang.id'
+                  :value='lang.id'
+                  @change='val => userNewData.lang = val'
+                >
+                  {{ lang.value }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
         <div
@@ -56,13 +84,13 @@
           <ButtonProfile
             title='Редактировать'
             style-btn='green'
-            @click='changePersonalData = true; userNewData = user' />
+            @click='changePersonalData = true; userNewData = JSON.parse(JSON.stringify(user))' />
         </div>
         <div v-else>
           <ButtonProfile
             title='Сохранить'
             style-btn='green'
-            @click='changePersonalData = false' />
+            @click='sendNewPersonalData' />
           <ButtonProfile
             title='Отменить'
             style-btn='orange'
@@ -103,15 +131,32 @@ export default {
       contacts,
       deliveryAddress,
       login,
+      gendersToSelect: [
+        {
+          id: 0,
+          value: 'Не указано',
+        },
+        {
+          id: 1,
+          value: 'Муж',
+        },
+        {
+          id: 2,
+          value: 'Жен',
+        },
+      ],
+      langsToSelect: [
+        {
+          id: 0,
+          value: 'Украинский',
+        },
+        {
+          id: 1,
+          value: 'Русский',
+        },
+      ],
       changePersonalData: false,
-      userNewData: {
-        first_name: null,
-        last_name: null,
-        middle_name: null,
-        birth_day: null,
-        gender: null,
-        preferred_language_id: null,
-      },
+      userNewData: null,
     };
   },
   computed: {
@@ -123,11 +168,14 @@ export default {
     this.setHeaderLocate([{ name: 'personalData' }]);
   },
   mounted() {
-    this.userNewData = { ...this.user };
+    this.userNewData = JSON.parse(JSON.stringify(this.user));
   },
   methods: {
     ...mapMutations({
       setHeaderLocate: 'setHeaderLocate',
+    }),
+    ...mapMutations('user', {
+      setUser: 'setUser',
     }),
     genderToString(val) {
       switch (val) {
@@ -145,6 +193,18 @@ export default {
         }
       }
     },
+    async sendNewPersonalData() {
+      if (JSON.stringify(this.user) === JSON.stringify(this.userNewData)) return;
+      const userNewData = {
+        ...this.user,
+        ...this.userNewData,
+      };
+      const res = await this.$axios.$put('/UsersCabinet/update', userNewData);
+      if (res.status === 'Success') {
+        this.setUser(userNewData);
+        this.changePersonalData = false;
+      }
+    },
   },
 
 };
@@ -156,6 +216,14 @@ h1 {
   margin: 0 0 10px 0;
 }
 
+.input {
+  border: 2px solid $main-light-gray;
+  border-radius: 7px;
+  margin: 10px 0;
+  padding: 10px 33px;
+  resize: none;
+}
+
 .personal-data-container {
   display: flex;
   flex-direction: column;
@@ -165,10 +233,14 @@ h1 {
     display: flex;
     justify-content: space-between;
 
+    span {
+      margin-bottom: 20px;
+    }
+
     div {
       display: flex;
       flex-direction: column;
-      margin-bottom: 20px;
+
       width: 100%;
 
       div {
