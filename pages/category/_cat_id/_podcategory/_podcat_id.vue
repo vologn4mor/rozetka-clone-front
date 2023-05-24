@@ -62,8 +62,6 @@
           />
         </div>
         <div class='buttons-container'>
-          <!--          <small>{{ page }} / {{ articles.data.total_pages }} ({{ articles.data.total_goods }})-->
-          <!--            (({{ Math.floor(page / 7) }}))</small>-->
           <button @click='switchPage(false)'>&lt;</button>
           <div v-if='articles.data.total_pages > 8'>
             <div>
@@ -171,12 +169,6 @@ export default {
       page: 1,
     };
   },
-  // computed: {
-  //   buttonsPagination: () => {
-  //     const buttons = []
-  //     for (let i = this.page; i)
-  //   }
-  // },
   watch: {
     searchBrand(val) {
       this.filtredBrands = this.brands.filter(item => item.name.toLowerCase().includes(val.toLowerCase()));
@@ -238,12 +230,6 @@ export default {
             page: this.page,
           },
         });
-
-      // this.articles = res;
-      //
-      // console.log(brands);
-      // console.log(filtres);
-      // console.log(res);
     },
     async switchPage(step) {
       if (step) {

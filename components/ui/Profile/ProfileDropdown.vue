@@ -46,7 +46,6 @@ export default {
 .container {
   background-color: $lh-gray;
   border-radius: 6px;
-  width: 100%;
   padding: 25px 45px;
   margin-bottom: 15px;
 

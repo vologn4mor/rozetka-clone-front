@@ -125,6 +125,7 @@ export default {
 
 .profile-page {
   width: 100%;
+  max-width: 1194px;
 }
 
 a.nuxt-link-exact-active {

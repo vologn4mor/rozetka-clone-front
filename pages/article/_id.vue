@@ -318,20 +318,28 @@
       </div>
     </div>
     <ProductsBlock :title='$t("specialOffers")' link='/'>
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne
+        v-for='item in stock'
+        :id='Number(item.id)'
+        :key='item.id'
+        :item-state='item.sell_status'
+        :cost='Number(item.price)'
+        :cost-old='Number(item.old_price)'
+        :name='item.title'
+        :image='item.preview_img.url'
+      />
     </ProductsBlock>
-    <ProductsBlock :title='$t("specialOffers")' link='/'>
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+    <ProductsBlock :title='$t("mostAddedToTheList")' link='/'>
+      <ProductOne
+        v-for='item in mostFavorites'
+        :id='Number(item.id)'
+        :key='item.id'
+        :item-state='item.sell_status'
+        :cost='Number(item.price)'
+        :cost-old='Number(item.old_price)'
+        :name='item.title'
+        :image='item.preview_img.url'
+      />
     </ProductsBlock>
 
     <AppModalCard
@@ -530,6 +538,20 @@ export default {
         },
       });
 
+      const mostFavorites = await ctx.$axios.$get('Goods/most-favorites', {
+        params: {
+          goods_on_page: 6,
+          page: 1,
+        },
+      });
+
+      const stock = await ctx.$axios.$get('Goods/all-actions', {
+        params: {
+          goods_on_page: 6,
+          page: 1,
+        },
+      });
+
       const podCatsItems = [];
 
       article.data.breadcrumbs.map(item => {
@@ -561,6 +583,8 @@ export default {
         characteristic,
         podCatsItems: podCatsItems.reverse(),
         comments: comments.data,
+        stock: stock.data.articles,
+        mostFavorites: mostFavorites.data.articles,
       };
     } catch (e) {
       return ctx.error({ statusCode: 404, message: 'Article not found' });
