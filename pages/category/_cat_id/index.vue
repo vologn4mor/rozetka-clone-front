@@ -1,10 +1,9 @@
 <template>
   <div>
     <AppSlider>
-      <div class='slide'><h1>1</h1></div>
-      <div class='slide'><h1>2</h1></div>
-      <div class='slide'><h1>3</h1></div>
-      <div class='slide'><h1>4</h1></div>
+      <div v-for='banner in banners' :key='banner.url' class='slide'>
+        <img :src='banner.url' alt=''>
+      </div>
     </AppSlider>
     <div class='brands-img-block'>
       <div v-for='brand in brands' :key='brand.id'>
@@ -22,20 +21,28 @@
       </AppCatCard>
     </div>
     <ProductsBlock :title='$t("specialOffers")' link='/'>
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne
+        v-for='item in stock'
+        :id='Number(item.id)'
+        :key='item.id'
+        :item-state='item.sell_status'
+        :cost='Number(item.price)'
+        :cost-old='Number(item.old_price)'
+        :name='item.title'
+        :image='item.preview_img.url'
+      />
     </ProductsBlock>
     <ProductsBlock :title='$t("hotNewProducts")' link='/'>
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+      <ProductOne
+        v-for='item in hotNews'
+        :id='Number(item.id)'
+        :key='item.id'
+        :item-state='item.sell_status'
+        :cost='Number(item.price)'
+        :cost-old='Number(item.old_price)'
+        :name='item.title'
+        :image='item.preview_img.url'
+      />
     </ProductsBlock>
   </div>
 </template>
@@ -72,10 +79,34 @@ export default {
         },
       });
 
+      const hotNews = await ctx.$axios.$get('Goods/hot-news', {
+        params: {
+          goods_on_page: 6,
+          page: 1,
+        },
+      });
+
+      const stock = await ctx.$axios.$get('Goods/all-actions', {
+        params: {
+          goods_on_page: 6,
+          page: 1,
+        },
+      });
+
+      const banners = await ctx.$axios.$get('/Banners/category-banners', {
+        params: {
+          category_id: ctx.route.params.cat_id,
+        },
+      });
+
       if (!podCats) return ctx.error({ statusCode: 404, message: 'Category not found' });
-      // if (!podCats.data)
-      // console.log('EEEEEEEEEEEEEROR', brands, podCats);
-      return { brands, podCats };
+      return {
+        brands,
+        podCats,
+        stock: stock.data.articles,
+        hotNews: hotNews.data.articles,
+        banners,
+      };
     } catch (e) {
       return ctx.error({ statusCode: 404, message: 'Category not found' });
     }

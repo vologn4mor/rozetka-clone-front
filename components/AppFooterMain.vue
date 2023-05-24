@@ -46,10 +46,6 @@
       :link='localePath("/profile/checked")'
       custom-style='footer-style'
     >
-      <!--      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />-->
-      <!--      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />-->
-      <!--      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />-->
-      <!--      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />-->
       <ProductOne
         v-for='item in items'
         :id='item.id'

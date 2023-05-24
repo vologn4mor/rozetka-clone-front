@@ -1,20 +1,23 @@
 <template>
   <div>
     <AppSlider>
-      <div class='slide'><h1>1</h1></div>
-      <div class='slide'><h1>2</h1></div>
-      <div class='slide'><h1>3</h1></div>
-      <div class='slide'><h1>4</h1></div>
+      <div v-for='banner in banners' :key='banner.url' class='slide'>
+        <img :src='banner.url' alt=''>
+      </div>
     </AppSlider>
-    <ProductsBlock :title='$t("specialOffers")' link='/'>
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-      <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+    <ProductsBlock :title='$t("specialOffers")' :link='localePath("/special/all-actions")'>
+      <ProductOne
+        v-for='item in stock'
+        :id='Number(item.id)'
+        :key='item.id'
+        :item-state='item.sell_status'
+        :cost='Number(item.price)'
+        :cost-old='Number(item.old_price)'
+        :name='item.title'
+        :image='item.preview_img.url'
+      />
     </ProductsBlock>
-    <ProductsBlock :title='$t("hotNewProducts")' link='/'>
+    <ProductsBlock :title='$t("hotNewProducts")' :link='localePath("/special/hot-news")'>
       <ProductOne
         v-for='item in hotNews'
         :id='Number(item.id)'
@@ -56,21 +59,21 @@
         </app-card>
       </div>
       <div class='ub_container__right'>
-        <ProductsBlock :title='$t("specialOffers")' link='/'>
-          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
-          <ProductOne :id='1' image='' item-state='available' :cost='2500' name='GNUSMAS' />
+        <ProductsBlock :title='$t("mostImportantPoints")' :link='localePath("/special/best-points")'>
+          <ProductOne
+            v-for='item in mostImportantPoints'
+            :id='Number(item.id)'
+            :key='item.id'
+            :item-state='item.sell_status'
+            :cost='Number(item.price)'
+            :cost-old='Number(item.old_price)'
+            :name='item.title'
+            :image='item.preview_img.url'
+          />
         </ProductsBlock>
       </div>
     </div>
-    <ProductsBlock :title='$t("mostAddedToTheList")' link='/'>
+    <ProductsBlock :title='$t("mostAddedToTheList")' :link='localePath("/special/most-favorites")'>
       <ProductOne
         v-for='item in mostFavorites'
         :id='Number(item.id)'
@@ -82,7 +85,7 @@
         :image='item.preview_img.url'
       />
     </ProductsBlock>
-    <ProductsBlock :title='$t("mostExcepted")' link='/'>
+    <ProductsBlock :title='$t("mostExcepted")' :link='localePath("/special/most-awaitable")'>
       <ProductOne
         v-for='item in mostAwaitable'
         :id='Number(item.id)'
@@ -136,11 +139,36 @@ export default {
       },
     });
 
+    const stock = await ctx.$axios.$get('Goods/all-actions', {
+      params: {
+        goods_on_page: 6,
+        page: 1,
+      },
+    });
+
+
+    const mostImportantPoints = await ctx.$axios.$get('/Goods/best-points', {
+      params: {
+        goods_on_page: 10,
+        page: 1,
+      },
+    });
+
+
+    const banners = await ctx.$axios.$get('/Banners/category-banners', {
+      params: {
+        category_id: 0,
+      },
+    });
+
     return {
       brands: res.data,
       hotNews: hotNews.data.articles,
       mostAwaitable: mostAwaitable.data.articles,
       mostFavorites: mostFavorites.data.articles,
+      stock: stock.data.articles,
+      mostImportantPoints: mostImportantPoints.data.articles,
+      banners,
     };
   },
   data() {
