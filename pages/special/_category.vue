@@ -73,6 +73,9 @@ export default {
       await this.fetchPagination();
     },
   },
+  beforeMount() {
+    this.$store.commit('setHeaderLocate', [this.articles.data.breadcrumbs[0]]);
+  },
   methods: {
     async fetchPagination() {
       this.articles = await this.$axios.$get(`/Goods/${this.$route.params.category}`, {
