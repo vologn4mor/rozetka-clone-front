@@ -47,4 +47,9 @@ button:hover {
   color: $lh-white;
 }
 
+.orange {
+  background-color: $lh-accent-orange;
+  color: $lh-white;
+}
+
 </style>

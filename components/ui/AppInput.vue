@@ -1,6 +1,6 @@
 <template>
   <div class='input-container'>
-    <span :style='isBoldLabel ? `font-weight: bold;` : null'>{{ label }}</span>
+    <span v-if='label' :style='isBoldLabel ? `font-weight: bold;` : null'>{{ label }}</span>
     <input
       v-if='!isTextarea'
       :type='type'
@@ -45,7 +45,7 @@ export default {
     label: {
       type: String,
       required: false,
-      default: 'Label',
+      default: '',
     },
     placeholder: {
       type: String,

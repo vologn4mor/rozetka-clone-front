@@ -5,6 +5,8 @@ export const state = () => ({
 export const mutations = {
   setUser(state, payload) {
     state.user = payload;
+    if (!payload) return localStorage.removeItem('user');
+    localStorage.setItem('user', JSON.stringify(payload));
   },
 };
 
@@ -17,14 +19,14 @@ export const actions = {
     const resLogin = await this.$axios.$post(process.env.apiBaseUrl + 'authentication/Auth', payload);
     localStorage.setItem('token', resLogin.jwt);
     commit('setUser', resLogin.user);
-    localStorage.setItem('user', JSON.stringify(state.user));
+    // localStorage.setItem('user', JSON.stringify(state.user));
     return true;
   },
   logout({ commit }) {
     // const navResult = await this.$router.push(this.localePath('/'));
     // if (!navResult) {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    // localStorage.removeItem('user');
     commit('setUser', null);
     // }
   },

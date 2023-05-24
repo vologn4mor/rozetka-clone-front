@@ -14,6 +14,7 @@
       </div>
     </div>
     <div v-if='isOpened' class='slot'>
+      <hr>
       <slot></slot>
     </div>
   </div>
@@ -34,7 +35,7 @@ export default {
   },
   data() {
     return {
-      isOpened: false,
+      isOpened: true,
     };
   },
 };
