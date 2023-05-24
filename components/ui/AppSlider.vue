@@ -42,6 +42,10 @@ export default {
 
 <style lang='scss'>
 
+img {
+  pointer-events: none;
+}
+
 .slick-slider {
   height: 383px;
 }
