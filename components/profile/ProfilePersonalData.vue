@@ -69,13 +69,14 @@
             <span>Язык общения с Ладной Хатой</span>
             <span v-if='!changePersonalData'>{{ user.preferred_language_id }}</span>
             <div v-else>
-              <select class='input' @input='e => userNewData.preferred_language_id = "EN"'>
+              <select class='input' @input='e => userNewData.preferred_language_id = e.target.value'>
                 <option
                   v-for='lang in langsToSelect'
                   :key='lang.id'
                   :value='lang.id'
+                  :selected='userNewData.preferred_language_id === lang.id'
                 >
-                  {{ lang.value }}
+                  {{ lang.name }}
                 </option>
               </select>
             </div>
@@ -161,6 +162,10 @@ export default {
       userNewData: null,
     };
   },
+  async fetch() {
+    const langs = await this.$axios.$get('/Reference/languages');
+    this.langsToSelect = langs;
+  },
   computed: {
     ...mapGetters('user', {
       user: 'user',
@@ -207,7 +212,9 @@ export default {
         this.changePersonalData = false;
       }
     },
+
   },
+
 
 };
 </script>
