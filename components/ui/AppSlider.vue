@@ -10,8 +10,11 @@
       </template>
 
       <template #nextArrow>
-        <img src='~assets/images/icons/left-arrow.svg' alt='arrow'
-             style='transform: rotate(180deg); pointer-events: auto'>
+        <img
+          src='~assets/images/icons/left-arrow.svg'
+          alt='arrow'
+          style='transform: rotate(180deg); pointer-events: auto'
+        >
       </template>
 
 

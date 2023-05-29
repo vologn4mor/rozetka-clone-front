@@ -89,7 +89,7 @@
             style-btn='green'
             @click='changePersonalData = true; userNewData = JSON.parse(JSON.stringify(user))' />
         </div>
-        <div v-else>
+        <div v-else style='margin-top: 6px'>
           <ButtonProfile
             title='Сохранить'
             style-btn='green'
@@ -102,6 +102,7 @@
       </div>
     </ProfileDropdown>
     <ProfileDropdown label='Мої отримувачі замовлень' :icon='myOrderRecipients'>
+      
     </ProfileDropdown>
     <ProfileDropdown label='Контакти' :icon='contacts'>
     </ProfileDropdown>
@@ -249,12 +250,13 @@ h1 {
     div {
       display: flex;
       flex-direction: column;
+      max-width: 303px;
 
       width: 100%;
 
-      div {
-        max-width: 250px;
-      }
+      //div {
+      //  max-width: 303px;
+      //}
 
       span:first-child {
         color: $lh-accent-green;
