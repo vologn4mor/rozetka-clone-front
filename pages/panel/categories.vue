@@ -11,46 +11,56 @@
         <AdminButton type='plus' />
       </div>
     </div>
-    <AdminTable :header='header' :data='items' />
-    <div class='buttons-container'>
-      <button @click='switchPage(false)'>&lt;</button>
-      <div v-if='total_pages > 8'>
-        <div>
-          <button v-for='item in 7' :key='item' :class='page === item ? "active-btn" : null' @click='page = item'>
+    <!--    <div class='loading-container'>-->
+    <!--      <img src='~/assets/images/loader.gif' alt=''>-->
+    <!--    </div>-->
+    <div v-if='$fetchState.pending' class='loading-container'>
+      <img src='~/assets/images/loader.gif' alt=''>
+    </div>
+    <p v-else-if='$fetchState.error'>An error occurred :(</p>
+    <div v-else>
+      <AdminTable :header='header' :data='items' />
+      <div class='buttons-container'>
+        <button @click='switchPage(false)'>&lt;</button>
+        <div v-if='total_pages > 8'>
+          <div>
+            <button v-for='item in 7' :key='item' :class='page === item ? "active-btn" : null' @click='page = item'>
+              {{ item }}
+            </button>
+            <button>
+              ...
+            </button>
+            <button
+              :class='page === total_pages ? "active-btn" : null'
+              @click='page = total_pages'>
+              {{ total_pages }}
+            </button>
+          </div>
+        </div>
+        <div v-else>
+          <button
+            v-for='item in total_pages'
+            :key='item' :class='page === item ? "active-btn" : null'
+            @click='page = item'>
             {{ item }}
           </button>
-          <button>
-            ...
-          </button>
-          <button
-            :class='page === total_pages ? "active-btn" : null'
-            @click='page = total_pages'>
-            {{ total_pages }}
-          </button>
         </div>
-      </div>
-      <div v-else>
-        <button
-          v-for='item in total_pages'
-          :key='item' :class='page === item ? "active-btn" : null'
-          @click='page = item'>
-          {{ item }}
-        </button>
-      </div>
 
-      <button @click='switchPage(true)'>&gt;</button>
+        <button @click='switchPage(true)'>&gt;</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import AdminTable from '@/components/panel/AdminTable.vue';
+// import AdminTable from '@/components/panel/AdminTable.vue';
 import AdminSearchInput from '@/components/panel/AdminSearchInput.vue';
 import AdminButton from '@/components/panel/AdminButton.vue';
+import AdminTable from '@/components/panel/AdminTable.vue';
 
 export default {
   name: 'Categories',
-  components: { AdminButton, AdminSearchInput, AdminTable },
+  components: { AdminTable, AdminButton, AdminSearchInput },
   layout: 'adminLayout',
   data() {
     return {
@@ -106,6 +116,7 @@ export default {
 .container {
   max-width: 1133px;
   width: 100%;
+  height: 100%;
 }
 
 .search-container {
@@ -151,5 +162,13 @@ export default {
     color: $main-light-gray;
     border: 2px solid $main-gray
   }
+}
+
+.loading-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
