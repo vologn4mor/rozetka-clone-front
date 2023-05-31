@@ -8,8 +8,12 @@
         </th>
         <th v-if='checkboxes'>Дія</th>
       </tr>
-      <tr v-for='item in data' :key='item.id'>
-        <td v-if='changeable'><input type='checkbox'></td>
+      <tr v-for='item in data' :key='item.id' :class='item.isSelected ? "is-selcted" : null'>
+        <td v-if='changeable' style='width: 18px; height: 18px;'>
+          <!--          <input v-model='item.isSelected' type='checkbox'>-->
+          <input :id='item.id' v-model='item.isSelected' type='checkbox' />
+          <label :for='item.id'></label>
+        </td>
         <td v-for='name in clearArray(item)' :key='name'>
           {{ item[name] }}
         </td>
@@ -47,6 +51,9 @@ export default {
     clearArray(item) {
       const clearArr = Object.keys(item);
       clearArr.shift();
+      if (typeof item.isSelected === 'boolean') {
+        clearArr.shift();
+      }
       return clearArr;
     },
   },
@@ -54,6 +61,55 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+
+/* прячем input checkbox */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* стили для метки */
+label {
+  color: #000;
+  cursor: pointer;
+  font-weight: normal;
+  line-height: 30px;
+  margin: 0 auto;
+  //padding: 10px 0;
+  vertical-align: middle;
+}
+
+/* формируем внешний вид чекбокса в псевдоэлементе before */
+label:before {
+  content: " ";
+  color: #000;
+  display: inline-block;
+  font: 20px/30px Arial;
+  position: relative;
+
+  text-align: center;
+  text-indent: 0px;
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  background: #FFF;
+  border: 1px solid #e3e3e3;
+  border-image: initial;
+  vertical-align: middle;
+}
+
+/* вариации внешнего вида в зав-ти от статуса checkbox */
+/* checked */
+input:checked + label:before {
+  content: "";
+  background: rgba(6, 102, 90);
+  color: rgba(6, 102, 90);
+}
+
+/* disabled */
+input:disabled + label:before {
+  background: #eee;
+  color: #aaa;
+}
 
 table {
   border-collapse: collapse;
@@ -74,5 +130,9 @@ td {
   img:hover {
     cursor: pointer;
   }
+}
+
+.is-selcted {
+  background-color: #06665A26;
 }
 </style>
