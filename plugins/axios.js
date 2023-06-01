@@ -1,6 +1,6 @@
 import Debug from '~/helpers/Debug';
 
-let refreshPromise = null;
+// let refreshPromise = null;
 export default function({ $axios, redirect, store, app }) {
 
 
@@ -41,40 +41,40 @@ export default function({ $axios, redirect, store, app }) {
       return Promise.reject(error.response);
     }
 
-    if (error.config.url === `refresh`) {
-      store.dispatch('auth/logout').then();
-      redirect('/');
-      return Promise.reject(error);
-    }
-
-    if (!refreshPromise) {
-
-      refreshPromise = $axios.post('refresh', {}, {
-        withCredentials: true,
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((res) => {
-          if (res?.data?.token) {
-            const newToken = res.data.token;
-            localStorage.setItem('token', newToken);
-            return newToken;
-          } else {
-            store.dispatch('auth/logout').then();
-            // eslint-disable-next-line prefer-promise-reject-errors
-            return Promise.reject();
-          }
-        })
-        .catch((error) => Promise.reject(error));
-    }
-
-    return refreshPromise.then((newToken) => {
-      refreshPromise = null;
-      error.config.headers.Authorization = `Bearer ${newToken}`;
-      return $axios(error.config); // origin config
-    });
+    // if (error.config.url === `refresh`) {
+    //   store.dispatch('auth/logout').then();
+    //   redirect('/');
+    //   return Promise.reject(error);
+    // }
+    //
+    // if (!refreshPromise) {
+    //
+    //   refreshPromise = $axios.post('refresh', {}, {
+    //     withCredentials: true,
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //   })
+    //     .then((res) => {
+    //       if (res?.data?.token) {
+    //         const newToken = res.data.token;
+    //         localStorage.setItem('token', newToken);
+    //         return newToken;
+    //       } else {
+    //         store.dispatch('auth/logout').then();
+    //         // eslint-disable-next-line prefer-promise-reject-errors
+    //         return Promise.reject();
+    //       }
+    //     })
+    //     .catch((error) => Promise.reject(error));
+    // }
+    //
+    // return refreshPromise.then((newToken) => {
+    //   refreshPromise = null;
+    //   error.config.headers.Authorization = `Bearer ${newToken}`;
+    //   return $axios(error.config); // origin config
+    // });
   });
 
   $axios.onResponseError(error => {

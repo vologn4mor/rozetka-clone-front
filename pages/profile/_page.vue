@@ -88,8 +88,8 @@ export default {
       logout: 'logout',
     }),
     async logoutHandler() {
-      await this.$router.push(this.localePath('/'));
-      this.logout();
+      // await this.$router.push(this.localePath('/'));
+      await this.logout();
     },
   },
 };

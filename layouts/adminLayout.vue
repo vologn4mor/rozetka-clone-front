@@ -15,7 +15,7 @@
             <nuxt-link :to='localePath("/")'>
               <img src='~/assets/images/icons/AdminLayout/home.svg' alt=''>
             </nuxt-link>
-            <div>
+            <div @click='logout'>
               <span>Вихід</span>
               <img src='~/assets/images/icons/AdminLayout/logout.svg' alt=''>
             </div>
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import MenuDropdown from '@/components/panel/MenuDropdown.vue';
 import catalogIcon from '@/assets/images/icons/AdminLayout/Panel/catalog.svg';
 
@@ -90,6 +91,11 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    ...mapActions('user', {
+      logout: 'logout',
+    }),
   },
 };
 </script>
