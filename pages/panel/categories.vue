@@ -6,7 +6,7 @@
       <img src='~/assets/images/loader.gif' alt=''>
     </div>
     <p v-else-if='$fetchState.error'>An error occurred :(</p>
-    <div v-else class='container-create'>
+    <div v-else>
       <div v-if='!isCreateNewCat'>
         <div class='search-container'>
           <div class='search'>
@@ -48,7 +48,7 @@
           <button @click='switchPage(true)'>&gt;</button>
         </div>
       </div>
-      <div v-else>
+      <div v-else class='container-create'>
         <div class='add-new-cat-header'>
           <span><b>Додавання категорії</b></span>
           <div>
@@ -87,6 +87,22 @@
               class='select'
             />
           </div>
+          <div class='item'>
+            <span>
+            Назва категорії
+          </span>
+            <AdminInputWithLang :lang-and-text='nameOfCat' @input='data => nameOfCat = data' />
+          </div>
+          <div class='files-selector'>
+            <span>
+            Додати іконку
+          </span>
+            <AppDropdown />
+            <span>
+            Додати зображення
+          </span>
+            <AppDropdown />
+          </div>
         </div>
       </div>
     </div>
@@ -98,10 +114,12 @@ import AdminSearchInput from '@/components/panel/AdminSearchInput.vue';
 import AdminButton from '@/components/panel/AdminButton.vue';
 import AdminTable from '@/components/panel/AdminTable.vue';
 import AdminSelect from '@/components/panel/AdminSelect.vue';
+import AdminInputWithLang from '@/components/panel/AdminInputWithLang.vue';
+import AppDropdown from '@/components/panel/AppDropdown.vue';
 
 export default {
   name: 'Categories',
-  components: { AdminSelect, AdminTable, AdminButton, AdminSearchInput },
+  components: { AppDropdown, AdminInputWithLang, AdminSelect, AdminTable, AdminButton, AdminSearchInput },
   layout: 'adminLayout',
   data() {
     return {
@@ -112,6 +130,29 @@ export default {
       total_pages: 0,
       isCreateNewCat: true,
       isCharOpened: false,
+      langs: ['ua'],
+      nameOfCat: [
+        {
+          lang: 'ua',
+          text: '',
+        },
+        {
+          lang: 'ru',
+          text: '',
+        },
+      ],
+      addIcon: null,
+      addImg: null,
+      showIconInMainMenu: false,
+      descriptionOfCat: [
+        {
+          lang: 'ua',
+          text: '',
+        },
+      ],
+      htmlTitle: '',
+      htmlH1: '',
+      metaTag: '',
     };
   },
   async fetch() {
@@ -293,5 +334,23 @@ export default {
       max-width: 787px;
     }
   }
+}
+
+.files-selector {
+  display: flex;
+  //justify-content: space-between;
+  margin: 30px 44px 0 60px;
+
+  span {
+    margin: 0 51px 0 38px;
+    white-space: nowrap;
+  }
+
+  span:first-child {
+    margin-left: 0;
+    margin-right: 140px;
+  }
+
+
 }
 </style>
