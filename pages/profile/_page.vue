@@ -11,6 +11,11 @@
             </div>
             <hr>
             <div>
+              <span style='margin-left: 29px'>
+                <nuxt-link :to='localePath("/panel/categories")'>Панель</nuxt-link>
+              </span>
+            </div>
+            <div>
               <img src='@/assets/images/icons/profile/my-orders.svg' alt=''>
               <span><nuxt-link :to='localePath("/profile/orders")'>{{ $t('myOrders') }}</nuxt-link></span>
             </div>
@@ -83,8 +88,8 @@ export default {
       logout: 'logout',
     }),
     async logoutHandler() {
-      await this.$router.push(this.localePath('/'));
-      this.logout();
+      // await this.$router.push(this.localePath('/'));
+      await this.logout();
     },
   },
 };

@@ -1,17 +1,30 @@
 <template>
-  <VueSlickCarousel v-bind='settings'>
-    <slot>
+  <div class='slider'>
+    <VueSlickCarousel v-bind='settings'>
+      <slot>
 
-    </slot>
+      </slot>
 
-    <template #prevArrow>
-      <img src='~assets/images/icons/left-arrow.svg' alt='arrow'>
-    </template>
+      <template #prevArrow>
+        <img src='~assets/images/icons/left-arrow.svg' alt='arrow' style='pointer-events: auto'>
+      </template>
 
-    <template #nextArrow>
-      <img src='~assets/images/icons/left-arrow.svg' alt='arrow' style='transform: rotate(180deg);'>
-    </template>
-  </VueSlickCarousel>
+      <template #nextArrow>
+        <img
+          src='~assets/images/icons/left-arrow.svg'
+          alt='arrow'
+          style='transform: rotate(180deg); pointer-events: auto'
+        >
+      </template>
+
+
+    </VueSlickCarousel>
+    <style>
+      .slider img {
+        pointer-events: none;
+      }
+    </style>
+  </div>
 </template>
 
 <script>
@@ -41,6 +54,7 @@ export default {
 </script>
 
 <style lang='scss'>
+
 
 .slick-slider {
   height: 383px;

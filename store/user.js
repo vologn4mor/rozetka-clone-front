@@ -1,3 +1,5 @@
+import Debug from '@/helpers/Debug';
+
 export const state = () => ({
   user: null,
 });
@@ -16,19 +18,22 @@ export const actions = {
     if (user) commit('setUser', JSON.parse(user));
   },
   async login({ state, commit }, payload) {
-    const resLogin = await this.$axios.$post(process.env.apiBaseUrl + 'authentication/Auth', payload);
-    localStorage.setItem('token', resLogin.jwt);
-    commit('setUser', resLogin.user);
-    // localStorage.setItem('user', JSON.stringify(state.user));
-    return true;
+    try {
+      const resLogin = await this.$axios.$post(process.env.apiBaseUrl + 'authentication/Auth', payload);
+      if (resLogin.jwt) {
+        localStorage.setItem('token', resLogin.jwt);
+        commit('setUser', resLogin.user);
+        return true;
+      } else return false;
+    } catch (e) {
+      Debug.log(e);
+    }
   },
-  logout({ commit }) {
-    // const navResult = await this.$router.push(this.localePath('/'));
-    // if (!navResult) {
+  async logout({ commit }) {
+    await this.$router.replace(this.localePath('/'));
     localStorage.removeItem('token');
-    // localStorage.removeItem('user');
+    localStorage.removeItem('user');
     commit('setUser', null);
-    // }
   },
 };
 
