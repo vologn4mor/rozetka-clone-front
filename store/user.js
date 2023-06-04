@@ -29,6 +29,18 @@ export const actions = {
       Debug.log(e);
     }
   },
+  async register({ state, commit }, payload) {
+    try {
+      const resRegistration = await this.$axios.$post(process.env.apiBaseUrl + 'authentication/Reg/register-user', payload);
+      if (resRegistration.jwt) {
+        localStorage.setItem('token', resRegistration.jwt);
+        commit('setUser', resRegistration.userModel);
+        return true;
+      } else return false;
+    } catch (e) {
+      Debug.log(e);
+    }
+  },
   async logout({ commit }) {
     await this.$router.replace(this.localePath('/'));
     localStorage.removeItem('token');

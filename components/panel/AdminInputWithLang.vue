@@ -100,7 +100,6 @@ export default {
 
 .langs-buttons {
   display: flex;
-  background-color: white;
   width: fit-content;
   position: relative;
   top: 1px;
@@ -109,6 +108,7 @@ export default {
   div {
     padding: 10px;
     border: 1px solid black;
+    background-color: white;
     border-bottom: 0;
     border-radius: 10px 10px 0 0;
   }
