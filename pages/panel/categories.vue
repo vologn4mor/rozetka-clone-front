@@ -105,6 +105,12 @@
               style='margin: 0 20px'
             />
             <AdminButton type='ok' :is-text='true' @click='addNewLang' />
+            <div
+              v-if='addNewLangValue !== "ua" && langs.includes(addNewLangValue)'
+              style='display: flex; align-items: center'>
+              <span style='margin-left: 20px'>Видалити локалізацію</span>
+              <AdminButton type='delete' style='margin-left: 20px' @click='deleteLang' />
+            </div>
           </div>
           <div class='files-selector'>
             <span>
@@ -249,6 +255,9 @@ export default {
       await this.fetchData();
     },
     addNewLang() {
+
+      if (!this.langs.includes(this.addNewLangValue)) this.langs.push(this.addNewLangValue);
+
       const itemName = this.nameOfCat.filter(item => item.lang === this.addNewLangValue);
 
       if (!itemName.length) {
@@ -266,6 +275,11 @@ export default {
           text: '',
         });
       }
+    },
+    deleteLang() {
+      this.langs = this.langs.filter(item => item !== this.addNewLangValue);
+      this.nameOfCat = this.nameOfCat.filter(item => item.lang !== this.addNewLangValue);
+      this.descriptionOfCat = this.descriptionOfCat.filter(item => item.lang !== this.addNewLangValue);
     },
   },
 };
