@@ -1,5 +1,9 @@
 <template>
-  <div class='custom-select' :tabindex='tabindex' @blur='open = false'>
+  <div
+    class='custom-select'
+    :tabindex='tabindex'
+    :style='width ? `width: ${width}px;` : null'
+    @blur='open = false'>
     <div class='selected' :class='{ open: open }' @click='open = !open'>
       {{ selected }}
     </div>
@@ -36,6 +40,11 @@ export default {
       required: false,
       default: 0,
     },
+    width: {
+      type: String,
+      required: false,
+      default: ''
+    }
   },
   data() {
     return {

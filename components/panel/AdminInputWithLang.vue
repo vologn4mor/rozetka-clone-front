@@ -6,11 +6,21 @@
       </div>
     </div>
     <input
+      v-if='!isTextarea'
       type='text'
       :value='activeValue'
       placeholder='Введіть назву'
       @input='e => changeActiveValue(e.target.value)'
     >
+    <textarea
+      v-else
+      type='text'
+      :value='activeValue'
+      placeholder='Введіть назву'
+      @input='e => changeActiveValue(e.target.value)'
+    >
+
+    </textarea>
   </div>
 </template>
 
@@ -21,6 +31,11 @@ export default {
     langAndText: {
       type: Array,
       required: true,
+    },
+    isTextarea: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   data() {
@@ -69,7 +84,16 @@ export default {
     border-radius: 0 10px 10px 10px;
   }
 
-  input:focus {
+  textarea {
+    max-width: 787px;
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    border-radius: 0 10px 10px 10px;
+    resize: none;
+  }
+
+  input:focus, textarea:focus {
     outline: none;
   }
 }

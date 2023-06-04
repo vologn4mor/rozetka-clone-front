@@ -10,7 +10,6 @@
       </tr>
       <tr v-for='item in data' :key='item.id' :class='item.isSelected ? "is-selcted" : null'>
         <td v-if='changeable' style='width: 18px; height: 18px;'>
-          <!--          <input v-model='item.isSelected' type='checkbox'>-->
           <input :id='item.id' v-model='item.isSelected' type='checkbox' />
           <label :for='item.id'></label>
         </td>

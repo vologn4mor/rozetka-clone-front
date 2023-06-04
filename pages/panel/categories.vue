@@ -92,6 +92,19 @@
             Назва категорії
           </span>
             <AdminInputWithLang :lang-and-text='nameOfCat' @input='data => nameOfCat = data' />
+
+          </div>
+          <div class='item add-lang'>
+            <span>
+            Додати локалізацію
+          </span>
+            <AdminSelect
+              :options="['ua', 'ru']"
+              width='226'
+              @input='val => addNewLangValue = val'
+              style='margin: 0 20px'
+            />
+            <AdminButton type='ok' :is-text='true' @click='addNewLang' />
           </div>
           <div class='files-selector'>
             <span>
@@ -102,6 +115,40 @@
             Додати зображення
           </span>
             <AppDropdown />
+          </div>
+          <div class='item checkbox'>
+            <span>Показувати іконку в головному меню</span>
+            <div>
+              <input :id='1' type='checkbox' />
+              <label :for='1'></label>
+            </div>
+          </div>
+          <div class='item'>
+            <span>
+            Опис категорії
+          </span>
+            <AdminInputWithLang
+              :lang-and-text='descriptionOfCat'
+              :is-textarea='true'
+              @input='data => descriptionOfCat = data' />
+          </div>
+          <div class='item'>
+            <span>
+            HTML-тег Title
+          </span>
+            <AdminInput />
+          </div>
+          <div class='item'>
+            <span>
+            HTML-тег H1
+          </span>
+            <AdminInput />
+          </div>
+          <div class='item' style='padding-bottom: 40px'>
+            <span>
+            Мета-тег Description
+          </span>
+            <AdminInput :is-textarea='true' />
           </div>
         </div>
       </div>
@@ -116,10 +163,11 @@ import AdminTable from '@/components/panel/AdminTable.vue';
 import AdminSelect from '@/components/panel/AdminSelect.vue';
 import AdminInputWithLang from '@/components/panel/AdminInputWithLang.vue';
 import AppDropdown from '@/components/panel/AppDropdown.vue';
+import AdminInput from '@/components/panel/AdminInput.vue';
 
 export default {
   name: 'Categories',
-  components: { AppDropdown, AdminInputWithLang, AdminSelect, AdminTable, AdminButton, AdminSearchInput },
+  components: { AdminInput, AppDropdown, AdminInputWithLang, AdminSelect, AdminTable, AdminButton, AdminSearchInput },
   layout: 'adminLayout',
   data() {
     return {
@@ -128,16 +176,13 @@ export default {
       search: null,
       page: 1,
       total_pages: 0,
-      isCreateNewCat: true,
+      isCreateNewCat: false,
       isCharOpened: false,
       langs: ['ua'],
+      addNewLangValue: 'ua',
       nameOfCat: [
         {
           lang: 'ua',
-          text: '',
-        },
-        {
-          lang: 'ru',
           text: '',
         },
       ],
@@ -203,11 +248,78 @@ export default {
       }
       await this.fetchData();
     },
+    addNewLang() {
+      const itemName = this.nameOfCat.filter(item => item.lang === this.addNewLangValue);
+
+      if (!itemName.length) {
+        this.nameOfCat.push({
+          lang: this.addNewLangValue,
+          text: '',
+        });
+      }
+
+      const itemDesc = this.descriptionOfCat.filter(item => item.lang === this.addNewLangValue);
+
+      if (!itemDesc.length) {
+        this.descriptionOfCat.push({
+          lang: this.addNewLangValue,
+          text: '',
+        });
+      }
+    },
   },
 };
 </script>
 
 <style scoped lang='scss'>
+
+input[type="checkbox"] {
+  display: none;
+}
+
+/* стили для метки */
+label {
+  color: #000;
+  cursor: pointer;
+  font-weight: normal;
+  line-height: 30px;
+  margin: 0 auto;
+  //padding: 10px 0;
+  vertical-align: middle;
+}
+
+/* формируем внешний вид чекбокса в псевдоэлементе before */
+label:before {
+  content: " ";
+  color: #000;
+  display: inline-block;
+  font: 20px/30px Arial;
+  position: relative;
+
+  text-align: center;
+  text-indent: 0px;
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+  background: #FFF;
+  border: 1px solid #e3e3e3;
+  border-image: initial;
+  vertical-align: middle;
+}
+
+/* вариации внешнего вида в зав-ти от статуса checkbox */
+/* checked */
+input:checked + label:before {
+  content: "";
+  background: rgba(6, 102, 90);
+  color: rgba(6, 102, 90);
+}
+
+/* disabled */
+input:disabled + label:before {
+  background: #eee;
+  color: #aaa;
+}
 
 .container {
   max-width: 1133px;
@@ -333,6 +445,21 @@ export default {
     div {
       max-width: 787px;
     }
+  }
+
+  .checkbox {
+    span {
+      white-space: normal;
+      max-width: 215px;
+      margin-right: 25px;
+    }
+
+    justify-content: flex-start;
+  }
+
+  .add-lang {
+    justify-content: normal;
+    margin-left: 300px;
   }
 }
 
