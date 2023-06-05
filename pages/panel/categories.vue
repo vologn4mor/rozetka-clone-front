@@ -68,7 +68,7 @@
             </div>
           </div>
         </div>
-        <div class='main-first'>
+        <div v-if='!isCharOpened' class='main-first'>
           <div class='item'>
             <span>
             Батьківська категорія
@@ -101,8 +101,8 @@
             <AdminSelect
               :options="['ua', 'ru']"
               width='226'
-              @input='val => addNewLangValue = val'
               style='margin: 0 20px'
+              @input='val => addNewLangValue = val'
             />
             <AdminButton type='ok' :is-text='true' @click='addNewLang' />
             <div
@@ -116,11 +116,13 @@
             <span>
             Додати іконку
           </span>
-            <AppDropdown />
+            <AppDropdown
+              placeholder='Перетягніть файли сюди чи натисніть на кнопку. Додавайте зображення у форматі .png' />
             <span>
             Додати зображення
           </span>
-            <AppDropdown />
+            <AppDropdown
+              placeholder='Перетягніть файл сюди чи натисніть на кнопку. Додавайте зображення у форматі .jpg, .gif, .png, розміром файлу до 5 МБ' />
           </div>
           <div class='item checkbox'>
             <span>Показувати іконку в головному меню</span>
@@ -157,6 +159,54 @@
             <AdminInput :is-textarea='true' />
           </div>
         </div>
+        <div v-else class='main-second'>
+          <div class='langs-block'>
+            <AdminInputWithLang :lang-and-text='descriptionOfCat' :without-input='true' />
+            <div class='item add-lang'>
+            <span>
+            Додати локалізацію
+          </span>
+              <AdminSelect
+                :options="['ua', 'ru']"
+                width='226'
+                style='margin: 0 20px'
+                @input='val => addNewLangValue = val'
+              />
+              <AdminButton type='ok' :is-text='true' @click='addNewLang' />
+              <div
+                v-if='addNewLangValue !== "ua" && langs.includes(addNewLangValue)'
+                style='display: flex; align-items: center'>
+                <span style='margin-left: 20px'>Видалити локалізацію</span>
+                <AdminButton type='delete' style='margin-left: 20px' @click='deleteLang' />
+              </div>
+            </div>
+          </div>
+          <div class='adding-container'>
+            <p>Додавання характеристик для товарів цієї категорії</p>
+            <div class='adding'>
+              <span>Додавання групи характеристик </span>
+              <div class='buttons'>
+                <AdminButton type='plus' />
+                <AdminButton type='delete' />
+              </div>
+            </div>
+            <div class='adding'>
+              <span>Додавання характеристики </span>
+              <div class='buttons'>
+                <AdminButton type='plus' />
+                <AdminButton type='delete' />
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class='add-char-container'>
+            <AdminAddChar />
+            <AdminAddChar />
+            <AdminAddChar />
+            <AdminAddChar />
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
@@ -170,10 +220,20 @@ import AdminSelect from '@/components/panel/AdminSelect.vue';
 import AdminInputWithLang from '@/components/panel/AdminInputWithLang.vue';
 import AppDropdown from '@/components/panel/AppDropdown.vue';
 import AdminInput from '@/components/panel/AdminInput.vue';
+import AdminAddChar from '@/components/panel/AdminAddChar.vue';
 
 export default {
   name: 'Categories',
-  components: { AdminInput, AppDropdown, AdminInputWithLang, AdminSelect, AdminTable, AdminButton, AdminSearchInput },
+  components: {
+    AdminAddChar,
+    AdminInput,
+    AppDropdown,
+    AdminInputWithLang,
+    AdminSelect,
+    AdminTable,
+    AdminButton,
+    AdminSearchInput,
+  },
   layout: 'adminLayout',
   data() {
     return {
@@ -493,5 +553,50 @@ input:disabled + label:before {
   }
 
 
+}
+
+.main-second {
+  display: flex;
+  flex-direction: column;
+
+  .langs-block {
+    max-width: 787px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+
+    .add-lang {
+      display: flex;
+      border-top: 1px solid;
+      padding-top: 20px;
+      align-items: center;
+    }
+  }
+
+  .adding-container {
+    padding: 20px 50px;
+
+    .adding {
+      display: flex;
+      align-items: center;
+      padding: 20px 0;
+
+      .buttons {
+        display: flex;
+        margin-left: 20px;
+
+        div {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  .add-char-container {
+    div {
+      padding: 20px;
+    }
+  }
 }
 </style>

@@ -6,14 +6,14 @@
       </div>
     </div>
     <input
-      v-if='!isTextarea'
+      v-if='!isTextarea && !withoutInput'
       type='text'
       :value='activeValue'
       placeholder='Введіть назву'
       @input='e => changeActiveValue(e.target.value)'
     >
     <textarea
-      v-else
+      v-else-if='!withoutInput'
       type='text'
       :value='activeValue'
       placeholder='Введіть назву'
@@ -33,6 +33,11 @@ export default {
       required: true,
     },
     isTextarea: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    withoutInput: {
       type: Boolean,
       required: false,
       default: false,
@@ -115,6 +120,10 @@ export default {
 
   div:first-child {
     border-right: 0;
+  }
+
+  div:last-child {
+    border-right: 1px solid;
   }
 
   div:hover {
