@@ -5,19 +5,19 @@
     :style='width ? `width: ${width}px;` : null'
     @blur='open = false'>
     <div class='selected' :class='{ open: open }' @click='open = !open'>
-      {{ selected }}
+      {{ typeof selected === 'string' ? selected : selected.value }}
     </div>
     <div class='items' :class='{ selectHide: !open }'>
       <div
-        v-for='(option, i) of options'
-        :key='i'
+        v-for='option of options'
+        :key='option.id'
         @click="
           selected = option;
           open = false;
-          $emit('input', option);
+          $emit('input', option.id ? option.id : null);
         "
       >
-        {{ option }}
+        {{ option.value }}
       </div>
     </div>
   </div>
@@ -43,12 +43,18 @@ export default {
     width: {
       type: String,
       required: false,
-      default: ''
-    }
+      default: '',
+    },
+    placeholder: {
+      type: String,
+      required: false,
+      default: '',
+    },
   },
   data() {
     return {
-      selected: this.default
+      // selected: this.placeholder,
+      selected: this.placeholder ? this.placeholder : this.default
         ? this.default
         : this.options.length > 0
           ? this.options[0]
@@ -101,7 +107,7 @@ export default {
 .custom-select .items {
   color: black;
   border-radius: 0px 0px 6px 6px;
-  overflow: hidden;
+  overflow-x: hidden;
   border-right: 1px solid black;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
@@ -125,5 +131,10 @@ export default {
 
 .selectHide {
   display: none;
+}
+
+.items {
+  max-height: 400px;
+  overflow-x: scroll;
 }
 </style>

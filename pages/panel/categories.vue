@@ -15,7 +15,7 @@
           <div class='buttons'>
             <AdminButton type='delete' :color='selectedItemsId.length ? "red" : null ' />
             <AdminButton type='refresh' @click='fetchData' />
-            <AdminButton type='plus' @click='isCreateNewCat = true' />
+            <AdminButton type='plus' @click='getCats' />
           </div>
         </div>
         <AdminTable :header='header' :data='items' />
@@ -74,8 +74,10 @@
             Батьківська категорія
           </span>
             <AdminSelect
-              :options="['go', 'python', 'rust', 'javascript']"
+              placeholder='Оберіть категорію'
+              :options='catsList.map(item => {return {id: item.id, value: item.name}})'
               class='select'
+              @input='val => typeof val === "number" ? addNewCatData.parent_id = val : null'
             />
           </div>
           <div class='item'>
@@ -83,15 +85,17 @@
             Показувати в категоріЇ
           </span>
             <AdminSelect
-              :options="['go', 'python', 'rust', 'javascript']"
+              placeholder='Оберіть категорію'
+              :options='catsList.map(item => {return {id: item.id, value: item.name}})'
               class='select'
+              @input='val => typeof val === "number" ? addNewCatData.showin_category_id = val : null'
             />
           </div>
           <div class='item'>
             <span>
             Назва категорії
           </span>
-            <AdminInputWithLang :lang-and-text='nameOfCat' @input='data => nameOfCat = data' />
+            <AdminInputWithLang :lang-and-text='addNewCatData.names' @input='data => addNewCatData.names = data' />
 
           </div>
           <div class='item add-lang'>
@@ -99,14 +103,14 @@
             Додати локалізацію
           </span>
             <AdminSelect
-              :options="['ua', 'ru']"
+              :options='langs'
               width='226'
               style='margin: 0 20px'
-              @input='val => addNewLangValue = val'
+              @input='val => setAddNewLangValue(val)'
             />
             <AdminButton type='ok' :is-text='true' @click='addNewLang' />
             <div
-              v-if='addNewLangValue !== "ua" && langs.includes(addNewLangValue)'
+              v-if='addNewLangValue !== "ua" && addNewCatData.names.length > 1'
               style='display: flex; align-items: center'>
               <span style='margin-left: 20px'>Видалити локалізацію</span>
               <AdminButton type='delete' style='margin-left: 20px' @click='deleteLang' />
@@ -244,7 +248,7 @@ export default {
       total_pages: 0,
       isCreateNewCat: false,
       isCharOpened: false,
-      langs: ['ua'],
+      langs: [{ id: 1, value: 'ua' }, { id: 2, value: 'ru' }],
       addNewLangValue: 'ua',
       nameOfCat: [
         {
@@ -252,8 +256,6 @@ export default {
           text: '',
         },
       ],
-      addIcon: null,
-      addImg: null,
       showIconInMainMenu: false,
       descriptionOfCat: [
         {
@@ -264,6 +266,22 @@ export default {
       htmlTitle: '',
       htmlH1: '',
       metaTag: '',
+      catsList: null,
+      addNewCatData: {
+        id: null,
+        names: [{
+          lang: 'ua',
+          text: '',
+        }],
+        parent_id: null,
+        showin_category_id: null,
+        root_icon: null,
+        existing_icon: null,
+        category_image: null,
+        existing_image: null,
+        is_active: null,
+        children: null,
+      },
     };
   },
   async fetch() {
@@ -316,12 +334,12 @@ export default {
     },
     addNewLang() {
 
-      if (!this.langs.includes(this.addNewLangValue)) this.langs.push(this.addNewLangValue);
+      // if (!this.langs.includes(this.addNewLangValue)) this.langs.push(this.addNewLangValue);
 
-      const itemName = this.nameOfCat.filter(item => item.lang === this.addNewLangValue);
+      const itemName = this.addNewCatData.names.filter(item => item.lang === this.addNewLangValue);
 
       if (!itemName.length) {
-        this.nameOfCat.push({
+        this.addNewCatData.names.push({
           lang: this.addNewLangValue,
           text: '',
         });
@@ -337,9 +355,21 @@ export default {
       }
     },
     deleteLang() {
-      this.langs = this.langs.filter(item => item !== this.addNewLangValue);
-      this.nameOfCat = this.nameOfCat.filter(item => item.lang !== this.addNewLangValue);
+      // this.langs = this.langs.filter(item => item !== this.addNewLangValue);
+      this.addNewCatData.names = this.addNewCatData.names.filter(item => item.lang !== this.addNewLangValue);
       this.descriptionOfCat = this.descriptionOfCat.filter(item => item.lang !== this.addNewLangValue);
+    },
+    async getCats() {
+      const res = await this.$axios.$get('/Categories/parent-candidates');
+      console.log(res);
+      this.catsList = res.data;
+      this.isCreateNewCat = true;
+    },
+    setAddNewLangValue(id) {
+      const item = this.langs.filter(item => item.id === id)[0];
+      // console.log(item);
+      // this.addNewLangValue = item.value;
+      if (item) this.addNewLangValue = item.value;
     },
   },
 };
