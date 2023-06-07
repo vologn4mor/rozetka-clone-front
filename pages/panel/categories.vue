@@ -13,7 +13,7 @@
             <AdminSearchInput @search='(val) => {search = val; fetchData()}' />
           </div>
           <div class='buttons'>
-            <AdminButton type='delete' :color='selectedItemsId.length ? "red" : null ' />
+            <AdminButton type='delete' @click='deleteCategories' :color='selectedItemsId.length ? "red" : null ' />
             <AdminButton type='refresh' @click='fetchData' />
             <AdminButton type='plus' @click='getCats' />
           </div>
@@ -52,7 +52,7 @@
         <div class='add-new-cat-header'>
           <span><b>Додавання категорії</b></span>
           <div>
-            <AdminButton type='save' />
+            <AdminButton type='save' @click='createNewCat' />
             <AdminButton type='back' @click='isCreateNewCat = false' />
           </div>
         </div>
@@ -110,7 +110,7 @@
             />
             <AdminButton type='ok' :is-text='true' @click='addNewLang' />
             <div
-              v-if='addNewLangValue !== "ua" && addNewCatData.names.length > 1'
+              v-if='addNewLangValue !== "UK" && addNewCatData.names.length > 1'
               style='display: flex; align-items: center'>
               <span style='margin-left: 20px'>Видалити локалізацію</span>
               <AdminButton type='delete' style='margin-left: 20px' @click='deleteLang' />
@@ -121,12 +121,15 @@
             Додати іконку
           </span>
             <AppDropdown
-              placeholder='Перетягніть файли сюди чи натисніть на кнопку. Додавайте зображення у форматі .png' />
+              placeholder='Перетягніть файли сюди чи натисніть на кнопку. Додавайте зображення у форматі .png'
+              @input='val => addNewCatData.root_icon = val'
+            />
             <span>
             Додати зображення
           </span>
             <AppDropdown
-              placeholder='Перетягніть файл сюди чи натисніть на кнопку. Додавайте зображення у форматі .jpg, .gif, .png, розміром файлу до 5 МБ' />
+              placeholder='Перетягніть файл сюди чи натисніть на кнопку. Додавайте зображення у форматі .jpg, .gif, .png, розміром файлу до 5 МБ'
+              @input='val => addNewCatData.category_image = val' />
           </div>
           <div class='item checkbox'>
             <span>Показувати іконку в головному меню</span>
@@ -171,14 +174,14 @@
             Додати локалізацію
           </span>
               <AdminSelect
-                :options="['ua', 'ru']"
+                :options="['UK', 'RU']"
                 width='226'
                 style='margin: 0 20px'
                 @input='val => addNewLangValue = val'
               />
               <AdminButton type='ok' :is-text='true' @click='addNewLang' />
               <div
-                v-if='addNewLangValue !== "ua" && langs.includes(addNewLangValue)'
+                v-if='addNewLangValue !== "UK" && langs.includes(addNewLangValue)'
                 style='display: flex; align-items: center'>
                 <span style='margin-left: 20px'>Видалити локалізацію</span>
                 <AdminButton type='delete' style='margin-left: 20px' @click='deleteLang' />
@@ -248,18 +251,18 @@ export default {
       total_pages: 0,
       isCreateNewCat: false,
       isCharOpened: false,
-      langs: [{ id: 1, value: 'ua' }, { id: 2, value: 'ru' }],
-      addNewLangValue: 'ua',
+      langs: [{ id: 1, value: 'UK' }, { id: 2, value: 'RU' }],
+      addNewLangValue: 'UK',
       nameOfCat: [
         {
-          lang: 'ua',
+          lang: 'UK',
           text: '',
         },
       ],
       showIconInMainMenu: false,
       descriptionOfCat: [
         {
-          lang: 'ua',
+          lang: 'UK',
           text: '',
         },
       ],
@@ -270,7 +273,7 @@ export default {
       addNewCatData: {
         id: null,
         names: [{
-          lang: 'ua',
+          lang: 'UK',
           text: '',
         }],
         parent_id: null,
@@ -370,6 +373,57 @@ export default {
       // console.log(item);
       // this.addNewLangValue = item.value;
       if (item) this.addNewLangValue = item.value;
+    },
+    async createNewCat() {
+      try {
+        const form = new FormData();
+        // const names = this.addNewCatData.names.map(item => {
+        //   return {
+        //     [item.lang]: item.text,
+        //   };
+        // });
+        const namesRes = {};
+        this.addNewCatData.names.forEach(item => {
+          namesRes[item.lang] = item.text;
+        });
+        console.log(namesRes);
+        form.append('names', JSON.stringify(namesRes));
+        form.append('parent_id', this.addNewCatData.parent_id);
+        form.append('showin_category_id', this.addNewCatData.showin_category_id);
+        form.append('root_icon', this.addNewCatData.root_icon[0]);
+        form.append('category_image', this.addNewCatData.category_image[0]);
+        // console.log()
+        const res = await this.$axios.$post('/Categories/create', form);
+        console.log(res);
+      } catch (e) {
+        console.log(e);
+        if (e.errors) {
+          Object.keys(e.errors).forEach(key => {
+            console.log(e.errors[key]);
+            this.$toast.error(e.errors[key]);
+          });
+        } else this.$toast.error(e);
+      }
+    },
+    async deleteCategories() {
+      await Promise.all(
+        this.selectedItemsId.map(async id => {
+          try {
+            const res = await this.$axios.$delete('/categories/delete', {
+              params: {
+                category_id: id,
+              },
+            });
+            if (!res) {
+              this.$toast.error('ошибка');
+            }
+          } catch (e) {
+            this.$toast.error(e);
+          }
+
+        }),
+      );
+      await this.$fetch();
     },
   },
 };

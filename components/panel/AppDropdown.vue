@@ -36,6 +36,7 @@ export default {
   methods: {
     onChange() {
       this.filelist = [...this.$refs.file.files];
+      this.$emit('input', this.filelist);
     },
     onDrop(event) {
       event.preventDefault();

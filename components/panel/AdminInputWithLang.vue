@@ -45,7 +45,7 @@ export default {
   },
   data() {
     return {
-      isSelectedLang: 'ua',
+      isSelectedLang: 'UK',
     };
   },
   computed: {
