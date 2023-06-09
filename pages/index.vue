@@ -40,8 +40,8 @@
       <div class='ub_container__left'>
         <app-card :style='$i18n.locale === "ru" ? "margin-top: 12px;" : "margin-top: 16px;" '>
           <p>{{ $t('aboutOurCompany') }}</p>
-          <nuxt-link to='/'>{{ $t('aboutUs') }}</nuxt-link>
-          <nuxt-link to='/'>{{ $t('termsOfUseTheSite') }}</nuxt-link>
+          <nuxt-link :to='localePath("/other/about")'>{{ $t('aboutUs') }}</nuxt-link>
+          <nuxt-link :to='localePath("/other/usage-rules")'>{{ $t('termsOfUseTheSite') }}</nuxt-link>
           <nuxt-link to='/'>{{ $t('vacancies') }}</nuxt-link>
           <nuxt-link to='/'>{{ $t('contacts') }}</nuxt-link>
         </app-card>

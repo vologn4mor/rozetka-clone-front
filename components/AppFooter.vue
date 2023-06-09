@@ -9,8 +9,8 @@
         <div class='footer-container-main-up'>
           <div>
             <span>{{ $t('aboutOurCompany') }}</span>
-            <span>{{ $t('aboutUs') }}</span>
-            <span>{{ $t('termsOfUseTheSite') }}</span>
+            <span><nuxt-link :to='localePath("/other/about")'>{{ $t('aboutUs') }}</nuxt-link></span>
+            <span><nuxt-link :to='localePath("/other/usage-rules")'>{{ $t('termsOfUseTheSite') }}</nuxt-link></span>
             <span>{{ $t('vacancies') }}</span>
             <span>{{ $t('contacts') }}</span>
           </div>
@@ -135,7 +135,7 @@ export default {
           color: $lh-accent-green;
         }
 
-        span {
+        span, a {
           margin-bottom: 10px;
           color: $lh-white;
         }

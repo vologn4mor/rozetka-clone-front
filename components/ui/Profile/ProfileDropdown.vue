@@ -43,6 +43,10 @@ export default {
 
 <style scoped lang='scss'>
 
+hr {
+  margin: 20px 0;
+}
+
 .container {
   background-color: $lh-gray;
   border-radius: 6px;
