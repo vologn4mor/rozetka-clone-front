@@ -48,7 +48,6 @@ export default {
   },
   computed: {
     rules() {
-      // console.log(this.$i18n.locale);
       return usageRules[this.$i18n.locale];
     },
   },

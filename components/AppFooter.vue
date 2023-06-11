@@ -11,7 +11,7 @@
             <span>{{ $t('aboutOurCompany') }}</span>
             <span><nuxt-link :to='localePath("/other/about")'>{{ $t('aboutUs') }}</nuxt-link></span>
             <span><nuxt-link :to='localePath("/other/usage-rules")'>{{ $t('termsOfUseTheSite') }}</nuxt-link></span>
-            <span>{{ $t('vacancies') }}</span>
+            <span><nuxt-link :to='localePath("/other/vacancies")'>{{ $t('vacancies') }}</nuxt-link></span>
             <span>{{ $t('contacts') }}</span>
           </div>
           <div>

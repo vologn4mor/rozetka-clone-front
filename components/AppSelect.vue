@@ -4,7 +4,11 @@
     :tabindex='tabindex'
     :style='width ? `width: ${width}px;` : null'
     @blur='open = false'>
-    <div class='selected' :class='{ open: open }' @click='open = !open'>
+    <div
+      class='selected'
+      :class='color ? color : null'
+      @click='open = !open'
+    >
       {{ typeof selected === 'string' ? selected : selected.value }}
     </div>
     <div class='items' :class='{ selectHide: !open }'>
@@ -50,6 +54,11 @@ export default {
       required: false,
       default: '',
     },
+    color: {
+      type: String,
+      required: false,
+      default: '',
+    },
   },
   data() {
     return {
@@ -68,7 +77,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .custom-select {
   position: relative;
   width: 100%;
@@ -136,5 +145,9 @@ export default {
 .items {
   max-height: 400px;
   overflow-x: scroll;
+}
+
+.custom-select .green {
+  border: 2px solid $lh-accent-green;
 }
 </style>
