@@ -19,34 +19,39 @@
           </div>
         </div>
         <AdminTable :header='header' :data='items' />
-        <div class='buttons-container'>
-          <button @click='switchPage(false)'>&lt;</button>
-          <div v-if='total_pages > 8'>
-            <div>
-              <button v-for='item in 7' :key='item' :class='page === item ? "active-btn" : null' @click='page = item'>
-                {{ item }}
-              </button>
-              <button>
-                ...
-              </button>
-              <button
-                :class='page === total_pages ? "active-btn" : null'
-                @click='page = total_pages'>
-                {{ total_pages }}
-              </button>
-            </div>
-          </div>
-          <div v-else>
-            <button
-              v-for='item in total_pages'
-              :key='item' :class='page === item ? "active-btn" : null'
-              @click='page = item'>
-              {{ item }}
-            </button>
-          </div>
+        <!--        <div class='buttons-container'>-->
+        <!--          <button @click='switchPage(false)'>&lt;</button>-->
+        <!--          <div v-if='total_pages > 8'>-->
+        <!--            <div>-->
+        <!--              <button v-for='item in 7' :key='item' :class='page === item ? "active-btn" : null' @click='page = item'>-->
+        <!--                {{ item }}-->
+        <!--              </button>-->
+        <!--              <button>-->
+        <!--                ...-->
+        <!--              </button>-->
+        <!--              <button-->
+        <!--                :class='page === total_pages ? "active-btn" : null'-->
+        <!--                @click='page = total_pages'>-->
+        <!--                {{ total_pages }}-->
+        <!--              </button>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--          <div v-else>-->
+        <!--            <button-->
+        <!--              v-for='item in total_pages'-->
+        <!--              :key='item' :class='page === item ? "active-btn" : null'-->
+        <!--              @click='page = item'>-->
+        <!--              {{ item }}-->
+        <!--            </button>-->
+        <!--          </div>-->
 
-          <button @click='switchPage(true)'>&gt;</button>
-        </div>
+        <!--          <button @click='switchPage(true)'>&gt;</button>-->
+        <!--        </div>-->
+        <AppPagination
+          :total-pages='total_pages'
+          :current-page='page'
+          @update='(val) => page = val'
+        />
       </div>
       <div v-else class='container-create'>
         <div class='add-new-cat-header'>
@@ -228,10 +233,12 @@ import AdminInputWithLang from '@/components/panel/AdminInputWithLang.vue';
 import AppDropdown from '@/components/panel/AppDropdown.vue';
 import AdminInput from '@/components/panel/AdminInput.vue';
 import AdminAddChar from '@/components/panel/AdminAddChar.vue';
+import AppPagination from '@/components/ui/AppPagination.vue';
 
 export default {
   name: 'Categories',
   components: {
+    AppPagination,
     AdminAddChar,
     AdminInput,
     AppDropdown,

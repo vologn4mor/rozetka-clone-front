@@ -61,34 +61,41 @@
             :image='item.preview_img.url'
           />
         </div>
-        <div class='buttons-container'>
-          <button @click='switchPage(false)'>&lt;</button>
-          <div v-if='articles.data.total_pages > 8'>
-            <div>
-              <button v-for='item in 7' :key='item' :class='page === item ? "active-btn" : null' @click='page = item'>
-                {{ item }}
-              </button>
-              <button>
-                ...
-              </button>
-              <button
-                :class='page === articles.data.total_pages ? "active-btn" : null'
-                @click='page = articles.data.total_pages'>
-                {{ articles.data.total_pages }}
-              </button>
-            </div>
-          </div>
-          <div v-else>
-            <button
-              v-for='item in articles.data.total_pages'
-              :key='item' :class='page === item ? "active-btn" : null'
-              @click='page = item'>
-              {{ item }}
-            </button>
-          </div>
+        <!--        <div class='buttons-container'>-->
+        <!--          <button @click='switchPage(false)'>&lt;</button>-->
+        <!--          <div v-if='articles.data.total_pages > 8'>-->
+        <!--            <div>-->
+        <!--              <button v-for='item in 7' :key='item' :class='page === item ? "active-btn" : null' @click='page = item'>-->
+        <!--                {{ item }}-->
+        <!--              </button>-->
+        <!--              <button>-->
+        <!--                ...-->
+        <!--              </button>-->
+        <!--              <button-->
+        <!--                :class='page === articles.data.total_pages ? "active-btn" : null'-->
+        <!--                @click='page = articles.data.total_pages'>-->
+        <!--                {{ articles.data.total_pages }}-->
+        <!--              </button>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--          <div v-else>-->
+        <!--            <button-->
+        <!--              v-for='item in articles.data.total_pages'-->
+        <!--              :key='item' :class='page === item ? "active-btn" : null'-->
+        <!--              @click='page = item'>-->
+        <!--              {{ item }}-->
+        <!--            </button>-->
+        <!--          </div>-->
 
-          <button @click='switchPage(true)'>&gt;</button>
-        </div>
+        <!--          <button @click='switchPage(true)'>&gt;</button>-->
+        <!--        </div>-->
+        <AppPagination
+          :total-pages='articles.data.total_pages'
+          :current-page='page'
+          :arrows-space-between='false'
+          @update='(val) => page = val'
+        />
+
       </div>
     </div>
   </div>
@@ -99,10 +106,11 @@
 
 import AppCatCard from '@/components/ui/AppCatCard.vue';
 import ProductOne from '@/components/ui/ProductOne.vue';
+import AppPagination from '@/components/ui/AppPagination.vue';
 
 export default {
   name: 'Podcat',
-  components: { ProductOne, AppCatCard },
+  components: { AppPagination, ProductOne, AppCatCard },
   async asyncData(ctx) {
     try {
       let podCats = await ctx.$axios.$get('/Categories/get-sub', {

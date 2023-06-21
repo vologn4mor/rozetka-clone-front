@@ -14,7 +14,7 @@
         <div class='first-step-inputs'>
           <AppInput value='' label='Прізвище' placeholder='Введіть прізвище' />
           <AppInput value='' label='Ім’я' placeholder='Введіть ім’я' />
-          <AppInput value='+380' label='Мобільний телефон' placeholder='Введіть мобільний телефон' />
+          <AppInput value='+380' type='phone' label='Мобільний телефон' placeholder='Введіть мобільний телефон' />
           <AppInput value='' label='Електронна пошта' placeholder='Введіть вашу пошту' />
         </div>
       </div>
@@ -98,33 +98,33 @@
                   <AppCheckbox label='Самовивіз з точок видачи Ладна Хата' />
                   <span class='gray'>Відправляємо завтра</span>
                 </div>
-                <span class='price'>50$</span>
+                <span class='price'>50₴</span>
               </div>
               <div class='checkbox'>
                 <div>
                   <AppCheckbox label='Доставка кур’єром (Нова пошта, Meest)' />
                 </div>
-                <span class='price'>50$</span>
+                <span class='price'>50₴</span>
               </div>
               <div class='checkbox'>
                 <div>
                   <AppCheckbox label='Доставка до відділень Нової пошти' />
                 </div>
-                <span class='price'>50$</span>
+                <span class='price'>50₴</span>
               </div>
               <div class='checkbox'>
                 <div>
                   <AppCheckbox label='Доставка до відділень Meest' />
                   <span class='gray'>Відправляємо завтра</span>
                 </div>
-                <span class='price'>50$</span>
+                <span class='price'>50₴</span>
               </div>
               <div class='checkbox'>
                 <div>
                   <AppCheckbox label='Доставка до відділень Укрпошти' />
                   <span class='gray'>Відправляємо завтра</span>
                 </div>
-                <span class='price'>50$</span>
+                <span class='price'>50₴</span>
               </div>
 
             </div>
@@ -189,7 +189,7 @@
           <AppInput value='' placeholder='Введіть прізвище' label='Прізвище' />
           <AppInput value='' placeholder='Введіть ім’я' label='Ім’я' />
           <AppInput value='' placeholder='Введіть по батькові' label='По батькові' />
-          <AppInput value='+380' placeholder='Введіть мобільний телефон' label='Мобільний телефон' />
+          <AppInput value='+380' type='phone' label='Мобільний телефон' placeholder='Введіть мобільний телефон' />
         </div>
 
       </div>
@@ -614,6 +614,11 @@ export default {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
+
+        div {
+          max-width: 260px;
+          width: 100%;
+        }
       }
     }
   }
