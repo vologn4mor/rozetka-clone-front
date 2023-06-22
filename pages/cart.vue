@@ -64,7 +64,7 @@
             </span>
             </div>
             <div class='fourth-block'>
-              <nuxt-link :to='localePath("/execution")'>
+              <nuxt-link v-if='items' :to='localePath("/execution")'>
                 {{ $t('makeOrder') }}
               </nuxt-link>
               <nuxt-link :to='localePath("/")'>

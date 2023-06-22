@@ -12,10 +12,32 @@
           <span>Ваші контактні дані</span>
         </div>
         <div class='first-step-inputs'>
-          <AppInput value='' label='Прізвище' placeholder='Введіть прізвище' />
-          <AppInput value='' label='Ім’я' placeholder='Введіть ім’я' />
-          <AppInput value='+380' type='phone' label='Мобільний телефон' placeholder='Введіть мобільний телефон' />
-          <AppInput value='' label='Електронна пошта' placeholder='Введіть вашу пошту' />
+          <AppInput
+            :value='sendData.user.last_name'
+            label='Прізвище'
+            placeholder='Введіть прізвище'
+            @input='(val) => sendData.user.last_name = val'
+          />
+          <AppInput
+            :value='sendData.user.first_name'
+            label='Ім’я'
+            placeholder='Введіть ім’я'
+            @input='(val) => sendData.user.first_name = val'
+          />
+          <AppInput
+            :value='sendData.user.phone' type='phone' label='Мобільний телефон'
+            :max-length='9'
+            placeholder='Введіть мобільний телефон'
+            @input='(val) => sendData.user.phone = val'
+          />
+
+          <AppInput
+            :value='sendData.user.email'
+            type='email'
+            label='Електронна пошта'
+            placeholder='Введіть вашу пошту'
+            @input='(val) => sendData.user.email = val'
+          />
         </div>
       </div>
       <h1>Замовлення №1</h1>
@@ -93,35 +115,47 @@
               </div>
             </AppCard>
             <div class='checkboxes-container'>
+              <!--              <div class='checkbox'>-->
+              <!--                <div>-->
+              <!--                  <AppCheckbox label='Самовивіз з точок видачи Ладна Хата' />-->
+              <!--                  <span class='gray'>Відправляємо завтра</span>-->
+              <!--                </div>-->
+              <!--                <span class='price'>50₴</span>-->
+              <!--              </div>-->
+              <!--              <div class='checkbox'>-->
+              <!--                <div>-->
+              <!--                  <AppCheckbox label='Доставка кур’єром (Нова пошта, Meest)' />-->
+              <!--                </div>-->
+              <!--                <span class='price'>50₴</span>-->
+              <!--              </div>-->
               <div class='checkbox'>
                 <div>
-                  <AppCheckbox label='Самовивіз з точок видачи Ладна Хата' />
+                  <AppCheckbox
+                    label='Доставка до відділень Нової пошти'
+                    :checked='sendData.delivery_branch_id === 1'
+                    @change=' val => sendData.delivery_branch_id = val ? 1 : null'
+                  />
+                </div>
+                <span class='price'>50₴</span>
+              </div>
+              <div class='checkbox'>
+                <div>
+                  <AppCheckbox
+                    label='Доставка до відділень Meest'
+                    :checked='sendData.delivery_branch_id === 2'
+                    @change=' val => sendData.delivery_branch_id = val ? 2 : null'
+                  />
                   <span class='gray'>Відправляємо завтра</span>
                 </div>
                 <span class='price'>50₴</span>
               </div>
               <div class='checkbox'>
                 <div>
-                  <AppCheckbox label='Доставка кур’єром (Нова пошта, Meest)' />
-                </div>
-                <span class='price'>50₴</span>
-              </div>
-              <div class='checkbox'>
-                <div>
-                  <AppCheckbox label='Доставка до відділень Нової пошти' />
-                </div>
-                <span class='price'>50₴</span>
-              </div>
-              <div class='checkbox'>
-                <div>
-                  <AppCheckbox label='Доставка до відділень Meest' />
-                  <span class='gray'>Відправляємо завтра</span>
-                </div>
-                <span class='price'>50₴</span>
-              </div>
-              <div class='checkbox'>
-                <div>
-                  <AppCheckbox label='Доставка до відділень Укрпошти' />
+                  <AppCheckbox
+                    label='Доставка до відділень Укрпошти'
+                    :checked='sendData.delivery_branch_id === 3'
+                    @change=' val => sendData.delivery_branch_id = val ? 3 : null'
+                  />
                   <span class='gray'>Відправляємо завтра</span>
                 </div>
                 <span class='price'>50₴</span>
@@ -147,29 +181,65 @@
           </div>
         </AppCard>
         <AppCard width='1073' style='margin: 16px 0'>
-          <AppCheckbox label='Оплатити зараз' />
+          <AppCheckbox
+            label='Оплатити зараз'
+            :checked='[1,2,3,4].includes(sendData.payData.payment_type_id)'
+            @change=' val => sendData.delivery_branch_id = val ? 1 : null'
+          />
           <div class='paying-container'>
             <div class='checkboxes'>
-              <AppCheckbox label='Карткою онлайн' />
-              <AppCheckbox label='Google Pay' />
-              <AppCheckbox label='Оплатити онлайн карткою “єПідтримка”' />
+              <AppCheckbox
+                label='Карткою онлайн'
+                :checked='sendData.payData.payment_type_id === 2'
+                @change=' val => sendData.payData.payment_type_id = val ? 2 : null'
+              />
+              <AppCheckbox
+                label='Google Pay'
+                :checked='sendData.payData.payment_type_id === 3'
+                @change=' val => sendData.payData.payment_type_id = val ? 3 : null'
+              />
+              <AppCheckbox
+                label='Оплатити онлайн карткою “єПідтримка”'
+                :checked='sendData.payData.payment_type_id === 4'
+                @change=' val => sendData.payData.payment_type_id = val ? 4 : null'
+              />
             </div>
-            <AppInput class='input' value='' placeholder='Введіть вашу пошту' label='Електронна пошта' />
+            <AppInput
+              :value='sendData.user.email'
+              class='input'
+              placeholder='Введіть вашу пошту'
+              label='Електронна пошта'
+              @input='(val) => sendData.user.email = val'
+            />
           </div>
         </AppCard>
         <div class='third-step-checkboxes'>
           <div class='checkbox'>
-            <AppCheckbox label='Безготівковими для юридичних осіб' />
+            <AppCheckbox
+              label='Безготівковими для юридичних осіб'
+              :checked='sendData.payData.payment_type_id === 5'
+              @change=' val => sendData.payData.payment_type_id = val ? 5 : null'
+            />
             <span class='gray'>Оплата для юридичних осіб через розрахунковий рахунок</span>
           </div>
           <div class='checkbox'>
-            <AppCheckbox label='Оплата під час отримання товару' />
+            <AppCheckbox
+              label='Оплата під час отримання товару'
+              :checked='sendData.payData.payment_type_id === 6'
+              @change=' val => sendData.payData.payment_type_id = val ? 6 : null' />
           </div>
           <div class='checkbox'>
-            <AppCheckbox label='Оплатити онлайн соціальною картою "Пакунок малюка"' />
+            <AppCheckbox
+              label='Оплатити онлайн соціальною картою "Пакунок малюка"'
+              :checked='sendData.payData.payment_type_id === 7'
+              @change=' val => sendData.payData.payment_type_id = val ? 7 : null'
+            />
           </div>
           <div class='checkbox'>
-            <AppCheckbox label='Кредит та оплата частинами' />
+            <AppCheckbox
+              label='Кредит та оплата частинами'
+              :checked='sendData.payData.payment_type_id === 8'
+              @change=' val => sendData.payData.payment_type_id = val ? 8 : null' />
             <span class='gray'>Оформлення кредитів у банках партнерів</span>
           </div>
         </div>
@@ -186,10 +256,26 @@
           </div>
         </AppCard>
         <div class='inputs-container'>
-          <AppInput value='' placeholder='Введіть прізвище' label='Прізвище' />
-          <AppInput value='' placeholder='Введіть ім’я' label='Ім’я' />
-          <AppInput value='' placeholder='Введіть по батькові' label='По батькові' />
-          <AppInput value='+380' type='phone' label='Мобільний телефон' placeholder='Введіть мобільний телефон' />
+          <AppInput
+            :value='sendData.user.last_name'
+            placeholder='Введіть прізвище'
+            label='Прізвище'
+          />
+          <AppInput
+            :value='sendData.user.first_name'
+            placeholder='Введіть ім’я' label='Ім’я'
+          />
+          <AppInput
+            :value='sendData.user.middle_name'
+            placeholder='Введіть по батькові'
+            label='По батькові'
+          />
+          <AppInput
+            :value='sendData.user.phone'
+            type='phone'
+            label='Мобільний телефон'
+            placeholder='Введіть мобільний телефон'
+          />
         </div>
 
       </div>
@@ -226,9 +312,9 @@
             </span>
             </div>
             <div class='fourth-block'>
-              <nuxt-link :to='localePath("/")'>
+              <button @click='createOrder'>
                 Замовлення підтверджую
-              </nuxt-link>
+              </button>
             </div>
             <div class='fifth-block'>
               <span>Отримання замовлення від 5 000 ₴ тільки за паспортом (Закон від 06.12.2019 № 361-IX)</span>
@@ -255,6 +341,42 @@ import AppButton from '@/components/ui/AppButton.vue';
 import AppInput from '@/components/ui/AppInput.vue';
 import AppCard from '@/components/ui/AppCard.vue';
 import AppCheckbox from '@/components/ui/AppCheckbox.vue';
+import Debug from '@/helpers/Debug';
+
+// sendData: {
+//   receiver: {
+//     first_name: '',
+//       last_name: '',
+//       middle_name: '',
+//       profile_name: '',
+//       email: '',
+//       phone: '',
+//   },
+//   payData: {
+//     payment_type_id: 0,
+//       email: '',
+//       edrpou: '',
+//       legal_entity_name: '',
+//   },
+//   goods: [
+//     {
+//       article_id: 0,
+//       price: 0,
+//       quantity: 0,
+//     },
+//   ],
+//     certificates: [],
+//     promo_codes: [],
+//     delivery_branch_id: 0,
+//     delivery_adress: {
+//     city_name: '',
+//       street: '',
+//       building: '',
+//       apartment: '',
+//   },
+//   total_price: 0,
+// },
+
 
 export default {
   name: 'Execution',
@@ -264,6 +386,46 @@ export default {
       items: null,
       total_count: 0,
       total_sum: 0,
+      sendData: {
+        user: {
+          first_name: '',
+          last_name: '',
+          email: '',
+          password: '',
+          middle_name: '',
+        },
+        receiver: {
+          first_name: '',
+          last_name: '',
+          middle_name: '',
+          profile_name: '',
+          email: '',
+          phone: '',
+        },
+        payData: {
+          payment_type_id: 2,
+          email: 'email@test.test',
+          edrpou: '',
+          legal_entity_name: '',
+        },
+        goods: [
+          {
+            article_id: 0,
+            price: 0,
+            quantity: 0,
+          },
+        ],
+        certificates: ['11110000'],
+        promo_codes: null,
+        delivery_branch_id: 1,
+        delivery_adress: {
+          city_name: 'Киев',
+          street: 'Центральная',
+          building: '56',
+          apartment: '1',
+        },
+        total_price: null,
+      },
     };
   },
   async fetch() {
@@ -289,6 +451,7 @@ export default {
   computed: {
     ...mapGetters({
       cartItems: 'cartItems',
+      user: 'user/user',
     }),
   },
   watch: {
@@ -303,12 +466,22 @@ export default {
   },
   beforeMount() {
     this.setHeaderLocate([{ name: 'makeOrder' }]);
+    if (this.user) {
+      this.sendData.user = {
+        first_name: this.user.first_name,
+        last_name: this.user.last_name,
+        middle_name: this.user.middle_name,
+        email: this.user.email,
+        phone: this.user.phone,
+      };
+    }
   },
   methods: {
     ...mapMutations({
       setHeaderLocate: 'setHeaderLocate',
       removeCartItem: 'removeCartItem',
       changeItemCount: 'changeItemCount',
+      setCartItems: 'setCartItems',
     }),
     changeCount(id, isAdd) {
       this.items = this.items.map(item => {
@@ -323,12 +496,53 @@ export default {
         }
         return item;
       });
+
     },
     removeItem(id) {
       this.items = this.items.filter(item => {
         return item.id !== id;
       });
       this.removeCartItem(id);
+    },
+    async createOrder() {
+      try {
+        this.sendData.goods = this.items.map(item => {
+          return {
+            article_id: item.id,
+            price: Number(item.price),
+            quantity: item.count,
+          };
+        });
+
+        this.sendData.total_price = this.total_sum - 100;
+
+        this.sendData.user = {
+          first_name: this.user.first_name,
+          last_name: this.user.last_name,
+          email: this.user.email,
+          phone: this.user.phone,
+        };
+
+        this.sendData.receiver = {
+          first_name: this.user.first_name,
+          last_name: this.user.last_name,
+          middle_name: this.user.middle_name,
+          profile_name: this.user.profile_name,
+          email: this.user.email,
+          phone: this.user.phone,
+        };
+
+        const res = await this.$axios.$post('/Orders/new', this.sendData);
+        if (res.status === 'Success') {
+          this.$toast.success('Заявка успешно создана');
+          this.setCartItems([]);
+          this.$router.push(this.localePath('/'));
+        } else this.$toast.error(res.message);
+        // this.$router.push(this.localePath('/'));
+      } catch (e) {
+        Debug.log(e);
+        this.$toast.error(e.message);
+      }
     },
   },
 };
@@ -671,15 +885,16 @@ export default {
         display: flex;
         flex-direction: column;
 
-        a {
+        button {
           padding: 12px 44px;
           border-radius: 11px;
           text-decoration: none;
           color: $main-light-gray;
           text-align: center;
+          border: none;
         }
 
-        a:first-child {
+        button:first-child {
           background-color: $lh-accent-green;
           white-space: nowrap;
           color: $lh-white;

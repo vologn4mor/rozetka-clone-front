@@ -1,7 +1,11 @@
 <template>
   <div class='checkbox-container'>
     <div class='checkbox'>
-      <input :id='id' type='checkbox' />
+      <input
+        :id='id' type='checkbox'
+        :checked='checked ? checked : false'
+        @input='e => $emit("change", e.target.checked)'
+      />
       <label :for='id'></label>
     </div>
     <span>{{ label }}</span>
@@ -16,6 +20,10 @@ export default {
       type: String,
       required: false,
       default: '',
+    },
+    checked: {
+      type: Boolean,
+      required: true,
     },
   },
   data() {

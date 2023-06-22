@@ -5,14 +5,16 @@
       <div class='custom-input phone' @click='$refs.inputNumber.focus()'>
         <img src='@/assets/images/Profile/ua.png' alt=''>
         <span>+380 </span>
-        <input ref='inputNumber' type='tel' />
+        <input ref='inputNumber' type='tel' :maxlength='maxLength ? maxLength : null' />
       </div>
     </div>
     <div v-else-if='type === "password"'>
       <div class='custom-input password' @click='$refs.inputPassword.focus()'>
-        <input ref='inputPassword' :type='isHide ? "password" : null'
-               :value='value'
-               @input="$emit('input', $event.target.value)"
+        <input
+          ref='inputPassword' :type='isHide ? "password" : null'
+          :value='value'
+          :maxlength='maxLength ? maxLength : null'
+          @input="$emit('input', $event.target.value)"
         />
         <svg
           v-if='!isHide'
@@ -36,8 +38,10 @@
       <input
         v-if='!isTextarea'
         class='input'
+        :type='type ? type : null'
         :placeholder='placeholder'
         :value='value'
+        :maxlength='maxLength ? maxLength : null'
         @input="$emit('input', $event.target.value)"
       >
       <textarea
@@ -46,6 +50,7 @@
         :style='`height: ${heightTextarea}`'
         :placeholder='placeholder'
         :value='value'
+        :maxlength='maxLength ? maxLength : null'
         @input="$emit('input', $event.target.value)"
       >
 
@@ -92,6 +97,11 @@ export default {
       type: String,
       required: false,
       default: 'text',
+    },
+    maxLength: {
+      type: Number,
+      required: false,
+      default: 0,
     },
   },
   data() {
