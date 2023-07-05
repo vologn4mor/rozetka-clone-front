@@ -133,7 +133,7 @@ export default {
       const articles = await ctx.$axios.$get('/Goods/category-articles', {
         params: {
           category_id: ctx.route.params.podcat_id,
-          goods_on_page: 10,
+          goods_on_page: 20,
           page: 1,
         },
       });
@@ -234,7 +234,7 @@ export default {
         {
           params: {
             category_id: this.$route.params.podcat_id,
-            goods_on_page: 10,
+            goods_on_page: 20,
             page: this.page,
           },
         });

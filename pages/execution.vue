@@ -88,7 +88,7 @@
         </div>
         <div class='second-step-block'>
           <div class='left-side'>
-            <AppCard width='424'>
+            <AppCard width='424' @click='cityModal = true'>
               <div class='left-side-block'>
                 <div class='locate'>
                   <img src='~assets/images/Execution/locate.svg' alt=''>
@@ -332,6 +332,42 @@
         </AppCard>
       </div>
     </div>
+    <AppModalCard v-if='cityModal' @close='cityModal = false' width='981px' class='city-modal'>
+      <h2>Виберіть своє місто</h2>
+      <hr>
+      <span>Найчастіше обирають</span>
+      <div class='cities-block'>
+        <AppCard>Київ</AppCard>
+        <AppCard>Дніпро</AppCard>
+        <AppCard>Харків</AppCard>
+        <AppCard>Одеса</AppCard>
+        <AppCard>Запоріжжя</AppCard>
+        <AppCard>Львів</AppCard>
+        <AppCard>Луцьк</AppCard>
+      </div>
+      <div class='cities-input-block'>
+        <AppInput
+          label='Вкажіть населенний пункт України'
+          placeholder='Назва мiста' value='Київ'
+          @focus='cityFocusInput = true'
+          @blur='cityFocusInput = false'
+          @input='val => cityValue = val'
+        />
+        <div v-if='cityFocusInput' class='cities-list-block'>
+
+          <span v-for='city in citiesList' :key='city.id'>{{ city.name }} - {{ city.area }}</span>
+
+        </div>
+        <span>Наприклад, <span class='green'>Котюжини</span></span>
+      </div>
+      <div class='cities-buttons-block'>
+        <AppButton text='Перейти на головну сторінку' />
+        <AppButton text='Застосувати' bg-color='#078071' />
+      </div>
+      <div class='cities-footer'>
+        <span>Вибір міста допоможе надати актуальну інформацію про наявність товару, його ціни та методів доставки у вашому місті! Це допоможе зберегти більше вільного часу для вас!</span>
+      </div>
+    </AppModalCard>
   </div>
 </template>
 
@@ -342,41 +378,6 @@ import AppInput from '@/components/ui/AppInput.vue';
 import AppCard from '@/components/ui/AppCard.vue';
 import AppCheckbox from '@/components/ui/AppCheckbox.vue';
 import Debug from '@/helpers/Debug';
-
-// sendData: {
-//   receiver: {
-//     first_name: '',
-//       last_name: '',
-//       middle_name: '',
-//       profile_name: '',
-//       email: '',
-//       phone: '',
-//   },
-//   payData: {
-//     payment_type_id: 0,
-//       email: '',
-//       edrpou: '',
-//       legal_entity_name: '',
-//   },
-//   goods: [
-//     {
-//       article_id: 0,
-//       price: 0,
-//       quantity: 0,
-//     },
-//   ],
-//     certificates: [],
-//     promo_codes: [],
-//     delivery_branch_id: 0,
-//     delivery_adress: {
-//     city_name: '',
-//       street: '',
-//       building: '',
-//       apartment: '',
-//   },
-//   total_price: 0,
-// },
-
 
 export default {
   name: 'Execution',
@@ -426,6 +427,10 @@ export default {
         },
         total_price: null,
       },
+      cityModal: true,
+      cityValue: '',
+      cityFocusInput: false,
+      citiesList: [],
     };
   },
   async fetch() {
@@ -441,6 +446,8 @@ export default {
         total_sum_item: item.price,
       };
     });
+
+    await this.searchCity();
     this.items = data.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
     this.total_count = data.length;
     this.items.forEach(item => {
@@ -462,6 +469,9 @@ export default {
         this.total_sum += Number(item.price) * item.count;
         this.total_count += item.count;
       });
+    },
+    async cityValue() {
+      await this.searchCity();
     },
   },
   beforeMount() {
@@ -543,6 +553,16 @@ export default {
         Debug.log(e);
         this.$toast.error(e.message);
       }
+    },
+    async searchCity() {
+      const res = await this.$axios.$get('/Delivery/city', {
+        params: {
+          search: this.cityValue,
+          limit: 10,
+        },
+      });
+
+      this.citiesList = res.data;
     },
   },
 };
@@ -934,6 +954,65 @@ export default {
       span:last-child {
         color: #7C7B89;
       }
+    }
+  }
+
+  .city-modal {
+    h2 {
+      margin-bottom: 0;
+    }
+
+    hr {
+      margin: 20px 0;
+    }
+
+    .cities-block {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      margin-top: 15px;
+
+      div {
+        margin-right: 10px;
+      }
+
+      div:last-child {
+        margin-right: 0;
+      }
+    }
+
+    .cities-input-block {
+      margin-top: 20px;
+
+      .cities-list-block {
+        display: flex;
+        max-width: 300px;
+        width: 100%;
+        padding: 20px;
+        flex-direction: column;
+        position: absolute;
+        background-color: white;
+        border: 1px solid $lh-accent-green;
+
+        span {
+          margin-bottom: 15px;
+        }
+
+        span:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .cities-buttons-block {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .cities-footer {
+      margin-top: 20px;
+      color: $main-gray;
     }
   }
 }

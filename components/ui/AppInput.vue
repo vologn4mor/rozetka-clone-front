@@ -43,6 +43,8 @@
         :value='value'
         :maxlength='maxLength ? maxLength : null'
         @input="$emit('input', $event.target.value)"
+        @blur='$emit("blur")'
+        @focus='$emit("focus")'
       >
       <textarea
         v-else

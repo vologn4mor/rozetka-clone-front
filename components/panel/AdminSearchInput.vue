@@ -1,6 +1,6 @@
 <template>
   <div class='input-search'>
-    <input v-model='value' type='text' placeholder='Я шукаю' @keyup.enter='$emit("search", value)'>
+    <input v-model='value' type='text' :placeholder='placeholder' @keyup.enter='$emit("search", value)'>
     <button @click='$emit("search", value)'>Знайти</button>
   </div>
 </template>
@@ -8,6 +8,13 @@
 <script>
 export default {
   name: 'AdminSearchInput',
+  props: {
+    placeholder: {
+      type: String,
+      required: false,
+      default: 'Я шукаю',
+    },
+  },
   data() {
     return {
       value: '',
@@ -38,7 +45,7 @@ export default {
     background-color: $lh-accent-green;
     border-color: $lh-accent-green;
     color: $lh-white;
-    padding: 0 20px;
+    padding: 10px 20px;
     font-weight: bold;
   }
 }

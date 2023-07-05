@@ -3,13 +3,15 @@
     <input
       v-if='!isTextarea'
       :style='width ? `width: ${width}px` : null'
-      type='text'
+      :type='type'
+      :value='value'
       @input='e => $emit("input", e.target.value)'
     >
     <textarea
       v-else
       :style='width ? `width: ${width}px` : null'
       type='text'
+      :value='value'
       @input='e => $emit("input", e.target.value)'
     >
 
@@ -27,6 +29,16 @@ export default {
       default: false,
     },
     width: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    type: {
+      type: String,
+      required: false,
+      default: 'text',
+    },
+    value: {
       type: String,
       required: false,
       default: '',
