@@ -37,6 +37,8 @@
     <div v-else class='input-container'>
       <input
         v-if='!isTextarea'
+        :id='id'
+        :ref='refInput'
         class='input'
         :type='type ? type : null'
         :placeholder='placeholder'
@@ -104,6 +106,16 @@ export default {
       type: Number,
       required: false,
       default: 0,
+    },
+    refInput: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    id: {
+      type: String,
+      required: false,
+      default: '',
     },
   },
   data() {
