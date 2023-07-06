@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card">
     <div class="head" :style="'text-align: '+headAlign+';'">
       <slot name="head"/>
     </div>
@@ -26,6 +26,10 @@ export default {
 </script>
 
 <style scoped>
+
+.card {
+  margin: 32px;
+}
 
 .head {
   font-size: 20px;
