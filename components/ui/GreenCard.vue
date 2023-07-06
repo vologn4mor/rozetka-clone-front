@@ -3,7 +3,7 @@
     <div class="head" :style="'text-align: '+headAlign+';'">
       <slot name="head"/>
     </div>
-    <div class="content">
+    <div class="content" :style="'text-align: '+headAlign+';'">
       <slot name="content"/>
     </div>
   </div>
@@ -14,6 +14,10 @@ export default {
   name: "GreenCard",
   props: {
     headAlign:{
+      type:String,
+      default: "center"
+    },
+    contentAlign:{
       type:String,
       default: "center"
     }
