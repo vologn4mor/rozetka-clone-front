@@ -8,17 +8,29 @@
     <div v-else>
       <h1>Товари</h1>
       <div class='header-first'>
-        <AdminSearchInput placeholder='Назва товару' />
+        <AdminSearchInput
+          placeholder='Назва товару'
+          :value='search'
+          @search='fetchData'
+          @input='val => search = val' />
       </div>
       <div class='header-second'>
-        <AdminSearchInput placeholder='Код товару' />
-        <AdminSearchInput placeholder='Категорії' />
+        <AdminSearchInput
+          placeholder='Код товару'
+          :value='article_id'
+          @search='fetchData'
+          @input='val => article_id = val' />
+        <AdminSearchInput
+          placeholder='Категорії (id)'
+          :value='category_id'
+          @search='fetchData'
+          @input='val => category_id = val' />
       </div>
       <AdminTable :data='items' :header='header' />
       <AppPagination
         :total-pages='total_pages'
         :current-page='page'
-        @update='(val) => {page = val}' />
+        @input='(val) => {page = val}' />
     </div>
   </div>
 </template>
@@ -38,6 +50,9 @@ export default {
       items: [],
       page: 1,
       total_pages: 0,
+      search: '',
+      article_id: '',
+      category_id: '',
     };
   },
   async fetch() {
@@ -45,6 +60,9 @@ export default {
       params: {
         page: this.page,
         limit: 8,
+        search: this.search ? this.search : null,
+        article_id: this.article_id ? this.article_id : null,
+        category_id: this.category_id ? this.category_id : null,
       },
     });
 
@@ -61,16 +79,24 @@ export default {
     }));
 
     this.total_pages = res.data.total_pages;
-
-  },
-  methods: {
-    fetchData() {
-      this.$fetch();
-    },
   },
   watch: {
     async page() {
       await this.fetchData();
+    },
+    // async search() {
+    //   await this.fetchData();
+    // },
+    // async article_id() {
+    //   await this.fetchData();
+    // },
+    // async category_id() {
+    //   await this.fetchData();
+    // },
+  },
+  methods: {
+    async fetchData() {
+      await this.$fetch();
     },
   },
 };
@@ -78,8 +104,18 @@ export default {
 
 <style scoped lang='scss'>
 
+.loading-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .container {
   max-width: 1133px;
+  width: 100%;
+  height: 100%;
 }
 
 .header-first {

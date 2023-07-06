@@ -32,7 +32,7 @@ export const mutations = {
     localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
   },
   pushFavoriteItem(state, payload) {
-    console.log(payload);
+    // console.log(payload);
     if (state.favoriteItems.filter(item => item === payload).length > 0) {
       state.favoriteItems = state.favoriteItems.filter(item => item !== payload);
     } else {

@@ -1,15 +1,19 @@
 <template>
   <div>
     <div class='container'>
-      <div class='name-and-icon'
-           @click='typeof routes === "object" ? isOpened = !isOpened : $router.push(`/panel${routes}`)'>
+      <div
+        class='name-and-icon'
+        @click='typeof routes === "object" ? isOpened = !isOpened : $router.push(`/panel${routes}`)'
+      >
         <div>
           <img :src='icon' alt=''>
           <span>{{ name }}</span>
         </div>
         <div>
-          <img v-if='typeof routes === "object"' src='~/assets/images/icons/AdminLayout/Panel/arrow.svg' alt=''
-               :class='isOpened ? "arrow-up" : null'>
+          <img
+            v-if='typeof routes === "object"'
+            src='~/assets/images/icons/AdminLayout/Panel/arrow.svg' alt=''
+            :class='isOpened ? "arrow-up" : null'>
         </div>
       </div>
       <div v-if='isOpened && typeof routes === "object"' class='routes'>

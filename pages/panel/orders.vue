@@ -10,24 +10,34 @@
       <div class='header-first'>
         <div>
           <span>Покупець</span>
-          <AdminSearchInput placeholder='Введіть  прізвище та ім’я' />
+          <AdminSearchInput
+            :value='byer_search'
+            placeholder='Введіть прізвище та ім’я'
+            @input='val => byer_search = val'
+            @search='fetchData'
+          />
         </div>
         <div>
           <span>Номер замовлення</span>
-          <AdminSearchInput placeholder='Введіть значення' />
+          <AdminSearchInput
+            :value='order_id'
+            placeholder='Введіть значення'
+            @input='val => order_id = val'
+            @search='fetchData'
+          />
         </div>
       </div>
       <div class='header-second'>
         <span>Пошук замовлень за період </span>
         <div>
           <span> з: </span>
-          <AdminInput type='date' />
+          <AdminInput :value='start_date' type='date' @input='val => start_date = val' />
         </div>
         <div>
           <span> по: </span>
-          <AdminInput type='date' />
+          <AdminInput :value='end_date' type='date' @input='val => end_date = val' />
         </div>
-        <AdminGreenBtn text='Знайти' />
+        <AdminGreenBtn text='Знайти' @click='fetchData' />
       </div>
       <div class='header-third'>
         <AdminGreenBtn text='Відправити замовлення в обробку' style='margin-bottom: 20px' />
@@ -113,6 +123,10 @@ export default {
       changeModal: false,
       selectedOrderId: null,
       selectedOrder: null,
+      byer_search: '',
+      order_id: '',
+      start_date: '',
+      end_date: '',
     };
   },
   async fetch() {
@@ -121,6 +135,10 @@ export default {
         limit: 10,
         page: this.page,
         only_new: true,
+        byer_search: this.byer_search,
+        order_id: this.order_id,
+        start_date: this.start_date,
+        end_date: this.end_date,
       },
     });
 
@@ -180,8 +198,18 @@ export default {
 
 <style scoped lang='scss'>
 
+.loading-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .container {
   max-width: 1133px;
+  width: 100%;
+  height: 100%;
 }
 
 .header-first {
@@ -305,7 +333,7 @@ export default {
 
 .total_price_block {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   font-size: 20px;
   margin-top: 15px;
   align-items: center;

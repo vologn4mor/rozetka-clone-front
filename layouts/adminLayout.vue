@@ -4,7 +4,7 @@
       <div class='header-container'>
         <div class='header'>
           <div class='header-left'>
-            <nuxt-link :to='localePath("/panel")'>
+            <nuxt-link :to='localePath("/panel/dashboard")'>
               <img src='~/assets/images/icons/AdminLayout/logo.svg' alt=''>
             </nuxt-link>
           </div>

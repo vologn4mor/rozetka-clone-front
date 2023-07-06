@@ -94,8 +94,8 @@
                   <img src='~assets/images/Execution/locate.svg' alt=''>
                   <div class='locate-city'>
                     <span>Ваше місто</span>
-                    <span>Київ</span>
-                    <span>Київська обл.</span>
+                    <span>{{ citySelected?.name }}</span>
+                    <span>{{ citySelected?.area }}</span>
                   </div>
                 </div>
                 <div class='arrow'>
@@ -106,9 +106,10 @@
             <img class='map' src='~assets/images/map-example.png' alt=''>
           </div>
           <div class='right-side'>
-            <AppCard width='605'>
+            <AppCard width='605' @click='openDeliveryModal'>
               <div class='right-side-block'>
-                <span>Виберіть відповідне відділення</span>
+                <span>{{ sendData.delivery_adress.street ? sendData.delivery_adress.street : 'Виберіть відповідне відділення'
+                  }}</span>
                 <div class='arrow'>
                   <img src='~assets/images/icons/show-more-arrow.svg' alt=''>
                 </div>
@@ -332,40 +333,69 @@
         </AppCard>
       </div>
     </div>
-    <AppModalCard v-if='cityModal' @close='cityModal = false' width='981px' class='city-modal'>
+    <AppModalCard v-if='cityModal' width='981px' class='city-modal' @close='cityModal = false'>
       <h2>Виберіть своє місто</h2>
       <hr>
       <span>Найчастіше обирають</span>
       <div class='cities-block'>
-        <AppCard>Київ</AppCard>
-        <AppCard>Дніпро</AppCard>
-        <AppCard>Харків</AppCard>
-        <AppCard>Одеса</AppCard>
-        <AppCard>Запоріжжя</AppCard>
-        <AppCard>Львів</AppCard>
-        <AppCard>Луцьк</AppCard>
+        <AppCard v-for='city in citiesSaved' :key='city.id' @click=selectCityFromSaved(city.id)>{{ city.name }}
+        </AppCard>
+        <!--        <AppCard>Дніпро</AppCard>-->
+        <!--        <AppCard>Харків</AppCard>-->
+        <!--        <AppCard>Одеса</AppCard>-->
+        <!--        <AppCard>Запоріжжя</AppCard>-->
+        <!--        <AppCard>Львів</AppCard>-->
+        <!--        <AppCard>Луцьк</AppCard>-->
       </div>
       <div class='cities-input-block'>
         <AppInput
+          id='inputCity'
+          ref-input='inputCity'
           label='Вкажіть населенний пункт України'
-          placeholder='Назва мiста' value='Київ'
+          placeholder='Назва мiста'
+          value=''
           @focus='cityFocusInput = true'
-          @blur='cityFocusInput = false'
           @input='val => cityValue = val'
         />
-        <div v-if='cityFocusInput' class='cities-list-block'>
+        <div v-if='cityFocusInput && citiesList.length' id='inputCityBlock' class='cities-list-block'>
 
-          <span v-for='city in citiesList' :key='city.id'>{{ city.name }} - {{ city.area }}</span>
+          <span
+            v-for='city in citiesList'
+            :key='city.id'
+            @click='selectCityFromServer(city.id)'>
+            {{ city.name }} - {{ city.area }}
+          </span>
 
         </div>
         <span>Наприклад, <span class='green'>Котюжини</span></span>
       </div>
       <div class='cities-buttons-block'>
-        <AppButton text='Перейти на головну сторінку' />
-        <AppButton text='Застосувати' bg-color='#078071' />
+        <AppButton text='Перейти на головну сторінку' @click='$router.push(localePath("/"))' />
+        <AppButton text='Застосувати' bg-color='#078071' @click='appendCity(cityValue)' />
       </div>
       <div class='cities-footer'>
         <span>Вибір міста допоможе надати актуальну інформацію про наявність товару, його ціни та методів доставки у вашому місті! Це допоможе зберегти більше вільного часу для вас!</span>
+      </div>
+    </AppModalCard>
+    <AppModalCard v-if='deliveryModal' width='981px' class='delivery-modal' @close='deliveryModal = false'>
+      <div class='delivery-header'>
+        <h2>Виберіть відповідне відділення</h2>
+        <AppButton text='Застосувати' bg-color='#078071' @click='selectDelivery' />
+      </div>
+      <hr>
+      <div class='select-block'>
+        <span>Вкажіть населенний пункт України</span>
+        <AppSelect v-if='deliveryItems' :options='deliveryItems' @input='val => deliveryValue = val.address' />
+      </div>
+      <div class='times-block'>
+        <div>
+          <b>Понеділок - Суббота:</b>
+          <span>09:00 - 20:00</span>
+        </div>
+        <div>
+          <b>Неділя: </b>
+          <span>10:00 - 19:00</span>
+        </div>
       </div>
     </AppModalCard>
   </div>
@@ -421,16 +451,71 @@ export default {
         delivery_branch_id: 1,
         delivery_adress: {
           city_name: 'Киев',
-          street: 'Центральная',
-          building: '56',
+          street: '',
+          building: '1',
           apartment: '1',
         },
         total_price: null,
       },
-      cityModal: true,
+      cityModal: false,
       cityValue: '',
       cityFocusInput: false,
       citiesList: [],
+      citiesSaved: [
+        {
+          'id': 8837,
+          'name': 'Київ',
+          'area': 'Київська',
+          'coautsu': '8000000000',
+          'zip': '01001',
+        },
+        {
+          'id': 5602,
+          'name': 'Дніпро',
+          'area': 'Дніпропетровська область',
+          'coautsu': '1210100000',
+          'zip': '49000',
+        },
+        {
+          'id': 24193,
+          'name': 'Харків',
+          'area': 'Харківська область',
+          'coautsu': '6310100000',
+          'zip': '61001',
+        },
+        {
+          'id': 16154,
+          'name': 'Одеса',
+          'area': 'Одеська область',
+          'coautsu': '5110100000',
+          'zip': '65001',
+        },
+        {
+          'id': 7018,
+          'name': 'Запоріжжя',
+          'area': 'Херсонська область',
+          'coautsu': '6520982003',
+          'zip': '74120',
+        },
+        {
+          'id': 12058,
+          'name': 'Львів',
+          'area': 'Дніпропетровська область',
+          'coautsu': '1221881203',
+          'zip': '53080',
+        },
+        {
+          'id': 12030,
+          'name': 'Луцьк',
+          'area': 'Волинська область',
+          'coautsu': '0710100000',
+          'zip': '43005',
+        },
+      ],
+      citySelected: null,
+      deliveryModal: false,
+      deliveryItems: [],
+      deliveryValue: '',
     };
   },
   async fetch() {
@@ -485,6 +570,10 @@ export default {
         phone: this.user.phone,
       };
     }
+    this.citySelected = this.citiesSaved[0];
+  },
+  mounted() {
+    document.addEventListener('click', this.hideBlockOutside);
   },
   methods: {
     ...mapMutations({
@@ -542,6 +631,8 @@ export default {
           phone: this.user.phone,
         };
 
+        this.sendData.delivery_adress.city_name = this.citySelected.name;
+
         const res = await this.$axios.$post('/Orders/new', this.sendData);
         if (res.status === 'Success') {
           this.$toast.success('Заявка успешно создана');
@@ -563,6 +654,47 @@ export default {
       });
 
       this.citiesList = res.data;
+    },
+    selectCityFromSaved(id) {
+      this.citySelected = this.citiesSaved.filter(item => item.id === id)[0];
+      this.cityModal = false;
+    },
+    selectCityFromServer(id) {
+      this.citySelected = this.citiesList.filter(item => item.id === id)[0];
+      this.cityModal = false;
+    },
+    appendCity(name) {
+      const city = this.citiesList.filter(item => item.name === name)[0];
+      if (!city) return this.$toast.error('Такого мiста не має');
+      this.citySelected = city;
+      this.cityModal = false;
+    },
+    hideBlockOutside(event) {
+      if (!event.target.id) {
+        this.cityFocusInput = false;
+      }
+    },
+    async openDeliveryModal() {
+      const res = await this.$axios.$get('/Delivery/delivery-branches', {
+        params: {
+          city_id: this.citySelected.id,
+          delivery_id: this.sendData.delivery_branch_id,
+          limit: 20,
+        },
+      });
+
+      this.deliveryItems = res.data.map(item => {
+        return {
+          ...item,
+          value: item.address,
+        };
+      });
+
+      this.deliveryModal = true;
+    },
+    selectDelivery() {
+      this.sendData.delivery_adress.street = this.deliveryValue;
+      this.deliveryModal = false;
     },
   },
 };
@@ -1013,6 +1145,36 @@ export default {
     .cities-footer {
       margin-top: 20px;
       color: $main-gray;
+    }
+  }
+
+  .delivery-modal {
+    .delivery-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .select-block {
+      margin: 10px 0;
+
+      span {
+        font-weight: bold;
+      }
+
+      div {
+        margin: 10px 0;
+      }
+    }
+
+    .times-block {
+      div {
+        margin: 10px 0;
+
+        b {
+          margin-right: 5px;
+        }
+      }
     }
   }
 }
