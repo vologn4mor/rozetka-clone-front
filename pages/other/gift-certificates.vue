@@ -281,7 +281,7 @@
 
     <app-dropdown-card :width="'1072'">
       <template #head>
-        5. Де придбати?
+        6. Де придбати?
       </template>
       <template #content>
         <div class="drops">
