@@ -13,7 +13,7 @@
             <AdminSearchInput @search='(val) => {search = val; fetchData()}' />
           </div>
           <div class='buttons'>
-            <AdminButton type='delete' @click='deleteCategories' :color='selectedItemsId.length ? "red" : null ' />
+            <AdminButton type='delete' :color='selectedItemsId.length ? "red" : null ' @click='deleteCategories' />
             <AdminButton type='refresh' @click='fetchData' />
             <AdminButton type='plus' @click='getCats' />
           </div>
@@ -393,17 +393,17 @@ export default {
         this.addNewCatData.names.forEach(item => {
           namesRes[item.lang] = item.text;
         });
-        console.log(namesRes);
+        // console.log(namesRes);
         form.append('names', JSON.stringify(namesRes));
         form.append('parent_id', this.addNewCatData.parent_id);
         form.append('showin_category_id', this.addNewCatData.showin_category_id);
         form.append('root_icon', this.addNewCatData.root_icon[0]);
         form.append('category_image', this.addNewCatData.category_image[0]);
         // console.log()
-        const res = await this.$axios.$post('/Categories/create', form);
-        console.log(res);
+        await this.$axios.$post('/Categories/create', form);
+        // console.log(res);
       } catch (e) {
-        console.log(e);
+        // console.log(e);
         if (e.errors) {
           Object.keys(e.errors).forEach(key => {
             console.log(e.errors[key]);

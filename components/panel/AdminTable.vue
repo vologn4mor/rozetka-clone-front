@@ -14,9 +14,12 @@
           <label :for='item.id'></label>
         </td>
         <td v-for='name in clearArray(item)' :key='name'>
-          {{ item[name] }}
+          <span v-if='!isUrl(item[name])'>{{ item[name] }}</span>
+          <img v-else :src='item[name]' alt='' style='max-width: 60px'>
         </td>
-        <td><img src='~/assets/images/icons/AdminLayout/Panel/change-data.svg' alt=''></td>
+        <td v-if='checkboxes' @click='$emit("click", item.id)'><img
+          src='~/assets/images/icons/AdminLayout/Panel/change-data.svg' alt=''>
+        </td>
       </tr>
     </table>
   </div>
@@ -54,6 +57,15 @@ export default {
         clearArr.shift();
       }
       return clearArr;
+    },
+    isUrl(val) {
+      try {
+        // eslint-disable-next-line no-new
+        new URL(val);
+        return true;
+      } catch (e) {
+        return false;
+      }
     },
   },
 };

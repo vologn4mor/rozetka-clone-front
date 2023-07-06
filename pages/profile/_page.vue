@@ -12,7 +12,7 @@
             <hr>
             <div v-if='user.roles.includes("Admin")'>
               <span style='margin-left: 29px'>
-                <nuxt-link :to='localePath("/panel/categories")'>Панель</nuxt-link>
+                <nuxt-link :to='localePath("/panel/dashboard")'>Панель</nuxt-link>
               </span>
             </div>
             <div>

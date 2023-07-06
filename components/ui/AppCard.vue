@@ -1,5 +1,5 @@
 <template>
-  <div class='app-card' :style="'width: ' + width + 'px;'">
+  <div class='app-card' :style="'width: ' + width + 'px;'" @click='$emit("click")'>
     <div class='app-card-content'>
       <slot />
     </div>
