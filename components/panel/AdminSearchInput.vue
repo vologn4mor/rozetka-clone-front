@@ -1,7 +1,13 @@
 <template>
   <div class='input-search'>
-    <input v-model='value' type='text' :placeholder='placeholder' @keyup.enter='$emit("search", value)'>
-    <button @click='$emit("search", value)'>Знайти</button>
+    <input
+      :placeholder='placeholder'
+      :value='value'
+      type='text'
+      @input='e => $emit("input", e.target.value)'
+      @keyup.enter='$emit("search", value)'
+    >
+    <button @click='$emit("search")'>Знайти</button>
   </div>
 </template>
 
@@ -14,10 +20,14 @@ export default {
       required: false,
       default: 'Я шукаю',
     },
+    value: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
-      value: '',
+      // value: '',
     };
   },
 };

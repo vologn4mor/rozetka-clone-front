@@ -106,9 +106,10 @@
             <img class='map' src='~assets/images/map-example.png' alt=''>
           </div>
           <div class='right-side'>
-            <AppCard width='605'>
+            <AppCard width='605' @click='openDeliveryModal'>
               <div class='right-side-block'>
-                <span>Виберіть відповідне відділення</span>
+                <span>{{ sendData.delivery_adress.street ? sendData.delivery_adress.street : 'Виберіть відповідне відділення'
+                  }}</span>
                 <div class='arrow'>
                   <img src='~assets/images/icons/show-more-arrow.svg' alt=''>
                 </div>
@@ -332,7 +333,7 @@
         </AppCard>
       </div>
     </div>
-    <AppModalCard v-if='cityModal' @close='cityModal = false' width='981px' class='city-modal'>
+    <AppModalCard v-if='cityModal' width='981px' class='city-modal' @close='cityModal = false'>
       <h2>Виберіть своє місто</h2>
       <hr>
       <span>Найчастіше обирають</span>
@@ -374,6 +375,27 @@
       </div>
       <div class='cities-footer'>
         <span>Вибір міста допоможе надати актуальну інформацію про наявність товару, його ціни та методів доставки у вашому місті! Це допоможе зберегти більше вільного часу для вас!</span>
+      </div>
+    </AppModalCard>
+    <AppModalCard v-if='deliveryModal' width='981px' class='delivery-modal' @close='deliveryModal = false'>
+      <div class='delivery-header'>
+        <h2>Виберіть відповідне відділення</h2>
+        <AppButton text='Застосувати' bg-color='#078071' @click='selectDelivery' />
+      </div>
+      <hr>
+      <div class='select-block'>
+        <span>Вкажіть населенний пункт України</span>
+        <AppSelect v-if='deliveryItems' :options='deliveryItems' @input='val => deliveryValue = val.address' />
+      </div>
+      <div class='times-block'>
+        <div>
+          <b>Понеділок - Суббота:</b>
+          <span>09:00 - 20:00</span>
+        </div>
+        <div>
+          <b>Неділя: </b>
+          <span>10:00 - 19:00</span>
+        </div>
       </div>
     </AppModalCard>
   </div>
@@ -429,13 +451,13 @@ export default {
         delivery_branch_id: 1,
         delivery_adress: {
           city_name: 'Киев',
-          street: 'Центральная',
-          building: '56',
+          street: '',
+          building: '1',
           apartment: '1',
         },
         total_price: null,
       },
-      cityModal: true,
+      cityModal: false,
       cityValue: '',
       cityFocusInput: false,
       citiesList: [],
@@ -491,6 +513,9 @@ export default {
         },
       ],
       citySelected: null,
+      deliveryModal: false,
+      deliveryItems: [],
+      deliveryValue: '',
     };
   },
   async fetch() {
@@ -606,7 +631,7 @@ export default {
           phone: this.user.phone,
         };
 
-        this.sendData.delivery_adress.city_name = this.citySelected.name
+        this.sendData.delivery_adress.city_name = this.citySelected.name;
 
         const res = await this.$axios.$post('/Orders/new', this.sendData);
         if (res.status === 'Success') {
@@ -648,6 +673,28 @@ export default {
       if (!event.target.id) {
         this.cityFocusInput = false;
       }
+    },
+    async openDeliveryModal() {
+      const res = await this.$axios.$get('/Delivery/delivery-branches', {
+        params: {
+          city_id: this.citySelected.id,
+          delivery_id: this.sendData.delivery_branch_id,
+          limit: 20,
+        },
+      });
+
+      this.deliveryItems = res.data.map(item => {
+        return {
+          ...item,
+          value: item.address,
+        };
+      });
+
+      this.deliveryModal = true;
+    },
+    selectDelivery() {
+      this.sendData.delivery_adress.street = this.deliveryValue;
+      this.deliveryModal = false;
     },
   },
 };
@@ -1098,6 +1145,36 @@ export default {
     .cities-footer {
       margin-top: 20px;
       color: $main-gray;
+    }
+  }
+
+  .delivery-modal {
+    .delivery-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .select-block {
+      margin: 10px 0;
+
+      span {
+        font-weight: bold;
+      }
+
+      div {
+        margin: 10px 0;
+      }
+    }
+
+    .times-block {
+      div {
+        margin: 10px 0;
+
+        b {
+          margin-right: 5px;
+        }
+      }
     }
   }
 }

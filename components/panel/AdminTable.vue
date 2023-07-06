@@ -1,27 +1,28 @@
 <template>
   <div>
-    <table>
-      <tr>
-        <th v-if='changeable'></th>
-        <th v-for='item in header' :key='item'>
-          {{ item }}
-        </th>
-        <th v-if='checkboxes'>Дія</th>
-      </tr>
-      <tr v-for='item in data' :key='item.id' :class='item.isSelected ? "is-selcted" : null'>
-        <td v-if='changeable' style='width: 18px; height: 18px;'>
-          <input :id='item.id' v-model='item.isSelected' type='checkbox' />
-          <label :for='item.id'></label>
-        </td>
-        <td v-for='name in clearArray(item)' :key='name'>
-          <span v-if='!isUrl(item[name])'>{{ item[name] }}</span>
-          <img v-else :src='item[name]' alt='' style='max-width: 60px'>
-        </td>
-        <td v-if='checkboxes' @click='$emit("click", item.id)'><img
-          src='~/assets/images/icons/AdminLayout/Panel/change-data.svg' alt=''>
-        </td>
-      </tr>
-    </table>
+    <client-only>
+      <table>
+        <tr>
+          <th v-if='changeable'></th>
+          <th v-for='item in header' :key='item'>
+            {{ item }}
+          </th>
+          <th v-if='checkboxes'>Дія</th>
+        </tr>
+        <tr v-for='item in data' :key='item.id' :class='item.isSelected ? "is-selcted" : null'>
+          <td v-if='changeable' style='width: 18px; height: 18px;'>
+            <input :id='item.id' v-model='item.isSelected' type='checkbox' />
+            <label :for='item.id'></label>
+          </td>
+          <td v-for='name in clearArray(item)' :key='name'>
+            <span v-if='!isUrl(item[name])'>{{ item[name] }}</span>
+            <img v-else :src='item[name]' alt='' style='max-width: 60px'>
+          </td>
+          <td v-if='checkboxes' @click='$emit("click", item.id)'><img
+            src='~/assets/images/icons/AdminLayout/Panel/change-data.svg' alt=''></td>
+        </tr>
+      </table>
+    </client-only>
   </div>
 </template>
 

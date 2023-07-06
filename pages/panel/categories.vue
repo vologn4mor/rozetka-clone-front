@@ -10,7 +10,7 @@
       <div v-if='!isCreateNewCat'>
         <div class='search-container'>
           <div class='search'>
-            <AdminSearchInput @search='(val) => {search = val; fetchData()}' />
+            <AdminSearchInput :value='search' @input='val => search = val' @search='fetchData' />
           </div>
           <div class='buttons'>
             <AdminButton type='delete' :color='selectedItemsId.length ? "red" : null ' @click='deleteCategories' />
@@ -253,7 +253,7 @@ export default {
     return {
       header: ['Назва категорії', 'Кількість категорій', 'Кількість товарів в категорії'],
       items: [],
-      search: null,
+      search: '',
       page: 1,
       total_pages: 0,
       isCreateNewCat: false,
@@ -371,7 +371,7 @@ export default {
     },
     async getCats() {
       const res = await this.$axios.$get('/Categories/parent-candidates');
-      console.log(res);
+      // console.log(res);
       this.catsList = res.data;
       this.isCreateNewCat = true;
     },
@@ -406,7 +406,7 @@ export default {
         // console.log(e);
         if (e.errors) {
           Object.keys(e.errors).forEach(key => {
-            console.log(e.errors[key]);
+            // console.log(e.errors[key]);
             this.$toast.error(e.errors[key]);
           });
         } else this.$toast.error(e);
