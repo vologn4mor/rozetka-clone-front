@@ -28,7 +28,7 @@
           <p>{{ $t('toPartners') }}</p>
           <nuxt-link to='/'>{{ $t('sellOnLogo') }}</nuxt-link>
           <nuxt-link to='/'>{{ $t('cooperationWithUs') }}</nuxt-link>
-          <nuxt-link to='/'>{{ $t('franchising') }}</nuxt-link>
+          <nuxt-link :to='localePath("/other/franchise")'>{{ $t('franchising') }}</nuxt-link>
           <nuxt-link to='/'>{{ $t('rentOfPremises') }}</nuxt-link>
         </AppCard>
         <AppCard>
