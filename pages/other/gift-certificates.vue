@@ -1,7 +1,7 @@
 <template>
   <div class="certificates">
     <h1>{{ $t('giftCertificates') }}</h1>
-    <app-card class="head-card" :width="948">
+    <app-card class="head-card" :width="'948'">
       <green-card :head-align="'center'">
         <template #head>
           <h3>Найкращий подарунок – це можливість вибору.</h3>
@@ -29,7 +29,7 @@
 
     <p class="chapter">Переваги подарункового сертифікату</p>
     <div class="advantages">
-      <app-card :width="'468'">
+      <app-card class="adv-item" :width="'468'">
         <green-card :head-align="'left'" :content-align="'left'">
           <template #head>
             <p>Види подарункових сертифікатів</p>
@@ -40,7 +40,7 @@
         </green-card>
       </app-card>
 
-      <app-card :width="'468'">
+      <app-card class="adv-item" :width="'468'">
         <green-card :head-align="'left'" :content-align="'left'">
           <template #head>
             <p>Які є номинали</p>
@@ -51,7 +51,7 @@
         </green-card>
       </app-card>
 
-      <app-card :width="'468'">
+      <app-card class="adv-item"  :width="'468'">
         <green-card :head-align="'left'" :content-align="'left'">
           <template #head>
             <p>Як швидко стає доступним</p>
@@ -73,7 +73,7 @@
         </green-card>
       </app-card>
 
-      <app-card :width="'468'">
+      <app-card class="adv-item" :width="'468'">
         <green-card :head-align="'left'" :content-align="'left'">
           <template #head>
             <p>Для корпоративних клієнтів</p>
@@ -84,7 +84,7 @@
         </green-card>
       </app-card>
 
-      <app-card :width="'468'">
+      <app-card class="adv-item" :width="'468'">
         <green-card :head-align="'left'" :content-align="'left'">
           <template #head>
             <p>Строк дії</p>
@@ -357,6 +357,7 @@ h1 {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+  row-gap: 15px;
 }
 
 .text-inline {
@@ -398,5 +399,9 @@ h1 {
   letter-spacing: 0;
   text-align: left;
 
+}
+
+.adv-item {
+  /*margin-bottom: 15px;*/
 }
 </style>
