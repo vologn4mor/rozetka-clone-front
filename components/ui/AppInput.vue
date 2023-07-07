@@ -5,7 +5,11 @@
       <div class='custom-input phone' @click='$refs.inputNumber.focus()'>
         <img src='@/assets/images/Profile/ua.png' alt=''>
         <span>+380 </span>
-        <input ref='inputNumber' type='tel' :maxlength='maxLength ? maxLength : null' />
+        <input
+          ref='inputNumber'
+          type='tel'
+          :maxlength='maxLength ? maxLength : null'
+          @input="$emit('input', $event.target.value)" />
       </div>
     </div>
     <div v-else-if='type === "password"'>

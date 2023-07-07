@@ -206,11 +206,11 @@
               />
             </div>
             <AppInput
-              :value='sendData.user.email'
+              :value='sendData.payData.email'
               class='input'
               placeholder='Введіть вашу пошту'
               label='Електронна пошта'
-              @input='(val) => sendData.user.email = val'
+              @input='(val) => sendData.payData.email = val'
             />
           </div>
         </AppCard>
@@ -258,24 +258,28 @@
         </AppCard>
         <div class='inputs-container'>
           <AppInput
-            :value='sendData.user.last_name'
+            :value='sendData.receiver.last_name'
             placeholder='Введіть прізвище'
             label='Прізвище'
+            @input='val => sendData.receiver.last_name = val'
           />
           <AppInput
-            :value='sendData.user.first_name'
+            :value='sendData.receiver.first_name'
             placeholder='Введіть ім’я' label='Ім’я'
+            @input='val => sendData.receiver.first_name = val'
           />
           <AppInput
-            :value='sendData.user.middle_name'
+            :value='sendData.receiver.middle_name'
             placeholder='Введіть по батькові'
             label='По батькові'
+            @input='val => sendData.receiver.middle_name = val'
           />
           <AppInput
-            :value='sendData.user.phone'
+            :value='sendData.receiver.phone'
             type='phone'
             label='Мобільний телефон'
             placeholder='Введіть мобільний телефон'
+            @input='val => sendData.receiver.phone = val'
           />
         </div>
 
@@ -422,8 +426,7 @@ export default {
           first_name: '',
           last_name: '',
           email: '',
-          password: '',
-          middle_name: '',
+          phone: '',
         },
         receiver: {
           first_name: '',
@@ -435,7 +438,7 @@ export default {
         },
         payData: {
           payment_type_id: 2,
-          email: 'email@test.test',
+          email: '',
           edrpou: '',
           legal_entity_name: '',
         },
@@ -574,6 +577,25 @@ export default {
   },
   mounted() {
     document.addEventListener('click', this.hideBlockOutside);
+    if (this.user) {
+      this.sendData.user = {
+        first_name: this.user.first_name,
+        last_name: this.user.last_name,
+        email: this.user.email,
+        phone: this.user.phone,
+      };
+
+      this.sendData.receiver = {
+        first_name: this.user.first_name,
+        last_name: this.user.last_name,
+        middle_name: this.user.middle_name,
+        profile_name: this.user.profile_name,
+        email: this.user.email,
+        phone: this.user.phone,
+      };
+
+      this.sendData.payData.email = this.user.email
+    }
   },
   methods: {
     ...mapMutations({
@@ -615,21 +637,24 @@ export default {
 
         this.sendData.total_price = this.total_sum - 100;
 
-        this.sendData.user = {
-          first_name: this.user.first_name,
-          last_name: this.user.last_name,
-          email: this.user.email,
-          phone: this.user.phone,
-        };
-
-        this.sendData.receiver = {
-          first_name: this.user.first_name,
-          last_name: this.user.last_name,
-          middle_name: this.user.middle_name,
-          profile_name: this.user.profile_name,
-          email: this.user.email,
-          phone: this.user.phone,
-        };
+        // this.sendData.user = {
+        //   first_name: this.user.first_name,
+        //   last_name: this.user.last_name,
+        //   email: this.user.email,
+        //   phone: this.user.phone,
+        // };
+        //
+        // this.sendData.receiver = {
+        //   first_name: this.user.first_name,
+        //   last_name: this.user.last_name,
+        //   middle_name: this.user.middle_name,
+        //   profile_name: this.user.profile_name,
+        //   email: this.user.email,
+        //   phone: this.user.phone,
+        // };
+        this.sendData.receiver.email = this.sendData.user.email;
+        this.sendData.user.phone = '+380' + this.sendData.user.phone;
+        this.sendData.receiver.phone = '+380' + this.sendData.receiver.phone;
 
         this.sendData.delivery_adress.city_name = this.citySelected.name;
 
@@ -700,6 +725,8 @@ export default {
       const item = this.deliveryItems.filter(item => item.id === id);
       if (item.length) {
         this.deliveryValue = item[0].address;
+      } else {
+        this.deliveryValue = this.deliveryItems[0].address;
       }
     },
   },
