@@ -385,7 +385,7 @@
       <hr>
       <div class='select-block'>
         <span>Вкажіть населенний пункт України</span>
-        <AppSelect v-if='deliveryItems' :options='deliveryItems' @input='val => deliveryValue = val.address' />
+        <AppSelect v-if='deliveryItems' :options='deliveryItems' @input='val => changeDeliveryValue(val)' />
       </div>
       <div class='times-block'>
         <div>
@@ -695,6 +695,12 @@ export default {
     selectDelivery() {
       this.sendData.delivery_adress.street = this.deliveryValue;
       this.deliveryModal = false;
+    },
+    changeDeliveryValue(id) {
+      const item = this.deliveryItems.filter(item => item.id === id);
+      if (item.length) {
+        this.deliveryValue = item[0].address;
+      }
     },
   },
 };
