@@ -35,13 +35,17 @@ export default {
   },
   data() {
     return {
-      isOpened: true,
+      isOpened: false,
     };
   },
 };
 </script>
 
 <style scoped lang='scss'>
+
+hr {
+  margin: 20px 0;
+}
 
 .container {
   background-color: $lh-gray;

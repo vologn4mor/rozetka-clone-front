@@ -64,7 +64,7 @@
             </span>
             </div>
             <div class='fourth-block'>
-              <nuxt-link :to='localePath("/")'>
+              <nuxt-link v-if='items' :to='localePath("/execution")'>
                 {{ $t('makeOrder') }}
               </nuxt-link>
               <nuxt-link :to='localePath("/")'>
@@ -105,30 +105,6 @@ export default {
         total_sum_item: item.price,
       };
     });
-    // items = res.data.articles.map(item => {
-    //   return { ...item, count: item }
-    // })
-    // res.data.forEach(item => {
-    //   items.push({ ...item, count: item.count, total_sum_item: res.data.price })
-    // })
-
-    // await Promise.all(this.cartItems.map(async item => {
-    //   const res = await this.$axios.$get('/Goods/cart-item', {
-    //     params: {
-    //       id: item.id,
-    //     },
-    //   });
-    //   if (!res) return;
-    //   items.push({ ...res.data, count: item.count, total_sum_item: res.data.price });
-    // }));
-    // console.log(items);
-
-    // this.items = items.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-    // this.total_count = items.length;
-    // this.items.forEach(item => {
-    //   this.total_sum += Number(item.price);
-    // });
-
     this.items = data.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
     this.total_count = data.length;
     this.items.forEach(item => {

@@ -1,7 +1,8 @@
 <template>
   <div>
     <button :style='color ? `background-color: ${color}` : null' @click='$emit("click")'>
-      <img :src='imageFromType' alt=''>
+      <img v-if='!isText' :src='imageFromType' alt=''>
+      <span v-else> {{ type.toUpperCase() }}</span>
     </button>
   </div>
 </template>
@@ -24,6 +25,11 @@ export default {
       type: String,
       required: false,
       default: '',
+    },
+    isText: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   computed: {

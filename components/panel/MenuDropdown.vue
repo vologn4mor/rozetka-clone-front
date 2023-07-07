@@ -1,21 +1,30 @@
 <template>
   <div>
     <div class='container'>
-      <div class='name-and-icon' @click='isOpened = !isOpened'>
+      <div
+        class='name-and-icon'
+        @click='typeof routes === "object" ? isOpened = !isOpened : $router.push(`/panel${routes}`)'
+      >
         <div>
           <img :src='icon' alt=''>
           <span>{{ name }}</span>
         </div>
         <div>
-          <img src='~/assets/images/icons/AdminLayout/Panel/arrow.svg' alt='' :class='isOpened ? "arrow-up" : null'>
+          <img
+            v-if='typeof routes === "object"'
+            src='~/assets/images/icons/AdminLayout/Panel/arrow.svg' alt=''
+            :class='isOpened ? "arrow-up" : null'>
         </div>
       </div>
-      <div v-if='isOpened' class='routes'>
+      <div v-if='isOpened && typeof routes === "object"' class='routes'>
         <div v-for='item in routes' :key='item.route'>
           <nuxt-link :to='"/panel" + item.route'>
             <span>{{ item.name }}</span>
           </nuxt-link>
         </div>
+      </div>
+      <div v-else>
+
       </div>
     </div>
   </div>
@@ -34,7 +43,7 @@ export default {
       required: true,
     },
     routes: {
-      type: Array,
+      type: [Array, String],
       required: true,
     },
   },

@@ -1,19 +1,27 @@
 <template>
-  <div class='custom-select' :tabindex='tabindex' @blur='open = false'>
-    <div class='selected' :class='{ open: open }' @click='open = !open'>
-      {{ selected }}
+  <div
+    class='custom-select'
+    :tabindex='tabindex'
+    :style='width ? `width: ${width}px;` : null'
+    @blur='open = false'>
+    <div
+      class='selected'
+      :class='color ? color : null'
+      @click='open = !open'
+    >
+      {{ typeof selected === 'string' ? selected : selected.value }}
     </div>
     <div class='items' :class='{ selectHide: !open }'>
       <div
-        v-for='(option, i) of options'
-        :key='i'
+        v-for='option of options'
+        :key='option.id'
         @click="
           selected = option;
           open = false;
-          $emit('input', option);
+          $emit('input', option.id ? option.id : null);
         "
       >
-        {{ option }}
+        {{ option.value }}
       </div>
     </div>
   </div>
@@ -36,10 +44,26 @@ export default {
       required: false,
       default: 0,
     },
+    width: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    placeholder: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    color: {
+      type: String,
+      required: false,
+      default: '',
+    },
   },
   data() {
     return {
-      selected: this.default
+      // selected: this.placeholder,
+      selected: this.placeholder ? this.placeholder : this.default
         ? this.default
         : this.options.length > 0
           ? this.options[0]
@@ -53,7 +77,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .custom-select {
   position: relative;
   width: 100%;
@@ -92,7 +116,7 @@ export default {
 .custom-select .items {
   color: black;
   border-radius: 0px 0px 6px 6px;
-  overflow: hidden;
+  overflow-x: hidden;
   border-right: 1px solid black;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
@@ -116,5 +140,14 @@ export default {
 
 .selectHide {
   display: none;
+}
+
+.items {
+  max-height: 400px;
+  overflow-x: scroll;
+}
+
+.custom-select .green {
+  border: 2px solid $lh-accent-green;
 }
 </style>

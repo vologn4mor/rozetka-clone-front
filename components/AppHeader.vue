@@ -123,19 +123,55 @@
     <AppModalCard v-if='showLoginModal' @close='showLoginModal = false'>
       <!--      <input v-model='loginEmail' type='email' autocomplete='email'>-->
       <!--      <input v-model='loginPassword' type='password' autocomplete='password'>-->
-      <AppInput
-        :value='loginEmail'
-        label='Login'
-        placeholder='example@gmail.com'
-        @input='val => loginEmail = val'
-      />
-      <AppInput
-        :value='loginPassword'
-        label='Password'
-        type='password'
-        @input='val => loginPassword = val'
-      />
-      <AppButton text='Войти' @click='loginHandler' />
+      <div v-if='!isRegOpened'>
+        <AppInput
+          :value='loginEmail'
+          label='Login'
+          placeholder='example@gmail.com'
+          @input='val => loginEmail = val'
+        />
+        <AppInput
+          :value='loginPassword'
+          label='Password'
+          type='password'
+          @input='val => loginPassword = val'
+        />
+        <ButtonProfile title='Войти' class='btn-login' style-btn='orange' @click='loginHandler' />
+        <ButtonProfile title='Регистрация' class='btn-login' style-btn='green' @click='isRegOpened = true' />
+      </div>
+      <div v-else>
+        <AppInput
+          :value='regEmail'
+          label='Email'
+          type='email'
+          placeholder='example@gmail.com'
+          @input='val => regEmail = val'
+        />
+        <AppInput
+          :value='regUserName'
+          type='text'
+          label='Username'
+          placeholder='Василь'
+          @input='val => regUserName = val'
+        />
+        <AppInput
+          :value='regPassword'
+          label='Password'
+          type='password'
+          @input='val => regPassword = val'
+        />
+        <AppInput
+          :value='regPasswordRepeat'
+          label='Password Repeat'
+          type='password'
+          @input='val => regPasswordRepeat = val'
+        />
+        <!--        <ButtonProfile title='Войти' class='btn-login' style-btn='orange' @click='loginHandler' />-->
+        <!--        <ButtonProfile title='Регистрация' class='btn-login' style-btn='green' @click='isRegOpened = true' />-->
+        <ButtonProfile title='Регистрация' class='btn-login' style-btn='orange' @click='regHandler' />
+        <ButtonProfile title='Уже зарегистрирован' class='btn-login' style-btn='green' @click='isRegOpened = false' />
+
+      </div>
     </AppModalCard>
   </div>
 </template>
@@ -143,11 +179,12 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import AppInput from '@/components/ui/AppInput.vue';
-import AppButton from '@/components/ui/AppButton.vue';
+// import AppButton from '@/components/ui/AppButton.vue';
+import ButtonProfile from '@/components/ui/Profile/ButtonProfile.vue';
 
 export default {
   name: 'AppHeader',
-  components: { AppButton, AppInput },
+  components: { ButtonProfile, AppInput },
   data() {
     return {
       showMicModal: false,
@@ -158,6 +195,11 @@ export default {
       showLoginModal: false,
       loginEmail: '',
       loginPassword: '',
+      isRegOpened: false,
+      regEmail: '',
+      regUserName: '',
+      regPassword: '',
+      regPasswordRepeat: '',
     };
   },
   computed: {
@@ -194,6 +236,7 @@ export default {
     }),
     ...mapActions('user', {
       login: 'login',
+      register: 'register',
     }),
     async onLanguageChange(event) {
       this.podCatWatchId = this.categories[0].id;
@@ -212,6 +255,21 @@ export default {
     async loginHandler() {
       const res = await this.login({ email: this.loginEmail, password: this.loginPassword });
       if (res) this.showLoginModal = false;
+      else this.$toast.error('Неверный email или пароль');
+    },
+    async regHandler() {
+      if (!this.regEmail) return this.$toast.error('Email не указан');
+      if (!this.regUserName) return this.$toast.error('Имя пользователя не указано');
+      if (!this.regPassword) return this.$toast.error('Пароль не указан');
+      if (this.regPassword !== this.regPasswordRepeat) return this.$toast.error('Пароли не совпадают');
+
+      const res = await this.register({
+        email: this.regEmail,
+        password: this.regPassword,
+        user_name: this.regUserName,
+      });
+      if (res) this.showLoginModal = false;
+      else this.$toast.error('Неверный email или пароль');
     },
   },
 };
@@ -453,6 +511,12 @@ export default {
 .microphone:hover {
   cursor: pointer;
 }
+
+.btn-login {
+  margin-top: 10px;
+  width: 100%;
+}
+
 </style>
 
 <style lang='scss' scoped>

@@ -4,7 +4,7 @@
     <label for='input' class='dropdown-container' @drop='onDrop' @dragover='allowDrop'>
       <div class='up'>
         <img src='~/assets/images/icons/AdminLayout/Panel/img-icon.svg' alt=''>
-        <span>Перетягніть файли сюди чи натисніть на кнопку. Додавайте зображення у форматі .png</span>
+        <span>{{ placeholder }}</span>
 
       </div>
       <div v-for='file in filelist' :key='file.name'>
@@ -22,6 +22,12 @@
 <script>
 export default {
   name: 'AppDropdown',
+  props: {
+    placeholder: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
       filelist: [],
@@ -30,6 +36,7 @@ export default {
   methods: {
     onChange() {
       this.filelist = [...this.$refs.file.files];
+      this.$emit('input', this.filelist);
     },
     onDrop(event) {
       event.preventDefault();

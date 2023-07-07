@@ -1,16 +1,33 @@
 <template>
   <div class='input-search'>
-    <input v-model='value' type='text' placeholder='Я шукаю' @keyup.enter='$emit("search", value)'>
-    <button @click='$emit("search", value)'>Знайти</button>
+    <input
+      :placeholder='placeholder'
+      :value='value'
+      type='text'
+      @input='e => $emit("input", e.target.value)'
+      @keyup.enter='$emit("search", value)'
+    >
+    <button @click='$emit("search")'>Знайти</button>
   </div>
 </template>
 
 <script>
 export default {
   name: 'AdminSearchInput',
+  props: {
+    placeholder: {
+      type: String,
+      required: false,
+      default: 'Я шукаю',
+    },
+    value: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
-      value: '',
+      // value: '',
     };
   },
 };
@@ -38,7 +55,7 @@ export default {
     background-color: $lh-accent-green;
     border-color: $lh-accent-green;
     color: $lh-white;
-    padding: 0 20px;
+    padding: 10px 20px;
     font-weight: bold;
   }
 }

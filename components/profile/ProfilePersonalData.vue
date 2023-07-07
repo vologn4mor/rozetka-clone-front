@@ -102,7 +102,34 @@
       </div>
     </ProfileDropdown>
     <ProfileDropdown label='Мої отримувачі замовлень' :icon='myOrderRecipients'>
-      
+      <div class='my-recipients-container'>
+        <div v-if='!changeMyRecipients' class='main'>
+          <img src='~assets/images/icons/profile/recipients-add-icon.svg' alt=''>
+          <span>Додати отримувача</span>
+        </div>
+        <div v-else>
+
+        </div>
+        <div class='btn-container'>
+          <div
+            v-if='!changeMyRecipients' class='btn'>
+            <ButtonProfile
+              title='Редактировать'
+              style-btn='green'
+              @click='changeMyRecipients = true; userNewData = JSON.parse(JSON.stringify(user))' />
+          </div>
+          <div v-else style='margin-top: 6px'>
+            <ButtonProfile
+              title='Сохранить'
+              style-btn='green'
+              @click='sendNewMyRecipients' />
+            <ButtonProfile
+              title='Отменить'
+              style-btn='orange'
+              @click='changeMyRecipients = false' />
+          </div>
+        </div>
+      </div>
     </ProfileDropdown>
     <ProfileDropdown label='Контакти' :icon='contacts'>
     </ProfileDropdown>
@@ -161,6 +188,7 @@ export default {
       ],
       changePersonalData: false,
       userNewData: null,
+      changeMyRecipients: false,
     };
   },
   async fetch() {
@@ -213,7 +241,9 @@ export default {
         this.changePersonalData = false;
       }
     },
+    async sendNewMyRecipients() {
 
+    },
   },
 
 
@@ -225,6 +255,7 @@ h1 {
   font-size: 31px;
   margin: 0 0 10px 0;
 }
+
 
 .input {
   border: 2px solid $main-light-gray;
@@ -268,5 +299,26 @@ h1 {
 
 .btn {
   max-width: 138px;
+}
+
+.my-recipients-container {
+
+
+  .btn-container {
+    div {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .main {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    img {
+      margin-right: 5px;
+    }
+  }
 }
 </style>

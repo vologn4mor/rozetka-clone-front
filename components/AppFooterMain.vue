@@ -6,7 +6,7 @@
           <p>{{ $t('services') }}</p>
           <nuxt-link to='/'>{{ $t('bonusAccount') }}</nuxt-link>
           <nuxt-link to='/'>{{ $t('logoPremium') }}</nuxt-link>
-          <nuxt-link to='/'>{{ $t('giftCertificates') }}</nuxt-link>
+          <nuxt-link :to='localePath("/other/gift-certificates")'>{{ $t('giftCertificates') }}</nuxt-link>
           <nuxt-link to='/'>{{ $t('logoExchange') }}</nuxt-link>
         </AppCard>
         <AppCard>

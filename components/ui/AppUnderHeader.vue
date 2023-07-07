@@ -1,5 +1,5 @@
 <template>
-  <div class='under-header'>
+  <div v-if='headerLocate !== null || $route.path === localePath("/")' class='under-header'>
     <div class='under-header__left'>
       <div
         v-if='headerLocate && ($route.path.includes("/category") || $route.path.includes("/article"))'

@@ -4,7 +4,7 @@
       <div class='header-container'>
         <div class='header'>
           <div class='header-left'>
-            <nuxt-link :to='localePath("/panel")'>
+            <nuxt-link :to='localePath("/panel/dashboard")'>
               <img src='~/assets/images/icons/AdminLayout/logo.svg' alt=''>
             </nuxt-link>
           </div>
@@ -56,6 +56,7 @@
 import { mapActions } from 'vuex';
 import MenuDropdown from '@/components/panel/MenuDropdown.vue';
 import catalogIcon from '@/assets/images/icons/AdminLayout/Panel/catalog.svg';
+import dashboardIcon from '@/assets/images/icons/AdminLayout/Panel/dashboard.svg';
 
 export default {
   name: 'AdminLayout',
@@ -63,6 +64,11 @@ export default {
   data() {
     return {
       menu: [
+        {
+          icon: dashboardIcon,
+          name: 'Панель стану',
+          routes: '/dashboard',
+        },
         {
           icon: catalogIcon,
           name: 'Каталог',
@@ -74,6 +80,10 @@ export default {
             {
               route: '/articles',
               name: 'Товари',
+            },
+            {
+              route: '/orders',
+              name: 'Замовлення',
             },
             {
               route: '/filters',
