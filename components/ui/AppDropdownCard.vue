@@ -1,9 +1,8 @@
 <template>
-  <div class='container'>
+  <div class='container' :style="'width: ' + width + 'px;'">
     <div class='up-part' @click='isOpened = !isOpened'>
-      <div class='icon-and-label'>
-        <img :src='icon' alt=''>
-        <span>{{ label }}</span>
+      <div class='label'>
+        <slot name="head"></slot>
       </div>
       <div class='arrow'>
         <img
@@ -15,23 +14,19 @@
     </div>
     <div v-if='isOpened' class='slot'>
       <hr>
-      <slot></slot>
+      <slot name="content"></slot>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ProfileDropdown',
-  props: {
-    icon: {
-      type: String,
-      required: true,
-    },
-    label: {
-      type: String,
-      required: true,
-    },
+  name: "AppDropdownCard",
+  props:{
+    width:{
+      type:String,
+      default:'233',
+    }
   },
   data() {
     return {
@@ -50,7 +45,7 @@ hr {
 .container {
   background-color: $lh-gray;
   border-radius: 6px;
-  padding: 25px 45px;
+  padding: 20px 45px;
   margin-bottom: 15px;
 
   .up-part {
@@ -58,13 +53,17 @@ hr {
     justify-content: space-between;
 
 
-    .icon-and-label {
+    .label {
       display: flex;
       align-items: center;
 
-      img {
-        margin-right: 10px;
-      }
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 19px;
+      letter-spacing: 0;
+      text-align: left;
+
+
     }
   }
 
