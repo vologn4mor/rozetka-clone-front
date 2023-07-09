@@ -102,8 +102,8 @@
         </template>
         <template #head>Бренд</template>
         <template #content>Ладна Хата — один із маркетплейсів що швидко розвивається та становиться відомим і улюбленим брендом серед українців</template>
-
       </app-grid-card>
+
       <app-grid-card>
         <template #image>
           <div class="element-wrapper"  style="width: 66px; height: 44px; display: flex" :style='{ backgroundImage: `url(${require("@/assets/images/Other/Franchise/vector-6.svg")})` }'>
@@ -112,8 +112,20 @@
         </template>
         <template #head >Логістика</template>
         <template #content>Ми доставляємо товари до вашої точки — вам не потрібно витрачати на це час та гроші</template>
+      </app-grid-card>
 
+      <app-grid-card>
+        <template #image>
+          <div class="img-wrapper"  >
+            <img class="group-9" alt="Group" src="~assets/images/Other/Franchise/group-215.png" style="width: 70px; height: 50px"/>
+          </div>
+        </template>
+        <template #head>Софт</template>
+        <template #content>Наш програмний комплекс Octopus зробить вашу щоденну роботу зручною та приємною</template>
+      </app-grid-card>
 
+      <app-grid-card>
+        <template #image></template>
       </app-grid-card>
 
       <div class="view-21">
