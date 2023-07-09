@@ -42,7 +42,7 @@ export default {
 }
 
 * {
-  font-family: Mariupol-Regular;
+  font-family: Mariupol-Regular,serif;
 }
 
 a {
@@ -53,6 +53,11 @@ a {
 .main-container {
   min-height: 692px;
 }
+
+body{
+  overflow-x: hidden;
+}
+
 
 </style>
 
