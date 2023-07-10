@@ -95,130 +95,252 @@
     </div>
 
     <div class="overlap-9 full-width">
-      <app-grid-card>
-        <template #image>
-          <img class="mask-group"  style="width: 93px; height: 35px; margin-top: -5px"
-               alt="Mask group" src="~assets/images/Other/Franchise/3-1-1.png" />
-        </template>
-        <template #head>Бренд</template>
-        <template #content>Ладна Хата — один із маркетплейсів що швидко розвивається та становиться відомим і улюбленим брендом серед українців</template>
-      </app-grid-card>
 
-      <app-grid-card>
-        <template #image>
-          <div class="element-wrapper"  style="width: 66px; height: 44px; display: flex" :style='{ backgroundImage: `url(${require("@/assets/images/Other/Franchise/vector-6.svg")})` }'>
-            <img style="align-self: center; margin: -7px 0 0 6px; " class="element-15" alt="Element" src="~assets/images/Other/Franchise/3-1.png" />
-          </div>
-        </template>
-        <template #head >Логістика</template>
-        <template #content>Ми доставляємо товари до вашої точки — вам не потрібно витрачати на це час та гроші</template>
-      </app-grid-card>
-
-      <app-grid-card>
-        <template #image>
-          <div class="img-wrapper"  >
-            <img class="group-9" alt="Group" src="~assets/images/Other/Franchise/group-215.png" style="width: 70px; height: 50px"/>
-          </div>
-        </template>
-        <template #head>Софт</template>
-        <template #content>Наш програмний комплекс Octopus зробить вашу щоденну роботу зручною та приємною</template>
-      </app-grid-card>
-
-      <app-grid-card>
-        <template #image></template>
-      </app-grid-card>
-
-      <div class="view-21">
-        <div class="group-6">
-          <div class="text-wrapper-51">Підтримка</div>
-          <p class="text-wrapper-52">Ми зробимо все, щоб ваш бізнес постійно розвивався та зростав</p>
-        </div>
-        <div class="div-9">
-          <div class="overlap-group-5">
-            <div class="mask-group-wrapper">
-              <img class="mask-group" alt="Mask group" src="~assets/images/Other/Franchise/mask-group.png" />
-            </div>
-            <img class="group-7" alt="Group" src="~assets/images/Other/Franchise/group-216.png" />
-          </div>
-        </div>
-      </div>
-      <div class="view-22">
-        <div class="group-8">
-          <div class="text-wrapper-51">Софт</div>
-          <p class="text-wrapper-53">
-            Наш програмний комплекс Octopus зробить вашу щоденну роботу зручною та приємною
-          </p>
-        </div>
-        <div class="div-9">
-          <img class="group-9" alt="Group" src="~assets/images/Other/Franchise/group-215.png" />
-        </div>
-      </div>
-      <div class="view-23">
-        <div class="group-10">
-          <div class="text-wrapper-51">Навчання</div>
-          <p class="text-wrapper-54">
-            Ми забезпечуємо постійне навчання вашої команди, а також пакет стандартів бізнесу
-          </p>
-        </div>
-        <div class="div-9">
-          <img class="group-11" alt="Group" src="~assets/images/Other/Franchise/group.png" />
-        </div>
-      </div>
-      <div class="view-24">
-        <div class="group-12">
-          <div class="text-wrapper-51">Логістика</div>
-          <p class="text-wrapper-55">
-            Ми доставляємо товари до вашої точки — вам не потрібно витрачати на це час та гроші
-          </p>
-        </div>
-        <div class="div-9">
-          <div class="group-13">
-            <div class="element-wrapper">
-              <img class="element-15" alt="Element" src="~assets/images/Other/Franchise/3-1.png" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="view-25">
-        <div class="group-14">
-          <div class="text-wrapper-51">Клієнти</div>
-          <p class="text-wrapper-56">
-            Ладна Хата піклується про те, щоб&nbsp;&nbsp;у вас було багато замовлень,
-            <br />а ваша задача — якісно їх обробити
-          </p>
-        </div>
-        <div class="div-9">
-          <img class="group-15" alt="Group" src="~assets/images/Other/Franchise/group-239.png" />
-        </div>
-      </div>
-      <div class="view-26">
-        <div class="group-16">
-          <div class="text-wrapper-51">Бренд</div>
-          <p class="text-wrapper-57">
-            Ладна Хата — один із маркетплейсів що швидко розвивається та становиться відомим і улюбленим брендом
-            серед українців
-          </p>
-        </div>
-        <div class="div-9">
-          <div class="frame-10">
-            <img class="element-16" alt="Element" src="~assets/images/Other/Franchise/3-1-1.png" />
-          </div>
-        </div>
-      </div>
-      <p class="text-wrapper-58">Що ви отримуєте як партнер Ладної Хати:</p>
       <h1 class="h-1">Робіть що треба, решта - за нами</h1>
+      <p class="text-wages">Що ви отримуєте як партнер Ладної Хати:</p>
+
+      <div class="vages-cards">
+        <app-grid-card>
+          <template #image>
+            <img
+              class="mask-group"
+              style="width: 93px; height: 35px; margin-top: -5px"
+              alt="Mask group" src="~assets/images/Other/Franchise/3-1-1.png" />
+          </template>
+          <template #head>Бренд</template>
+          <template #content>Ладна Хата — один із маркетплейсів що швидко розвивається та становиться відомим і улюбленим брендом серед українців</template>
+        </app-grid-card>
+
+        <app-grid-card>
+          <template #image>
+            <div class="element-wrapper"  style="width: 66px; height: 44px; display: flex" :style='{ backgroundImage: `url(${require("@/assets/images/Other/Franchise/vector-6.svg")})` }'>
+              <img style="align-self: center; margin: -7px 0 0 6px; " class="element-15" alt="Element" src="~assets/images/Other/Franchise/3-1.png" />
+            </div>
+          </template>
+          <template #head >Логістика</template>
+          <template #content>Ми доставляємо товари до вашої точки — вам не потрібно витрачати на це час та гроші</template>
+        </app-grid-card>
+
+        <app-grid-card>
+          <template #image>
+            <div class="img-wrapper"  >
+              <img class="group-9" alt="Group" src="~assets/images/Other/Franchise/group-215.png" style="width: 70px; height: 50px"/>
+            </div>
+          </template>
+          <template #head>Софт</template>
+          <template #content>Наш програмний комплекс Octopus зробить вашу щоденну роботу зручною та приємною</template>
+        </app-grid-card>
+
+        <app-grid-card>
+          <template #image>
+            <div class="img-wrapper"  >
+              <img class="group-9" alt="Group" src="~assets/images/Other/Franchise/group-239.png" style="width: 55px; height: 50px"/>
+            </div>
+          </template>
+          <template #head>Клієнти</template>
+          <template #content>Ладна Хата піклується про те, щоб  у вас було багато замовлень,
+            а ваша задача — якісно їх обробити</template>
+        </app-grid-card>
+
+        <app-grid-card>
+          <template #image>
+            <div class="img-wrapper"  >
+              <img class="group-9" alt="Group" src="~assets/images/Other/Franchise/group.png" style="width: 55px; height: 50px"/>
+            </div>
+          </template>
+          <template #head>Навчання</template>
+          <template #content>Ми забезпечуємо постійне навчання вашої команди, а також пакет стандартів бізнесу</template>
+        </app-grid-card>
+
+        <app-grid-card>
+          <template #image>
+            <div class="img-wrapper"  >
+              <img class="group-9" alt="Group" src="~assets/images/Other/Franchise/Group 216.svg" style="width: 55px; height: 60px"/>
+            </div>
+          </template>
+          <template #head>Підтримка</template>
+          <template #content>Ми зробимо все, щоб ваш бізнес постійно розвивався та зростав</template>
+        </app-grid-card>
+      </div>
+    </div>
+
+    <div class="terms">
+      <div class="h-2">Умови франшизи</div>
+      <div class="term-cards">
+        <app-card :width="'468'">
+          <green-card :head-align="'left'" :content-align="'left'" :head-color="'#F45D48'">
+            <template #head>
+              Фінанси*
+            </template>
+            <template #content>
+              <ul style="padding-inline-start: 20px;">
+                <li>Вкладення — від 635 000 грн.</li>
+                <li>Прибуток — від 35 000 грн. на місяць</li>
+                <li>Термін окупності — до 24 місяців</li>
+              </ul>
+            </template>
+          </green-card>
+        </app-card>
+
+        <app-card :width="'468'">
+          <green-card :head-align="'left'" :content-align="'left'" :head-color="'#F45D48'">
+            <template #head>
+              Партнери
+            </template>
+            <template #content>
+              <br>Ми шукаємо партнерів, які вже мають управлінський досвід та будуть вести цей бізнес як основний та мають приміщення у власності або в оренді
+            </template>
+          </green-card>
+        </app-card>
+
+        <app-card :width="'468'">
+          <green-card :head-align="'left'" :content-align="'left'" :head-color="'#F45D48'">
+            <template #head>
+              Міста
+            </template>
+            <template #content>
+              <br>Наразі ми шукаємо партнерів у наступних містах: Житомир, Кременчук, Кривий Ріг, Луцьк, Одеса, Тернопіль, Ужгород, Черкаси, Чернівці
+            </template>
+          </green-card>
+        </app-card>
+
+      </div>
+      <p>* Вказаний фінансовий результат залежить від багатьох факторів та є орієнтовним</p>
+    </div>
+    <div class="franchise-form">
+      <div class="h-2">Працюймо разом!</div>
+      <p>Якщо ви готові рухатись далі, будь ласка, заповніть анкету партнера Ладної Хати</p>
+      <app-card width="'auto'">
+        <div class="form">
+          <div class="form-column">
+
+            <label for="person">Прізвище, ім’я та по батькові *</label>
+            <input class="input" type="text" name="person" placeholder="Введіть відповідь" @input='e => formData.person_name = e.target.value'/>
+
+            <label for="phone">Номер телефону *</label>
+            <input class="input" type="tel" name="phone" placeholder="+38(___) ___-__-__" @input='e => formData.phone = e.target.value' />
+
+            <label for="email">Електронна пошта *</label>
+            <input class="input" type="email" name="email" placeholder="Введіть вашу електронну пошту" @input='e => formData.email = e.target.value' />
+
+            <label for="social">Посилання на соціальні мережі</label>
+            <input class="input" type="text" name="social" placeholder="Введіть посилання" @input='e => formData.social = e.target.value' />
+
+            <label for="city">Населенний пункт в якому ви плануєту відкрити точку видачі Ладної Хати*</label>
+            <input class="input" type="text" name="city" placeholder="Введіть населенний пункт" @input='e => formData.city = e.target.value' />
+
+            <label for="name">Ви готові інвестувати від 600 тис. грн у відкриття точки видачі Ладної Хати?</label>
+            <select name="name" class='input' @input='e => formData.is_ready_invest = e.target.value' >
+              <option class="gray" selected disabled hidden value="">Оберіть відповідь</option>
+              <option
+                v-for='answer in yesNoAnswer'
+                :key='answer.id'
+                :value='answer.name'
+              >
+                {{ answer.name }}
+              </option>
+            </select>
+
+            <label for="exp">Розкажіть про свій управлінський досвід*</label>
+            <textarea class="input" type="text" name="exp" rows="10" @input='e => formData.experience = e.target.value' />
+
+            <label for="reason">Чому ви хочете відкрити саме точку видачі Ладної Хати?*</label>
+            <textarea class="input" type="text" name="reason" rows="10" @input='e => formData.reason = e.target.value' />
+
+          </div>
+          <div class="divider"></div>
+          <div class="form-column">
+
+            <label for="self">Ви плануєте керувати точкою видачі самостійно?</label>
+            <select name="self" class='input' @input='e => formData.self = e.target.value'>
+              <option class="gray" selected disabled hidden value="">Оберіть відповідь</option>
+              <option
+                v-for='answer in yesNoAnswer'
+                :key='answer.id'
+                :value='answer.name'
+              >
+                {{ answer.name }}
+              </option>
+            </select>
+
+
+            <label for="name">Чи є у вас належне приміщення?</label>
+            <select name="name" class='input' @input='e => formData.is_got_place = e.target.value' >
+              <option class="gray" selected disabled hidden value="">Оберіть відповідь</option>
+              <option
+                v-for='answer in yesNoAnswer'
+                :key='answer.id'
+                :value='answer.name'
+              >
+                {{ answer.name }}
+              </option>
+            </select>
+
+            <label for="social">Посилання на Google Карти із зазначенням точної геолокації вашого приміщення</label>
+            <input class="input" type="text" name="social" @input='e => formData.coordinates = e.target.value' />
+
+            <label for="city">Посилання на YouTube з відео-екскурсією по вашому приміщенню*</label>
+            <input class="input" type="text" name="city" placeholder="http://youtube.com/...." @input='e => formData.videotour = e.target.value' />
+
+            <label
+              class="mb-5"
+              for="files">Завантаження документів*
+            </label>
+            <app-dropdown
+              name="files"
+              :max-width="'initial'"
+              :margin-top="'7'"
+              :border-color="'#078071'"
+              placeholder='Перетягніть файл сюди чи натисніть на кнопку. Додавайте зображення у форматі .jpg, .gif, .png, розміром файлу до 5 МБ'
+              @input='val => images = val' />
+            <p class="h-3">Поля позначені * обов’язкові для заповнення</p>
+            <div class="button-wrap">
+              <app-button v-bind="requiredFilled()?{bgColor:'#078071', text:'Надіслати' }:{bgColor:'#6A6C7E',text:'Заповніть форму'}" @click="PostForm" ></app-button>
+            </div>
+
+          </div>
+        </div>
+      </app-card>
     </div>
   </div>
+
 
 </template>
 
 <script>
 import {mapMutations} from "vuex";
 import AppGridCard from "@/components/ui/franchise/AppGridCard";
+import AppCard from "@/components/ui/AppCard";
+import GreenCard from "@/components/ui/GreenCard";
+import AppButton from "@/components/ui/AppButton";
+import AppDropdown from "@/components/panel/AppDropdown";
+
 
 export default {
   name: "Franchise",
-  components: {AppGridCard},
+  components: {AppDropdown, AppButton, GreenCard, AppCard, AppGridCard},
+  data(){
+    return {
+      formData: {
+        person_name:'',
+        phone:'',
+        social:'',
+        email:'',
+        city:'',
+        is_ready_invest:'',
+        experience:'',
+        reason:'',
+        self:'',
+        is_got_place:'',
+        coordinates:'',
+        videotour:'',
+      },
+      images:[],
+      yesNoAnswer:[{id:1,name:'Так'},{id:2,name:'Ні'}]
+    }
+
+  },
+
   beforeMount() {
     // const header = this.$i18n.t('franchising')
     // this.setHeaderLocate([{id:0, name:header}]);
@@ -228,11 +350,106 @@ export default {
     ...mapMutations({
       setHeaderLocate: 'setHeaderLocate',
     }),
+    requiredFilled(){
+      return this.formData.person_name !== '' &&
+              this.formData.phone !== '' &&
+                this.formData.email !== '' &&
+                  this.formData.experience !== '' &&
+                    this.formData.city !== '' &&
+                    this.formData.reason !== '' &&
+                      this.formData.videotour !== '' &&
+                        this.images.length > 0
+    },
+    async PostForm(){
+      if (this.requiredFilled())
+         console.log("filled")
+
+      try{
+
+        const form = new FormData();
+
+        form.append('formData',JSON.stringify(this.formData));
+        this.images.forEach(i=> form.append('images',i))
+
+        await this.$axios.$post('/Reference/franchise',form)
+
+
+      }catch (e){
+
+        if (e.errors) {
+          Object.keys(e.errors).forEach(key => {
+            // console.log(e.errors[key]);
+            this.$toast.error(e.errors[key]);
+          });
+        } else this.$toast.error(e);
+      }
+
+
+    }
   },
+
 }
 </script>
 
 <style scoped lang="scss">
+
+select:invalid { color: gray; }
+
+.franchise-form{
+  margin: 65px 0;
+}
+
+.h-3 {
+  color: #7C7B89;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16.8px;
+  margin-top: 60px;
+}
+
+.button-wrap {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 60px;
+  height: 100%;
+  justify-content: end;
+  padding: 10px 0;
+}
+
+.dropdown-container {
+  margin: 5px 0;
+  max-width: initial;
+  width: auto;
+}
+
+.form {
+  margin: 35px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.divider {
+  width: 5%;
+}
+
+.form-column {
+  width: 45%;
+  margin: 0 11px 0 11px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  border: 2px solid $lh-accent-green;
+  border-radius: 7px;
+  margin: 10px 0;
+  padding: 10px 33px;
+  resize: none;
+  width: -webkit-fill-available;
+}
+
 
 .topchart {
   margin-top: -20px;
@@ -585,17 +802,16 @@ h3 {
 
 .overlap-9 {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 60px;
   background-color: #eeebe7;
-  height: 410px;
   position: relative;
   width: 1921px;
 }
 
 .div-9 {
-
   background-color: #222525;
   border-radius: 50px;
   height: 100px;
@@ -603,6 +819,52 @@ h3 {
   position: absolute;
   top: 0;
   width: 100px;
+}
+
+.vages-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 1455px;
+  margin-bottom: 30px;
+}
+
+.text-wages {
+  color: $lh-dark;
+  font-size: 20px;
+  font-weight: 700;
+  height: 19px;
+}
+
+.h-1 {
+  color: $lh-accent-green;
+  font-size: 36px;
+  font-weight: 700;
+  height: 35px;
+  margin-top: 30px;
+}
+
+.terms {
+  margin-top: 54px ;
+}
+
+.term-cards{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.h-2 {
+  color: $lh-dark;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 16px 0;
+}
+
+.terms p {
+  color: #7C7B89;
 }
 
 </style>

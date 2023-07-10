@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div class="head" :style="'text-align: '+headAlign+';'">
+    <div class="head" :style="'text-align: '+headAlign+'; color:'+ headColor+';'">
       <slot name="head"/>
     </div>
     <div class="content" :style="'text-align: '+headAlign+';'">
@@ -20,7 +20,12 @@ export default {
     contentAlign:{
       type:String,
       default: "center"
+    },
+    headColor:{
+      type:String,
+      default: "#078071"
     }
+
   }
 }
 </script>
@@ -36,7 +41,6 @@ export default {
   font-weight: 700;
   line-height: 19px;
   letter-spacing: 0;
-  color: #078071;
 }
 
 .content {
