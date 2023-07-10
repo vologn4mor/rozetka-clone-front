@@ -1,9 +1,9 @@
 <template>
   <div>
     <input id='input' ref='file' type='file' multiple style='display: none' @change='onChange' />
-    <label for='input' class='dropdown-container' @drop='onDrop' @dragover='allowDrop'>
+    <label for='input' class='dropdown-container' :style="cssVars"   @drop='onDrop' @dragover='allowDrop'>
       <div class='up'>
-        <img src='~/assets/images/icons/AdminLayout/Panel/img-icon.svg' alt=''>
+        <img src='~/assets/images/icons/AdminLayout/Panel/img-icon-new.svg' alt=''>
         <span>{{ placeholder }}</span>
 
       </div>
@@ -27,11 +27,38 @@ export default {
       type: String,
       required: true,
     },
+    maxWidth: {
+      type: String,
+      required: false,
+      default: '287px'
+    },
+    marginTop: {
+      type: String,
+      required: false,
+      default: '0'
+    },
+    borderColor: {
+      type: String,
+      required: false,
+      default: '#222525'
+    },
+
+
+
   },
   data() {
     return {
       filelist: [],
     };
+  },
+  computed:{
+    cssVars() {
+      return {
+        '--border-color': this.borderColor,
+        '--max-width':this.maxWidth,
+        '--margin-top':this.marginTop +'px'
+      }
+    }
   },
   methods: {
     onChange() {
@@ -47,18 +74,19 @@ export default {
     allowDrop(event) {
       event.preventDefault();
     },
-  },
+  }
 };
 </script>
 
 <style scoped lang='scss'>
+
 * {
   white-space: normal;
 }
 
 .dropdown-container {
-  max-width: 287px;
-  width: 100%;
+  //max-width: 287px;
+  //width: 100%;
   min-height: 230px;
   height: 100%;
   background-color: white;
@@ -66,7 +94,10 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   padding: 10px;
-  border: 1px solid $lh-dark;
+  border: 2px solid;
+  border-color: var(--border-color);
+  margin-top: var(--margin-top);
+  max-width: var(--max-width);
   border-radius: 10px;
 
   .up {
