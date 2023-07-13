@@ -4,8 +4,8 @@
       <div>
         <AppCard>
           <p>{{ $t('services') }}</p>
-          <nuxt-link to='/'>{{ $t('bonusAccount') }}</nuxt-link>
-          <nuxt-link to='/'>{{ $t('logoPremium') }}</nuxt-link>
+          <nuxt-link :to='localePath("/other/bonus-acc")'>{{ $t('bonusAccount') }}</nuxt-link>
+          <nuxt-link :to='localePath("/other/premium")'>{{ $t('logoPremium') }}</nuxt-link>
           <nuxt-link :to='localePath("/other/gift-certificates")'>{{ $t('giftCertificates') }}</nuxt-link>
           <nuxt-link to='/'>{{ $t('logoExchange') }}</nuxt-link>
         </AppCard>
@@ -27,7 +27,7 @@
         <AppCard>
           <p>{{ $t('toPartners') }}</p>
           <nuxt-link to='/'>{{ $t('sellOnLogo') }}</nuxt-link>
-          <nuxt-link to='/'>{{ $t('cooperationWithUs') }}</nuxt-link>
+          <nuxt-link :to='localePath("/other/cooperate")'>{{ $t('cooperationWithUs') }}</nuxt-link>
           <nuxt-link :to='localePath("/other/franchise")'>{{ $t('franchising') }}</nuxt-link>
           <nuxt-link to='/'>{{ $t('rentOfPremises') }}</nuxt-link>
         </AppCard>

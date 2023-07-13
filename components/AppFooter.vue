@@ -16,9 +16,9 @@
           </div>
           <div>
             <span>{{ $t('services') }}</span>
-            <span>{{ $t('bonusAccount') }}</span>
-            <span>{{ $t('logoPremium') }}</span>
-            <span>{{ $t('giftCertificates') }}</span>
+            <span><nuxt-link :to='localePath("/other/bonus-acc")'>{{ $t('bonusAccount') }}</nuxt-link></span>
+            <span><nuxt-link :to='localePath("/other/premium")'>{{ $t('logoPremium') }}</nuxt-link></span>
+            <span><nuxt-link :to='localePath("/other/gift-certificates")'>{{ $t('giftCertificates') }}</nuxt-link></span>
             <span>{{ $t('logoExchange') }}</span>
           </div>
           <div>
@@ -32,9 +32,9 @@
           <div>
             <span>{{ $t('toPartners') }}</span>
             <span>{{ $t('sellOnLogo') }}</span>
-            <span>{{ $t('cooperationWithUs') }}</span>
+            <span><nuxt-link :to='localePath("/other/cooperate")'>{{ $t('cooperationWithUs') }}</nuxt-link></span>
             <span>{{ $t('rentOfPremises') }}</span>
-            <span>{{ $t('franchising') }}</span>
+            <span><nuxt-link :to='localePath("/other/franchise")'>{{ $t('franchising') }}</nuxt-link></span>
           </div>
         </div>
         <div class='footer-container-main-down'>
