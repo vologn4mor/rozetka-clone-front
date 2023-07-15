@@ -215,19 +215,19 @@
           <div class="form-column">
 
             <label for="person">Прізвище, ім’я та по батькові *</label>
-            <input class="input" type="text" name="person" placeholder="Введіть відповідь" @input='e => formData.person_name = e.target.value'/>
+            <input class="input" :value="formData.person_name" type="text" name="person" placeholder="Введіть відповідь" @input='e => formData.person_name = e.target.value'/>
 
             <label for="phone">Номер телефону *</label>
-            <input class="input" type="tel" name="phone" placeholder="+38(___) ___-__-__" @input='e => formData.phone = e.target.value' />
+            <input class="input" :value="formData.phone" type="tel"  name="phone" placeholder="+38(___) ___-__-__" @input='e => formData.phone = e.target.value' />
 
             <label for="email">Електронна пошта *</label>
-            <input class="input" type="email" name="email" placeholder="Введіть вашу електронну пошту" @input='e => formData.email = e.target.value' />
+            <input class="input" :value="formData.email" type="email" name="email" placeholder="Введіть вашу електронну пошту" @input='e => formData.email = e.target.value' />
 
             <label for="social">Посилання на соціальні мережі</label>
-            <input class="input" type="text" name="social" placeholder="Введіть посилання" @input='e => formData.social = e.target.value' />
+            <input class="input" :value="formData.social" type="text" name="social" placeholder="Введіть посилання" @input='e => formData.social = e.target.value' />
 
             <label for="city">Населенний пункт в якому ви плануєту відкрити точку видачі Ладної Хати*</label>
-            <input class="input" type="text" name="city" placeholder="Введіть населенний пункт" @input='e => formData.city = e.target.value' />
+            <input class="input" :value="formData.city" type="text" name="city" placeholder="Введіть населенний пункт" @input='e => formData.city = e.target.value' />
 
             <label for="name">Ви готові інвестувати від 600 тис. грн у відкриття точки видачі Ладної Хати?</label>
             <select name="name" class='input' @input='e => formData.is_ready_invest = e.target.value' >
@@ -242,10 +242,10 @@
             </select>
 
             <label for="exp">Розкажіть про свій управлінський досвід*</label>
-            <textarea class="input" type="text" name="exp" rows="10" @input='e => formData.experience = e.target.value' />
+            <textarea class="input" :value="formData.experience" type="text" name="exp" rows="10" @input='e => formData.experience = e.target.value' />
 
             <label for="reason">Чому ви хочете відкрити саме точку видачі Ладної Хати?*</label>
-            <textarea class="input" type="text" name="reason" rows="10" @input='e => formData.reason = e.target.value' />
+            <textarea class="input" :value="formData.reason" type="text" name="reason" rows="10" @input='e => formData.reason = e.target.value' />
 
           </div>
           <div class="divider"></div>
@@ -277,10 +277,10 @@
             </select>
 
             <label for="social">Посилання на Google Карти із зазначенням точної геолокації вашого приміщення</label>
-            <input class="input" type="text" name="social" @input='e => formData.coordinates = e.target.value' />
+            <input class="input" :value="formData.coordinates" type="text" name="social" @input='e => formData.coordinates = e.target.value' />
 
             <label for="city">Посилання на YouTube з відео-екскурсією по вашому приміщенню*</label>
-            <input class="input" type="text" name="city" placeholder="http://youtube.com/...." @input='e => formData.videotour = e.target.value' />
+            <input class="input" :value="formData.videotour" type="text" name="city" placeholder="http://youtube.com/...." @input='e => formData.videotour = e.target.value' />
 
             <label
               class="mb-5"
@@ -361,8 +361,7 @@ export default {
                         this.images.length > 0
     },
     async PostForm(){
-      if (this.requiredFilled())
-         console.log("filled")
+      if (!this.requiredFilled()) return;
 
       try{
 
@@ -371,14 +370,23 @@ export default {
         form.append('formData',JSON.stringify(this.formData));
         this.images.forEach(i=> form.append('images',i))
 
-        await this.$axios.$post('/Reference/franchise',form)
+        await this.$axios.$post('/Reference/franchise',form).then(response=> {
 
+            this.$toast.success(response.message??"Форму відправлено!")
+
+            for(const prop of Object.getOwnPropertyNames(this.formData)) {
+              this.formData[prop] = "";
+            }
+
+          }).catch(reason => {
+              this.$toast.error(reason.response.message??"Помилка відправки!")
+            });
 
       }catch (e){
 
         if (e.errors) {
           Object.keys(e.errors).forEach(key => {
-            // console.log(e.errors[key]);
+
             this.$toast.error(e.errors[key]);
           });
         } else this.$toast.error(e);
@@ -413,7 +421,7 @@ select:invalid { color: gray; }
   align-items: flex-end;
   margin-top: 60px;
   height: 100%;
-  justify-content: end;
+  justify-content: flex-end;
   padding: 10px 0;
 }
 
