@@ -4,7 +4,7 @@
       <div
         v-if='headerLocate && ($route.path.includes("/category") || $route.path.includes("/article"))'
         class='header-home'>
-        <img src='~assets/images/icons/home.svg' alt='home'>
+        <nuxt-link to="/"><img src='~assets/images/icons/home.svg' alt='home'></nuxt-link>
         <div
           v-for='(item, idx) in headerLocate' :key='item.id'
           @click='routerTo(idx, item.id)'
@@ -20,7 +20,7 @@
         <span class='button'>{{ $t('setDeliveryAddress') }}</span>
       </div>
       <div v-else class='header-home'>
-        <img src='~assets/images/icons/home.svg' alt='home'>
+        <nuxt-link to="/"><img src='~assets/images/icons/home.svg' alt='home'></nuxt-link>
         <div>
           <img src='~assets/images/icons/home-arrow.svg' alt='home-arrow'>
           <span>{{ $t(headerLocate[0].name) }}</span>
