@@ -575,6 +575,10 @@ export default {
     align-items: center;
     margin-right: 20px;
   }
+
+  div:last-child {
+    margin-right: 0;
+  }
 }
 
 .add-new-cat-header {

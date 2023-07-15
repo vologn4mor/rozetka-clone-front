@@ -1,5 +1,5 @@
 <template>
-  <div class='input-container'>
+  <div class='input-container' :style='width ? `max-width: ${width}px` : null'>
     <input
       v-if='!isTextarea'
       :style='width ? `width: ${width}px` : null'

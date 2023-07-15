@@ -70,6 +70,16 @@ export default {
           routes: '/dashboard',
         },
         {
+          icon: dashboardIcon,
+          name: 'Користувачі',
+          routes: '/users',
+        },
+        {
+          icon: dashboardIcon,
+          name: 'Ролі користувачів',
+          routes: '/users-roles',
+        },
+        {
           icon: catalogIcon,
           name: 'Каталог',
           routes: [
