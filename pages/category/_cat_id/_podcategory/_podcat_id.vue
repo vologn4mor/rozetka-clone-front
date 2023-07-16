@@ -1,5 +1,12 @@
 <template>
   <div>
+
+    <AppSlider v-if="banners.length !== 0">
+      <div v-for='banner in banners' :key='banner.url' class='slide'>
+        <img :src='banner.url' alt=''>
+      </div>
+    </AppSlider>
+
     <div class='podcats-block'>
       <AppCatCard
         v-for='item in podCats.data'
@@ -103,14 +110,14 @@
 
 <script>
 // import AppCatCard from '@/components/ui/AppCatCard.vue';
-
+import AppSlider from '@/components/ui/AppSlider.vue';
 import AppCatCard from '@/components/ui/AppCatCard.vue';
 import ProductOne from '@/components/ui/ProductOne.vue';
 import AppPagination from '@/components/ui/AppPagination.vue';
 
 export default {
   name: 'Podcat',
-  components: { AppPagination, ProductOne, AppCatCard },
+  components: { AppPagination, ProductOne, AppCatCard,AppSlider },
   async asyncData(ctx) {
     try {
       let podCats = await ctx.$axios.$get('/Categories/get-sub', {
@@ -144,6 +151,12 @@ export default {
         },
       });
 
+      const banners = await ctx.$axios.$get('/Banners/category-banners', {
+        params: {
+          category_id: ctx.route.params.podcat_id,
+        },
+      });
+
       const brands = await ctx.$axios.$get('/Brands/filter-brands', {
         params: {
           category_id: ctx.route.params.podcat_id,
@@ -161,6 +174,7 @@ export default {
           values: item.values.map(val => ({ ...val, isSelected: false })),
         })),
         brands: brands.data.map(item => ({ ...item, isSelected: false })),
+        banners,
       };
     } catch (e) {
       return ctx.error({ statusCode: 404, message: 'Podcategory not found' });
