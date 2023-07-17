@@ -279,16 +279,21 @@
       </template>
     </app-dropdown-card>
 
-    <app-dropdown-card :width="'1072'">
-      <template #head>
-        6. Де придбати?
-      </template>
-      <template #content>
-        <div class="drops">
-          Десь
+    <div class='container' >
+      <div class='up-part' @click='$router.push("/category/765/podcategory/764")'>
+        <div class='label'>
+          6. Де придбати?
         </div>
-      </template>
-    </app-dropdown-card>
+        <div class='arrow'>
+          <img
+            src='~assets/images/icons/profile/personalData/arrow.svg'
+            alt='home-arrow'
+            :class='isOpened ? "opened-arrow": null'
+          >
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -314,7 +319,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 .achtung{
   font-weight: bold;
@@ -404,4 +409,37 @@ h1 {
 .adv-item {
   /*margin-bottom: 15px;*/
 }
+
+
+.container {
+  background-color: $lh-gray;
+  border-radius: 6px;
+  padding: 20px 45px;
+  margin-bottom: 15px;
+  width: 1072px;
+
+  .up-part {
+    display: flex;
+    justify-content: space-between;
+
+
+    .label {
+      display: flex;
+      align-items: center;
+
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 19px;
+      letter-spacing: 0;
+      text-align: left;
+
+
+    }
+  }
+}
+
+.up-part:hover {
+  cursor: pointer;
+}
+
 </style>
