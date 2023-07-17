@@ -25,7 +25,7 @@
           <span>зберегти у файл можна або весь перелік або виділені позиції</span>
         </div>
       </div>
-      <AdminTable :data='[]' :header='header' />
+      <AdminTable :data='items' :header='header' />
     </div>
   </div>
 </template>
@@ -65,7 +65,20 @@ export default {
       },
     });
 
-    this.items = res.data;
+    this.items = res.data.orders.map(item => {
+      return {
+        id: item.id,
+        isSelected: false,
+        payment_status: item.payment_status,
+        order: item.id,
+        fio: item.buyer_name,
+        phone: item.phone,
+        order_date: item.order_date,
+        status: item.status,
+      };
+    });
+
+    this.total_pages = res.data.total_pages
   },
 };
 </script>
