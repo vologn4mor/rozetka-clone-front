@@ -70,7 +70,7 @@
       <div class="card">
         <app-img-card :width="'464'" :direction="'column'">
           <template #img-start>
-            <img src="~assets/images/Other/Premium/megogo.png" alt="curier">
+            <img width="464" height="313" src="~assets/images/Other/Premium/megogo.gif" alt="curier">
           </template>
           <template #content>
             <green-card>
@@ -173,9 +173,15 @@ h3 {
   justify-content: space-between;
   margin: 35px 0;
 
+
   .card {
     border-radius: 11px 11px 15px 15px;
     border: $lh-gray 2px solid;
+
+  }
+
+  >.card {
+    overflow: hidden;
   }
 
 }
