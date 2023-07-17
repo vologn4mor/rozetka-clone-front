@@ -41,6 +41,10 @@ export default function({ $axios, redirect, store, app }) {
       return Promise.reject(error.response);
     }
 
+    if (error.response.status === 401) {
+      store.dispatch('user/logout').then();
+    }
+
     // if (error.config.url === `refresh`) {
     //   store.dispatch('auth/logout').then();
     //   redirect('/');

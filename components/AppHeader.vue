@@ -51,7 +51,7 @@
         <nuxt-link v-if='user' :to='localePath("/profile")'>
           <img src='~assets/images/icons/header/user.svg' alt='user'>
         </nuxt-link>
-        <img v-else src='~assets/images/icons/header/user.svg' alt='user' @click='showLoginModal = true'>
+        <img v-else src='~assets/images/icons/header/user.svg' alt='user' @click='setShowAuth(true)'>
         <!--        <button v-else>login</button>-->
       </div>
     </div>
@@ -120,7 +120,7 @@
       </client-only>
     </AppModalCard>
 
-    <AppModalCard v-if='showLoginModal' @close='showLoginModal = false'>
+    <AppModalCard v-if='showAuth' @close='setShowAuth(false)'>
       <!--      <input v-model='loginEmail' type='email' autocomplete='email'>-->
       <!--      <input v-model='loginPassword' type='password' autocomplete='password'>-->
       <div v-if='!isRegOpened'>
@@ -177,7 +177,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 import AppInput from '@/components/ui/AppInput.vue';
 // import AppButton from '@/components/ui/AppButton.vue';
 import ButtonProfile from '@/components/ui/Profile/ButtonProfile.vue';
@@ -192,7 +192,6 @@ export default {
       isCatOpened: false,
       podCatWatchId: null,
       podCatWatch: [],
-      showLoginModal: false,
       loginEmail: '',
       loginPassword: '',
       isRegOpened: false,
@@ -208,6 +207,7 @@ export default {
     }),
     ...mapGetters('user', {
       user: 'user',
+      showAuth: 'showAuth',
     }),
     isMozilla: () => {
       if (!process.client) return;
@@ -238,6 +238,9 @@ export default {
       login: 'login',
       register: 'register',
     }),
+    ...mapMutations('user', {
+      setShowAuth: 'setShowAuth',
+    }),
     async onLanguageChange(event) {
       this.podCatWatchId = this.categories[0].id;
       await this.$router.replace(this.switchLocalePath(event));
@@ -254,7 +257,7 @@ export default {
     },
     async loginHandler() {
       const res = await this.login({ email: this.loginEmail, password: this.loginPassword });
-      if (res) this.showLoginModal = false;
+      if (res) this.setShowAuth(false);
       else this.$toast.error('Неверный email или пароль');
     },
     async regHandler() {
@@ -268,7 +271,7 @@ export default {
         password: this.regPassword,
         user_name: this.regUserName,
       });
-      if (res) this.showLoginModal = false;
+      if (res) this.setShowAuth(false);
       else this.$toast.error('Неверный email или пароль');
     },
   },

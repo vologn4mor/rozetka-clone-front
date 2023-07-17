@@ -109,6 +109,20 @@ export default {
             },
           ],
         },
+        {
+          icon: dashboardIcon,
+          name: 'Склад',
+          routes: [
+            {
+              route: '/storage/refill_list',
+              name: 'Товари на поповнення',
+            },
+            {
+              route: '/storage/closed_list',
+              name: 'Завершені замовлення',
+            },
+          ],
+        },
       ],
     };
   },

@@ -2,6 +2,7 @@ import Debug from '@/helpers/Debug';
 
 export const state = () => ({
   user: null,
+  showAuth: false,
 });
 
 export const mutations = {
@@ -9,6 +10,9 @@ export const mutations = {
     state.user = payload;
     if (!payload) return localStorage.removeItem('user');
     localStorage.setItem('user', JSON.stringify(payload));
+  },
+  setShowAuth(state, payload) {
+    state.showAuth = payload;
   },
 };
 
@@ -51,4 +55,5 @@ export const actions = {
 
 export const getters = {
   user: s => s.user,
+  showAuth: s => s.showAuth,
 };
