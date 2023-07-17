@@ -177,6 +177,10 @@ h3 {
   .card {
     border-radius: 11px 11px 15px 15px;
     border: $lh-gray 2px solid;
+
+  }
+
+  >.card {
     overflow: hidden;
   }
 
