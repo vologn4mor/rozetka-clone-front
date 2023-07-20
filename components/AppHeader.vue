@@ -49,7 +49,7 @@
           >
         </nuxt-link>
         <nuxt-link v-if='user' :to='localePath("/profile")'>
-          <img src='~assets/images/icons/header/user.svg' alt='user'>
+          <img src='~assets/images/icons/header/profile.svg' alt='user'>
         </nuxt-link>
         <img v-else src='~assets/images/icons/header/user.svg' alt='user' @click='setShowAuth(true)'>
         <!--        <button v-else>login</button>-->
@@ -497,6 +497,7 @@ export default {
 
 .header-menu {
   display: flex;
+  align-items: center;
 
   a:first-child {
     margin-left: 20px;

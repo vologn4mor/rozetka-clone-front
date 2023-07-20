@@ -40,7 +40,7 @@
               <span><nuxt-link :to='localePath("/profile/mailing")'>{{ $t('mailingLists') }}</nuxt-link></span>
             </div>
             <div>
-              <span style='margin-left: 29px' @click='logoutHandler'>Выход</span>
+              <span class='btn-logout' style='margin-left: 29px' @click='logoutHandler'>Выход</span>
             </div>
           </div>
 
@@ -118,6 +118,16 @@ export default {
       span {
         margin-left: 10px;
         white-space: nowrap;
+      }
+
+      .btn-logout {
+        border-radius: 5px;
+        padding: 5px;
+        border: 1px solid $main-gray;
+      }
+
+      .btn-logout:hover {
+        cursor: pointer;
       }
     }
 

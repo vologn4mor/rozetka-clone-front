@@ -5,7 +5,7 @@
       <div class='personal-data-container'>
         <div>
           <div>
-            <span>Фамилия</span>
+            <span>{{ $t('lastName') }}</span>
             <span v-if='!changePersonalData'>{{ user.last_name }}</span>
             <AppInput
               v-else
@@ -14,7 +14,7 @@
             />
           </div>
           <div>
-            <span>Имя</span>
+            <span>{{ $t('name') }}</span>
             <span v-if='!changePersonalData'>{{ user.first_name }}</span>
             <AppInput
               v-else
@@ -23,7 +23,7 @@
             />
           </div>
           <div>
-            <span>Отчество</span>
+            <span>{{ $t('middleName') }}</span>
             <span v-if='!changePersonalData'>{{ user.middle_name }}</span>
             <AppInput
               v-else
@@ -34,7 +34,7 @@
         </div>
         <div>
           <div>
-            <span>Дата рождения</span>
+            <span>{{ $t('birthDay') }}</span>
             <span v-if='!changePersonalData'>{{ user.birth_day.split('T')[0] }}</span>
             <div v-else>
               <input
@@ -50,7 +50,7 @@
             </div>
           </div>
           <div>
-            <span>Пол</span>
+            <span>{{ $t('sex') }}</span>
             <span v-if='!changePersonalData'>{{ genderToString(user.gender) }}</span>
             <div v-else>
               <select class='input' @input='e => userNewData.gender = Number(e.target.value)'>
@@ -66,7 +66,7 @@
             </div>
           </div>
           <div>
-            <span>Язык общения с Ладной Хатой</span>
+            <span>{{ $t('langForSupport') }}</span>
             <span v-if='!changePersonalData'>{{ user.preferred_language_id }}</span>
             <div v-else>
               <select class='input' @input='e => userNewData.preferred_language_id = e.target.value'>
@@ -85,27 +85,27 @@
         <div
           v-if='!changePersonalData' class='btn'>
           <ButtonProfile
-            title='Редактировать'
+            :title='$t("edit")'
             style-btn='green'
             @click='changePersonalData = true; userNewData = JSON.parse(JSON.stringify(user))' />
         </div>
         <div v-else style='margin-top: 6px'>
           <ButtonProfile
-            title='Сохранить'
+            :title='$t("save")'
             style-btn='green'
             @click='sendNewPersonalData' />
           <ButtonProfile
-            title='Отменить'
+            :title='$t("cancel")'
             style-btn='orange'
             @click='changePersonalData = false' />
         </div>
       </div>
     </ProfileDropdown>
-    <ProfileDropdown label='Мої отримувачі замовлень' :icon='myOrderRecipients'>
+    <ProfileDropdown :label='$t("myRecipients")' :icon='myOrderRecipients'>
       <div class='my-recipients-container'>
         <div v-if='!changeMyRecipients' class='main'>
           <img src='~assets/images/icons/profile/recipients-add-icon.svg' alt=''>
-          <span>Додати отримувача</span>
+          <span>{{ $t('addRecipient') }}</span>
         </div>
         <div v-else>
 
@@ -114,28 +114,28 @@
           <div
             v-if='!changeMyRecipients' class='btn'>
             <ButtonProfile
-              title='Редактировать'
+              :title='$t("edit")'
               style-btn='green'
               @click='changeMyRecipients = true; userNewData = JSON.parse(JSON.stringify(user))' />
           </div>
           <div v-else style='margin-top: 6px'>
             <ButtonProfile
-              title='Сохранить'
+              :title='$t("save")'
               style-btn='green'
               @click='sendNewMyRecipients' />
             <ButtonProfile
-              title='Отменить'
+              :title='$t("cancel")'
               style-btn='orange'
               @click='changeMyRecipients = false' />
           </div>
         </div>
       </div>
     </ProfileDropdown>
-    <ProfileDropdown label='Контакти' :icon='contacts'>
+    <ProfileDropdown :label='$t("contacts")' :icon='contacts'>
     </ProfileDropdown>
-    <ProfileDropdown label='Адреса доставки' :icon='deliveryAddress'>
+    <ProfileDropdown :label='$t("deliveryAddress")' :icon='deliveryAddress'>
     </ProfileDropdown>
-    <ProfileDropdown label='Логін' :icon='login'>
+    <ProfileDropdown :label='$t("login")' :icon='login'>
     </ProfileDropdown>
 
   </div>
