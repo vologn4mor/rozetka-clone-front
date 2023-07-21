@@ -86,7 +86,7 @@
                 <li>Ваш бонусний рахунок буде активовано автоматично</li>
               </ul>
               <div class="btn">
-                <app-button :bg-color="'#078071'" :text="'Зареєструватися'" @click="$router.push('/profile')"></app-button>
+                <app-button :bg-color="'#078071'" :text="'Зареєструватися'" @click="setShowAuth(true)"></app-button>
               </div>
             </template>
           </green-card>
@@ -104,7 +104,7 @@
                 <li>До активації рахунку бонусні гривні мають інформаційний характер</li>
               </ul>
               <div class="btn">
-                <app-button :bg-color="'#078071'" :text="'Активувати рахунок'" @click="$router.push('/profile')"></app-button>
+                <app-button :bg-color="'#078071'" :text="'Активувати рахунок'" @click="setShowAuth(true)"></app-button>
               </div>
             </template>
           </green-card>
@@ -143,8 +143,6 @@
       </div>
     </div>
 
-
-
   </div>
 </template>
 
@@ -167,6 +165,9 @@ export default {
     ...mapMutations({
       setHeaderLocate: 'setHeaderLocate',
     }),
+    ...mapMutations('user',{
+      setShowAuth: 'setShowAuth'
+    })
   },
 
 }
