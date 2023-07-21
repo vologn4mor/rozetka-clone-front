@@ -136,8 +136,8 @@
           type='password'
           @input='val => loginPassword = val'
         />
-        <ButtonProfile title='Войти' class='btn-login' style-btn='orange' @click='loginHandler' />
-        <ButtonProfile title='Регистрация' class='btn-login' style-btn='green' @click='isRegOpened = true' />
+        <ButtonProfile :title='$t("login")' class='btn-login' style-btn='orange' @click='loginHandler' />
+        <ButtonProfile :title='$t("registration")' class='btn-login' style-btn='green' @click='isRegOpened = true' />
       </div>
       <div v-else>
         <AppInput
@@ -168,8 +168,12 @@
         />
         <!--        <ButtonProfile title='Войти' class='btn-login' style-btn='orange' @click='loginHandler' />-->
         <!--        <ButtonProfile title='Регистрация' class='btn-login' style-btn='green' @click='isRegOpened = true' />-->
-        <ButtonProfile title='Регистрация' class='btn-login' style-btn='orange' @click='regHandler' />
-        <ButtonProfile title='Уже зарегистрирован' class='btn-login' style-btn='green' @click='isRegOpened = false' />
+        <ButtonProfile :title='$t("registration")' class='btn-login' style-btn='orange' @click='regHandler' />
+        <ButtonProfile
+          :title='$t("registrationBefore")'
+          class='btn-login'
+          style-btn='green'
+          @click='isRegOpened = false' />
 
       </div>
     </AppModalCard>

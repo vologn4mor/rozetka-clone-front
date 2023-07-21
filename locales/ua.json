@@ -164,5 +164,8 @@
   "addRecipient": "Додати отримувача",
   "myRecipients": "Мої отримувачі замовлень",
   "deliveryAddress": "Адреса доставки",
-  "login": "Логін"
+  "login": "Логін",
+  "registration": "Реєстрація",
+  "logout": "Вихід",
+  "registrationBefore": "Вже зареєстрован"
 }
