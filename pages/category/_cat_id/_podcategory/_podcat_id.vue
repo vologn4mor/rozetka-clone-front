@@ -48,9 +48,10 @@
           </div>
           <div v-for='value in item.values' :key='value.id' style='max-width: 258px' class='checkbox-container'>
             <div :class='!item.isOpened ? "hide" : null'>
-              <input :id='value.id' v-model='value.isSelected' type='checkbox' class='checkbox' />
+              <input :id='value.id' v-model='value.isSelected' type='checkbox' class='checkbox' :disabled = 'countsFormatted[value.id] == null' />
               <label :for='value.id'></label>
               <span>{{ clearText(value.name) }}</span>
+              <span v-if="countsFormatted[value.id] != null" class="count">({{countsFormatted[value.id]}})</span>
             </div>
           </div>
         </div>
@@ -191,6 +192,18 @@ export default {
       page: 1,
     };
   },
+
+  computed:{
+    countsFormatted(){
+      const counts={};
+      if(this.articles.data.filter_data != null)
+        this.articles.data.filter_data.forEach(e=>{
+          counts[e.key] = e.count;
+        });
+      return counts;
+    }
+  },
+
   watch: {
     searchBrand(val) {
       this.filtredBrands = this.brands.filter(item => item.name.toLowerCase().includes(val.toLowerCase()));
@@ -276,6 +289,15 @@ input[type="checkbox"] + label {
   border: 2px solid $lh-accent-green;
   border-radius: 5px;
   cursor: pointer;
+}
+
+input[type="checkbox"]:disabled + label {
+
+  border: 2px solid $lh-gray;
+}
+
+.count {
+  color: $lh-panel-gray;
 }
 
 input[type="checkbox"]:checked + label:after {
