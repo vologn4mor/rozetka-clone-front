@@ -7,7 +7,7 @@ RUN npm run build
 
 # Stage 2 - production
 #--platform=linux/amd64
-FROM node:18 AS final
+FROM --platform=linux/amd64 node:18 AS final
 WORKDIR /app
 ADD package.json .
 ADD nuxt.config.js .

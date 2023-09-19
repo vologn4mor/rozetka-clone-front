@@ -9,8 +9,8 @@ export default {
 
   server: {
     https: {
-      key: fs.readFileSync(path.resolve('certs', 'cert.key')),
-      cert: fs.readFileSync(path.resolve('certs', 'cert1.pem'))
+      key: fs.readFileSync(path.resolve('certs', 'privkey.pem')),
+      cert: fs.readFileSync(path.resolve('certs', 'cert.pem'))
     }
   },
 
@@ -19,7 +19,7 @@ export default {
   },
 
   env: {
-    apiBaseUrl: process.env.API_BASE_URL || 'https://nasoloda.pp.ua/api/',
+    apiBaseUrl: process.env.API_BASE_URL || 'https://ladnahata.pp.ua:3000/api/',
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
